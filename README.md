@@ -22,13 +22,15 @@
 
 ## 📁 Estrutura de pastas
 
-|--> documentos
- | --> outros
- | DocumentaçãoProjetoModulo5.docx.pdf
-|--> src
- |--> Backend
- |--> Frontend
-| readme.md
+
+|--> documentos<br>
+  &emsp;| --> outros <br>
+  &emsp;| DocumentaçãoProjetoModulo5.docx.pdf<br>
+|--> src<br>
+  &emsp;|--> Backend<br>
+  &emsp;|--> Frontend<br>
+| readme.md<br>
+
 
 Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
