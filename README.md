@@ -16,9 +16,9 @@
 - <a href="https://www.linkedin.com/in/sophia-dias/">Sophia Mello Dias	</a>
 - <a href="https://www.linkedin.com/in/vitor-moura-de-oliveira/">Vitor Moura de Oliveira	</a>
 
-## 📝 Descrição
+## 📝 Descrição da solução 
 
-
+Uma solução em blockchain Ethereum foi proposta para criar grupos de seguro mútuo eficientes, baratos e seguros. Os grupos são formados por pessoas que se unem para se proteger contra riscos predeterminados e são autoadministrados em certa medida. A administração do grupo é feita através de smart contracts que executam automaticamente as condições acordadas pelas partes. Todas as regras de negócio e reservas financeiras são mantidas no contrato inteligente. Os usuários interagem com o sistema por meio de uma aplicação em Web 3, que inclui uma área do cliente para adesão, pagamento e pedido de indenização, e uma área da seguradora P2P para configuração e criação de novos grupos e atuação no processo de indenização. A seguradora apenas opera os grupos mútuos e não assume o risco como é feito no seguro privado.
 
 ## 📁 Estrutura de pastas
 
@@ -29,6 +29,7 @@
 |--> src<br>
   &emsp;|--> Backend<br>
   &emsp;|--> Frontend<br>
+  &emsp;|--> Smart_Contracts<br>
 | readme.md<br>
 
 
@@ -36,11 +37,11 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 readme.md: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
 
-documentos: aqui estão todos os documentos do projeto, incluindo o manual de instruções. Há também uma pasta denominada outros onde estão presentes outros documentos complementares.
+documentos: aqui estão todos os documentos do projeto. Há também uma pasta denominada outros onde estão presentes outros documentos complementares.
 
-src: todo o código fonte criado para o desenvolvimento do projeto, incluindo os blocos de código do circuito, backend e frontend se aplicávei
+src: todo o código fonte criado para o desenvolvimento do projeto, incluindo o Smart Contract, backend e frontend.
 
-## 💻 Execução do projeto
+## 💻 Smart Contract 
 
 
 
@@ -59,4 +60,4 @@ src: todo o código fonte criado para o desenvolvimento do projeto, incluindo os
     * Primeira entrega - Modelo de negócios e arquitetura da solução
 
 ## 📋 Licença/License
-<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2023M5T4-Inteli/Projeto2">CooverChain  <a> by </a> <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/InteliProjects/.github/blob/main/profile/README.md">Inteli, <a href="https://www.linkedin.com/in/erictach/">Eric Tachdjian</a>, <a href="https://www.linkedin.com/in/giovanna-furlan-torres-378316182/">Giovanna Furlan</a>, <a href="https://www.linkedin.com/in/henri-harari-717930242/">Henri Harari</a>,  <a href="https://www.linkedin.com/in/maria-lu%C3%ADsa-maia-14384a212/">Maria Luisa Maia</a>, <a href="https://www.linkedin.com/in/matheus-fidelis-680520232/">Matheus Fidelis</a>, <a href="https://www.linkedin.com/in/uelitonrocha/">Ueliton Rocha</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2023M5T4-Inteli/Projeto4">P2Chain  <a> by </a> <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/InteliProjects/.github/blob/main/profile/README.md">Inteli, <a href="https://www.linkedin.com/in/gabriela-de-morais-da-silva-467b29238/">Gabriela de Morais da Silva	</a>, <a href="https://www.linkedin.com/in/lucas-britto-376665208/">Lucas de Britto Vieira	</a>, <a href="https://www.linkedin.com/in/gutopompeo/">Luiz Augusto Pompeo de Camargo Franco Ferreira	</a>, <a href="https://www.linkedin.com/in/raduanmuarrek/">Raduan Oliveira Galli Muarrek	</a>, <a href="https://www.linkedin.com/in/sophia-dias/">Sophia Mello Dias	</a>, <a href="https://www.linkedin.com/in/vitor-moura-de-oliveira/">Vitor Moura de Oliveira	</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
