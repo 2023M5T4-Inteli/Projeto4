@@ -42,9 +42,9 @@ documentos: aqui estão todos os documentos do projeto. Há também uma pasta de
 src: todo o código fonte criado para o desenvolvimento do projeto, incluindo o Smart Contract, backend e frontend.
 
 ## 💻 Smart Contract 
+Na solução proposta há dois atores que interagem com o sistema, sendo estes, a seguradora P2P (representada pela Coover) e o participante (cliente do seguro). Essa interação dos usuários acontece através do Front end, onde se encontra a lógica da interface, além disso para acessar as funcionalidades da aplicação é necessário se conectar a Metamask,  pois para realizar determinadas ações será necessário “assiná-la” (confirmar) usando a chave privada. 
 
-
-
+No bloco Backend, há o sistema de dados da Coover, onde são armazenados dados pessoais de seus clientes,  que não podem ser publicados no smart contract, mas são necessários para definir a lógica de negócios do software. Por fim, a seguradora P2P (administradora) realiza o deploy do contrato (smart contract) na Ethereum Testenet, blockchain alternativa do Ethereum para testes globais. Nesse smar contract estará armazenado os fundos dos grupos mútuos e todas as regras de negócio, tais como a de pagamento de indenização. 
 
 ## 🗃 Histórico de lançamentos
 
