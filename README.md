@@ -55,13 +55,17 @@ No smart contract seguimos as seguintes regras de negócio em nosso código;
 
 O diagrama de blocos da solução quebra o projeto em partes menores e mais gerenciáveis, representadas por blocos ou módulos. Isso ajuda na compreensão da estrutura e dos componentes da solução por meio de uma representação visual simplificada.
 
-(imagem)
+![image](https://user-images.githubusercontent.com/99191909/221442612-d2bd7a19-c809-4e34-a877-6a1aa04d8382.png)
+
 
 Na solução proposta há dois atores que interagem com o sistema, sendo estes, a seguradora P2P (representada pela Coover) e o participante (cliente do seguro). Essa interação dos usuários acontece através do Front end, onde se encontra a lógica da interface, além disso para acessar as funcionalidades da aplicação é necessário se conectar a Metamask,  pois para realizar determinadas ações será necessário “assiná-la” (confirmar) usando a chave privada. 
 
 No bloco Backend, há o sistema de dados da Coover, onde são armazenados dados pessoais de seus clientes,  que não podem ser publicados no smart contract, mas são necessários para definir a lógica de negócios do software. Por fim, a seguradora P2P (administradora) realiza o deploy do contrato (smart contract) na Ethereum Testenet, blockchain alternativa do Ethereum para testes globais. Nesse smar contract estará armazenado os fundos dos grupos mútuos e todas as regras de negócio, tais como a de pagamento de indenização. 
 
 ## UML
+Indenização: Para a indenização. Entendemos primeiro no âmbito de negócios. O usuário somente irá fazer essa ação quando ele for roubado e quiser requisitar a indenização. 
+Nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação. Posteriormente ele irá localizar seu celular no na testnet através do nosso front-end utilizando o IMEI. Esses são os passos necessários para o usuário encontrar e informar os dados pré requisitados. 
+Após isso temos o passo da requisição em si, em que o usuário enviará o B.O. para o front end que repassa para a seguradora, se tivermos um aceite (após uma análise do documento da mesma), é requisitado no smart contract que envie o dinheiro da indenização até a carteira do usuário.
 
 
 ## 🗃 Histórico de lançamentos
