@@ -42,9 +42,27 @@ documentos: aqui estão todos os documentos do projeto. Há também uma pasta de
 src: todo o código fonte criado para o desenvolvimento do projeto, incluindo o Smart Contract, backend e frontend.
 
 ## 💻 Smart Contract 
+A administração do grupo será realizada através de smart contracts, que são programas que se executam de forma automática assim que certas condições acordadas previamente pelas partes são atendidas. Nesse sentido, todas as regras de negócio e as reservas financeiras serão mantidas neste contrato inteligente. 
+
+## Requisitos de negócio:
+No smart contract seguimos as seguintes regras de negócio em nosso código;
+- Regra de negócio 1: A Coover é definida como dona e administradora do contrato, devendo estabelecer os membros deste e seus IMEIs dos aparelhos protegidos, assim como a taxa administrativa.
+- Regra de negócio 2: os membros, no deploy do contrato, devem realizar um pagamento inicial.
+- Regra de negócio 3: a Coover deve aprovar a indenização de um segurado e, a partir disso, é informado a carteira dele. O hash do segurado em que o sinistro ocorreu deve ser igual ao que está armazenado no contrato de sua carteira para que seja concretizado
+- Regra de negócio 4: A Coover pode retirar a taxa administrativa a qualquer momento.
+
+## Diagrama de Blocos
+
+O diagrama de blocos da solução quebra o projeto em partes menores e mais gerenciáveis, representadas por blocos ou módulos. Isso ajuda na compreensão da estrutura e dos componentes da solução por meio de uma representação visual simplificada.
+
+(imagem)
+
 Na solução proposta há dois atores que interagem com o sistema, sendo estes, a seguradora P2P (representada pela Coover) e o participante (cliente do seguro). Essa interação dos usuários acontece através do Front end, onde se encontra a lógica da interface, além disso para acessar as funcionalidades da aplicação é necessário se conectar a Metamask,  pois para realizar determinadas ações será necessário “assiná-la” (confirmar) usando a chave privada. 
 
 No bloco Backend, há o sistema de dados da Coover, onde são armazenados dados pessoais de seus clientes,  que não podem ser publicados no smart contract, mas são necessários para definir a lógica de negócios do software. Por fim, a seguradora P2P (administradora) realiza o deploy do contrato (smart contract) na Ethereum Testenet, blockchain alternativa do Ethereum para testes globais. Nesse smar contract estará armazenado os fundos dos grupos mútuos e todas as regras de negócio, tais como a de pagamento de indenização. 
+
+## UML
+
 
 ## 🗃 Histórico de lançamentos
 
