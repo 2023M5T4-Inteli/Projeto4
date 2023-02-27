@@ -64,32 +64,38 @@ Na solução proposta há dois atores que interagem com o sistema, sendo estes, 
 No bloco Backend, há o sistema de dados da Coover, onde são armazenados dados pessoais de seus clientes,  que não podem ser publicados no smart contract, mas são necessários para definir a lógica de negócios do software. Por fim, a seguradora P2P (administradora) realiza o deploy do contrato (smart contract) na Ethereum Testenet, blockchain alternativa do Ethereum para testes globais. Nesse smar contract estará armazenado os fundos dos grupos mútuos e todas as regras de negócio, tais como a de pagamento de indenização. 
 
 ## UML
-Os diagramas UML abaixo representam como o sistema funciona, retratando como os atores (Seguradora P2P e Participante) interagem com as funcionalidades da aplicação (evidenciando resultados ou respostas), tais como: criação de smart contract, pedido de indenização e reposição da reserva de risco.
+Os diagramas UML abaixo representam como o sistema funciona, retratando como os atores (Seguradora P2P e Participante) interagem com as funcionalidades da aplicação (evidenciando resultados ou respostas), tais como: criação de smart contract, pedido de indenização e reposição da reserva de risco. Os diagramas UML são importantes para alcançar maior clareza no comportamento esperado para o smart contract, definindo suas entradas e respostas.
 
 ![image](https://user-images.githubusercontent.com/99191909/221442840-efe982bc-8985-4a2e-b536-8ada9e01f71b.png)
 
-Para a indenização, entendemos primeiro no âmbito de negócios. O usuário somente irá fazer essa ação quando ele for roubado e quiser requisitar a indenização. 
-Nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação. Posteriormente ele irá localizar seu celular no na testnet através do nosso front-end utilizando o IMEI. Esses são os passos necessários para o usuário encontrar e informar os dados pré requisitados. 
-Após isso temos o passo da requisição em si, em que o usuário enviará o B.O. para o front end que repassa para a seguradora, se tivermos um aceite (após uma análise do documento da mesma), é requisitado no smart contract que envie o dinheiro da indenização até a carteira do usuário.
+Para a “indenização”, entendemos primeiro no âmbito de negócios. O usuário somente irá realizar essa ação quando ele for roubado e quiser requisitar a indenização. Nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação e, posteriormente, a fim de validar que o celular roubado realmente está cadastrado no contrato, o usuário deverá fornecer o IMEI do celular através do nosso frontend. Esses são os passos necessários para o usuário encontrar e informar os dados pré requisitados. 
+
+Após esse processo inicial, pode-se seguir para a requisição em si, etapa em que o usuário enviará o B.O. pelo front-end, este que será repassado para a seguradora a fim de possibilitar a validação do pedido por uma instituição confiável. Em caso de aceite da indenização, o smart contract deve ressarcir o usuário através do endereço de carteira enviado.
+
 
 ![image](https://user-images.githubusercontent.com/99191909/221442873-bee14ee5-9eb9-4117-9709-f02dce52f428.png)
 
-Para a indenização, entendemos primeiro no âmbito de negócios. O usuário somente irá fazer essa ação quando ele for roubado e quiser requisitar a indenização. 
-Nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação. Posteriormente ele irá localizar seu celular no na testnet através do nosso front-end utilizando o IMEI. Esses são os passos necessários para o usuário encontrar e informar os dados pré requisitados. 
-Após isso temos o passo da requisição em si, em que o usuário enviará o B.O. para o front end que repassa para a seguradora, se tivermos não tiver o aceite (após uma análise do documento da mesma), o usuário será notificado através do frontend.
+Para a “indenização não aceita” temos o diagrama encurtado, nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação. Seguindo os passos do UML anterior,o  usuário deverá fornecer o IMEI do celular através do nosso frontend. 
+
+Posteriormente ao usuário enviar o B.O. pelo front-end, este que será repassado para a seguradora a fim de possibilitar a validação do pedido por uma instituição confiável, considerando que a seguradora recuse o pedido, uma notificação de pedido negado será retornada ao usuário.
+
 
 ![image](https://user-images.githubusercontent.com/99191909/221442894-34149d9c-e346-44f5-b74a-b500e8c253a1.png)
 
-Para a reposição de reserva de risco, entendemos primeiro no âmbito de negócios. Nessa prova de conceito, o usuário poderá repor uma vez que um cliente dentro do grupo do seguro for roubado e teve sua indenização aceita.
-Nesse caso, o cliente poderá depositar dinheiro em sua metamask e logo em seguida transferir para o blockchain, atualizando assim seu montante financeiro dentro das regras do smart contract.
-Após isso o front end irá informar ao cliente que o saldo foi atualizado.
+Para a reposição de reserva de risco, considerando o escopo limitado do projeto, o usuário poderá repor uma vez que um cliente do mesmo grupo do seguro mútuo for roubado e tiver sua indenização aceita, sendo assim, o usuário pode examinar através do front-end se a sua carteira possui uma porcentagem satisfatória do LMI (Limite máximo indenizável).
+
+No caso do cliente estar insatisfeito com o seu saldo, ele poderá depositar dinheiro através de sua Meta Mask e, logo em seguida, transferir para o contrato, atualizando assim seu montante financeiro dentro das regras do smart contract. Então o front end irá informar ao cliente que o saldo foi atualizado.
+
 
 ![image](https://user-images.githubusercontent.com/99191909/221442908-b5061f90-6310-4b9c-8f57-f40b262708b1.png)
 
-Para a criação de smart contract, entendemos primeiro no âmbito de negócios. Partiremos do princípio que será uma atividade administrativa e que nesse caso, a criadora seria a Coover.
-O processo de criação começa com a criadora informando como será o seguro tanto de maneira técnica (ou seja criando o código do contrato) como também comercial, informando no front end como ela será, além de fazer a integração entre o smart contract específico e a página web.
-Após isso, ela parte para encontrar e atrair usuários para o grupo de seguro, alocando eles para o contrato, conseguindo assim termos uma pré ativação do contrato, que é informado ao criador.
-Depois desses pré-requisitos, o grupo P2P é confirmado pela seguradora que ativa o contrato, e logo em seguida faz o deploy na rede do ethereum, mas a fim de executar uma prova de conceito, será na test net.
+Para a criação de smart contract, partindo do princípio que será uma atividade administrativa, a criadora e owner seria a Coover.
+
+O processo de criação começa com a criadora informando como será o seguro, seja de maneira técnica exibindo o código do contrato, como também comercial, informando no front-end valores como taxa administrativa, faixa de preço, e valor percentual mínimo. A entidade “Pré-ativação” se refere à funcionalidade de construir o esqueleto de um contrato antes que ele seja publicado, possibilitando que o cliente se informe dos valores do contrato e a seguradora monitore a quantidade de clientes inseridos/interessados naquele contrato.
+
+Depois desse processo, a Coover parte para encontrar e atrair usuários para o grupo de seguro, alocando eles para o contrato, conseguindo assim termos a pré ativação do contrato, que é informado ao criador.
+Depois desses pré-requisitos, o grupo P2P é confirmado pela seguradora, que ativa o contrato e logo em seguida faz o deploy na rede do ethereum. A fim de executar uma prova de conceito, o deploy será feito na testnet.
+
 
 
 
