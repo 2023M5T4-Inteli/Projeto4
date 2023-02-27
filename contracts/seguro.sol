@@ -32,7 +32,8 @@ assim como a taxa administrativa*/
     constructor(
         uint256 _adminTax,
         address[] memory _members,
-        string[] memory _imeis
+        string[] memory _imeis,
+        uint _lmiTax
     ) {
         owner = payable(msg.sender);
         adminTax = _adminTax;
@@ -43,6 +44,7 @@ assim como a taxa administrativa*/
             memberFunds[_members[i]] = 0;
             memberIsActive[_members[i]] = false;
         }
+        lmiTax = _lmiTax;
     }
 
     //essa função retorna o imei do membro como string
