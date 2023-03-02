@@ -7,7 +7,7 @@ pragma solidity ^0.8.7;
 // inteiro -> taxa administrativa
 // mapping (DHT) -> endereço de carteiras dos membros são chaves que levam ao IMEI dos celulares
 // mapping (DHT) -> endereço de carteiras dos membros são chaves ao valor que possuem de reseva pessoal
-contract Seguro {
+contract Seguro1 {
     address payable owner;
     uint256 adminTax;
     uint256 adminTaxAmount;
