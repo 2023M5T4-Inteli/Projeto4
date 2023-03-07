@@ -1,4 +1,4 @@
-const contrato = artifacts.require("Seguro");
+const contrato = artifacts.require("Seguro2");
 
 module.exports = function(deployer) {
     // deployment steps
