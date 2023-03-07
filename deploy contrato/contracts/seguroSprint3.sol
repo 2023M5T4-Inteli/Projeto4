@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity ^0.8.7;
-
+/*Importação de biblioteca que faz com que as equações da indenização funcionem, visto que com operações 
+normais os valores resultantes estavam excedendo os limites do tipo de dados usado para armazenar o valor*/
 import "../node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol";
 // Primeiramente são definidas as variáveis e seus tipos sendo elas:
 // endereço -> Coover (dona e administradora do contrato)
