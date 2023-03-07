@@ -96,9 +96,10 @@ O processo de criação começa com a criadora informando como será o seguro, s
 Depois desse processo, a Coover parte para encontrar e atrair usuários para o grupo de seguro, alocando eles para o contrato, conseguindo assim termos a pré ativação do contrato, que é informado ao criador.
 Depois desses pré-requisitos, o grupo P2P é confirmado pela seguradora, que ativa o contrato e logo em seguida faz o deploy na rede do ethereum. A fim de executar uma prova de conceito, o deploy será feito na testnet.
 
-
-
-
+## Deploy
+Para a realização do deploy em uma testnet pública (Goerli), foi utilizado o Development Suite Truffle e ETH da Faucet Goerli, como seguem as imagens abaixo:
+![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/truffle-version.png)
+![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/wallet-metamask.png)
 
 
 ## 🗃 Histórico de lançamentos
