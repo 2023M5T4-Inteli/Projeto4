@@ -57,7 +57,7 @@ No smart contract seguimos as seguintes regras de negócio em nosso código;
 
 O diagrama de blocos da solução quebra o projeto em partes menores e mais gerenciáveis, representadas por blocos ou módulos. Isso ajuda na compreensão da estrutura e dos componentes da solução por meio de uma representação visual simplificada.
 
-![image](https://user-images.githubusercontent.com/99191909/221442612-d2bd7a19-c809-4e34-a877-6a1aa04d8382.png)
+![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/diagramadeblocos.png)
 
 Na solução proposta há dois atores que interagem com o sistema, sendo estes, a seguradora P2P (representada pela Coover) e o participante (cliente do seguro). Essa interação dos usuários acontece através do Front end, onde se encontra a lógica da interface, além disso para acessar as funcionalidades da aplicação é necessário se conectar a Metamask,  pois para realizar determinadas ações será necessário “assiná-la” (confirmar) usando a chave privada. 
 
@@ -66,14 +66,14 @@ No bloco Backend, há o sistema de dados da Coover, onde são armazenados dados 
 ## UML
 Os diagramas UML abaixo representam como o sistema funciona, retratando como os atores (Seguradora P2P e Participante) interagem com as funcionalidades da aplicação (evidenciando resultados ou respostas), tais como: criação de smart contract, pedido de indenização e reposição da reserva de risco. Os diagramas UML são importantes para alcançar maior clareza no comportamento esperado para o smart contract, definindo suas entradas e respostas.
 
-![image](https://user-images.githubusercontent.com/99191909/221442840-efe982bc-8985-4a2e-b536-8ada9e01f71b.png)
+![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/indenizacaoaceita.png)
 
 Para a “indenização”, entendemos primeiro no âmbito de negócios. O usuário somente irá realizar essa ação quando ele for roubado e quiser requisitar a indenização. Nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação e, posteriormente, a fim de validar que o celular roubado realmente está cadastrado no contrato, o usuário deverá fornecer o IMEI do celular através do nosso frontend. Esses são os passos necessários para o usuário encontrar e informar os dados pré requisitados. 
 
 Após esse processo inicial, pode-se seguir para a requisição em si, etapa em que o usuário enviará o B.O. pelo front-end, este que será repassado para a seguradora a fim de possibilitar a validação do pedido por uma instituição confiável. Em caso de aceite da indenização, o smart contract deve ressarcir o usuário através do endereço de carteira enviado.
 
 
-![image](https://user-images.githubusercontent.com/99191909/221442873-bee14ee5-9eb9-4117-9709-f02dce52f428.png)
+![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/indenizacao.png)
 
 Para a “indenização não aceita” temos o diagrama encurtado, nesse caso, teremos uma primeira fase de cadastro completo na MetaMask com login e autenticação. Seguindo os passos do UML anterior,o  usuário deverá fornecer o IMEI do celular através do nosso frontend. 
 
