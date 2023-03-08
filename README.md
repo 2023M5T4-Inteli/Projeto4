@@ -97,9 +97,14 @@ Depois desse processo, a Coover parte para encontrar e atrair usuários para o g
 Depois desses pré-requisitos, o grupo P2P é confirmado pela seguradora, que ativa o contrato e logo em seguida faz o deploy na rede do ethereum. A fim de executar uma prova de conceito, o deploy será feito na testnet.
 
 ## Deploy
-Para a realização do deploy em uma testnet pública (Goerli), foi utilizado o Development Suite Truffle e ETH da Faucet Goerli, como seguem as imagens abaixo:
-![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/truffle-version.png)
-![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/wallet-metamask.png)
+Para a realização do deploy em uma testnet pública (Goerli), foi utilizado o Development Suite Truffle e ETH da Faucet Goerli. A Goerli é uma rede de testes da Ethereum que usa Proof of Authority (PoA) ao invés de Proof of Work (PoW), permitindo que desenvolvedores possam testar contratos inteligentes sem gastar muito tempo e dinheiro validando transações. 
+Além disso, a Goerli disponibiliza uma faucet que fornece ETH de teste gratuitamente, tornando-a uma opção segura e econômica para testes antes de implementar na rede principal. 
+Por outro lado, o Truffle é uma suíte de ferramentas para desenvolvimento de contratos inteligentes na Ethereum que auxilia os desenvolvedores a escrever, testar, implantar e gerenciar esses contratos de maneira mais simples e eficiente.
+Como seguem as imagens abaixo, esses são os resultados do deploy:
+
+
+- ![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/truffle-version.png)
+- ![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/wallet-metamask.png)
 
 
 ## 🗃 Histórico de lançamentos
