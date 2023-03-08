@@ -37,9 +37,10 @@ assim como a taxa administrativa*/
         uint256 _adminTax,
         address[] memory _members,
         string[] memory _imeis,
-        uint _lmiTax
+        uint _lmiTax,
+        address _owner
     ) {
-        owner = payable(msg.sender);
+        owner = payable(_owner);
         adminTax = _adminTax;
         /*o loop abaixo utiliza o mapping member para conferir se a chave (address) aponta
          para o imei e fundos corretos e se os dois estão no mesmo índice de seus respectivos arrays*/
