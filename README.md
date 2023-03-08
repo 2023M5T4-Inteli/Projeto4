@@ -46,12 +46,12 @@ A administração do grupo será realizada através de smart contracts, que são
 
 ## Requisitos de negócio:
 No smart contract seguimos as seguintes regras de negócio em nosso código;
-- Regra de negócio 1: A Coover é definida como dona e administradora do contrato, devendo estabelecer os membros deste e seus IMEIs dos aparelhos protegidos, assim como a taxa administrativa.
-- Regra de negócio 2: Os membros no deploy do contrato, devem realizar um pagamento inicial.
-- Regra de negócio 3: A Coover deve aprovar a indenização de um segurado e, a partir disso, é informado a carteira dele. O hash do segurado em que o sinistro ocorreu deve ser igual ao que está armazenado no contrato de sua carteira para que seja concretizado.
-- Regra de negócio 4: A Coover pode retirar a taxa administrativa a qualquer momento.
+- Regra de negócio 1:  A Coover é definida como dona e administradora do contrato, devendo estabelecer os membros deste e seus IMEIs dos aparelhos protegidos, assim como a taxa administrativa.
+- Regra de negócio 2:  Os membros no deploy do contrato, devem realizar um pagamento inicial . Todo e qualquer valor deve ser depositado em ETH. O primeiro aporte deve ser referente ao percentual mínimo do valor protegido(definido pela Coover e específico de cada grupo, desse valor será separado uma porcentagem, também definida pelo criador do contrato, relativo à taxa administrativa); sem esse pagamento não é possível entrar no grupo. 
+- Regra de negócio 3: A Coover deve aprovar a indenização de um segurado e, a partir disso, é informado a carteira dele. O hash do segurado em que o sinistro ocorreu deve ser igual ao que está armazenado no contrato de sua carteira para que seja concretizado. Além disso, o cliente deve anexar um B.O sobre o “por quê” do pedido, com isso o administrador da Coover analisa o documento e “aprova” ou “recusa” a proposta. 
+- Regra de negócio 4:  A Coover pode retirar a taxa administrativa a qualquer momento.
 - Regra de negócio 5: O cliente deve conseguir ver seu valor de reserva para conferir o valor protegido do seguro.
-- Regra de negócio 6: O cliente deve conseguir repor sua reserva.
+- Regra de negócio 6: O cliente deve conseguir repor sua reserva. Todo e qualquer valor deve ser depositado em ETH. A reserva de risco deve atingir o percentual mínimo do valor protegido(definido pela Coover e específico de cada grupo, desse valor será separado uma porcentagem, também definida pelo criador do contrato, relativo à taxa administrativa);
 
 ## Diagrama de Blocos
 
