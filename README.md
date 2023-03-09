@@ -106,6 +106,18 @@ Como seguem as imagens abaixo, esses são os resultados do deploy:
 - ![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/truffle-version.png)
 - ![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/wallet-metamask.png)
 
+Para realizar o deploy, foram feitos os seguintes passos, respectivamente:
+1- Ter NodeJs, Git e VSCode;
+2- Instalar e iniciar o Truffle no Terminal CMD;
+3- Criar o contrato em Solidity na pasta "contracts";
+4- Criar o arquivo que fará o deploy do contrato na pasta "migrations" (o arquivo deve ser .js);
+5- Criar o arquivo "package.json" e baixar bibliotecas que o contrato esteja usando no CMD;
+6- Editar as informações do contrato que deseja realizar o deploy no arquivo criado em "migrations", informando os parâmetros para deploy e o nome do contrato (não do arquivo);
+7- Selecionar a rede no arquivo "truffle-config.js" (a rede utilizada foi Goerli, então as linhas 85 a 91 foram descomentadas);
+8-Instalar e criar o arquivo .env (descomentando as linhas 44 a 47 do arquivo "truffle-config.js") e adicioná-lo ao arquivo ".gitignore";
+9- Adicionar a seed prhase da carteira Metamask que será o owner do contrato e a api key do Infura no arquivo ".env", além de alteral a variável, agora criada, nas linha 45 do "truffle-config.js";
+10- Executar o comando "truffle deploy --network goerli" no CMD (garanta que a carteira Metamask tenha fundos GOERLI para pagar o gas do contrato).
+
 
 ## 🗃 Histórico de lançamentos
 
