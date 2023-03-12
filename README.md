@@ -127,6 +127,9 @@ O diagrama de classes de implementação fornece uma visão geral da estrutura d
 
 ![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/image%20(3).png)
 
+Através do diagrama acima é possível visualizar a distribuição física do processamento do sistema. Onde é exposto como os hardwares (dispositivo do usuário e da seguradora) se relacionam com o software, em primeiro com a aplicação web (através do protocolo http), na qual está armazenada em um servidor em nuvem. E em segundo, com o smart contract (através do protocolo JSON-RPC, ou seja, de modo P2P), evidenciando como a comunicação é realizada com a Testnet Ethereum. 
+
+
 ## 🗃 Histórico de lançamentos
 
 * 0.2.1 - 07/04/2023
