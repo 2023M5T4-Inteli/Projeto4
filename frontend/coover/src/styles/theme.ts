@@ -13,10 +13,6 @@ const colors = {
     primary: "#069be2"
 }
 
-const sizes = {
-    borderRadius: '1rem',
-    lightBorderRadius: '3px'
-}
 
 const fontFamily = "'Montserrat', sans-serif"
 
@@ -24,7 +20,6 @@ export const lightTheme = {
     colors: {
         ...colors,
     },
-    sizes,
     fontFamily
 }
 
