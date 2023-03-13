@@ -40,9 +40,8 @@ const Input: React.FC<InputProps> = ({
                 <div>
                     {label && <label>{label}</label>}
                     <input {...rest} {...register(name)} />
+                    {error && <span>{error.message}</span>}
                 </div>
-
-                {error && <span>{error.message}</span>}
             </OutlineInputContainer>
         )
     }

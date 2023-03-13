@@ -5,6 +5,7 @@ import { RightIcon } from '@/components/rightIcon'
 import { StartText } from '@/components/startText'
 import { Content, NoIndemnity } from '@/styles/pages/indemnity'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 export enum IndemnityStatus {
@@ -20,9 +21,10 @@ export interface IndemnityInterface {
 }
 
 export default function Indemnity() {
+    const router = useRouter()
     const [indemnity, setIndemnity] = useState<IndemnityInterface | null>({
         id: "0",
-        status: IndemnityStatus.requested   
+        status: IndemnityStatus.denied
     })
 
     return (
@@ -44,7 +46,7 @@ export default function Indemnity() {
                                     IndemnityStatus.requested &&
                                     indemnity.status !=
                                         IndemnityStatus.analysis && (
-                                            <Button>
+                                            <Button onClick={() => router.push("/indemnity/new")}>
                                                 Solicitar <RightIcon />
                                             </Button>
                                     )}
@@ -57,7 +59,7 @@ export default function Indemnity() {
                                     Você ainda não tem nenhuma indenização em
                                     andamento
                                 </NoIndemnity>
-                                <Button>
+                                <Button onClick={() => router.push("/indemnity/new")}>
                                     Solicitar <RightIcon />
                                 </Button>
                             </>

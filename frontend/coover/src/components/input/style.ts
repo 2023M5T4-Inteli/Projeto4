@@ -66,6 +66,11 @@ export const OutlineInputContainer = styled.div`
     border-left: 3px solid ${props => props.theme.colors.white};
     padding: 0 10px;
     margin: 10px 0;
+
+    span {
+      font-size: 12px;
+      color: red;
+    }
   }
 
   label {

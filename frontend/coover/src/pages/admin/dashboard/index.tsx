@@ -21,7 +21,7 @@ const AdminDashboard: React.FC<Props> = props => {
                 <title>Admin - Dashboard</title>
             </Head>
             <AdminWrapper title='Dashboard'>
-                <span>Teste</span>
+                <span>Oi</span>
             </AdminWrapper>
         </>
     )

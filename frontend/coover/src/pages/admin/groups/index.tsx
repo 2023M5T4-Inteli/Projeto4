@@ -30,7 +30,7 @@ const AdminGroups: React.FC<Props> = () => {
             numberPeople: 40,
             contractTotalValue: 500,
             status: false
-        },
+        }
     ])
 
     const columns = React.useMemo(
@@ -95,9 +95,7 @@ const AdminGroups: React.FC<Props> = () => {
                 title="Grupos"
                 subtitle="Confira todos os grupos mútuos com contratos já ativos ou inativados."
             >
-                <>
-                    <TableComponent columns={columns} data={data} />
-                </>
+                <TableComponent columns={columns} data={data} />
             </AdminWrapper>
         </>
     )

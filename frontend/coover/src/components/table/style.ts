@@ -71,7 +71,7 @@ const PaginationButtons = styled.button`
     background-color: ${({ theme }) => theme.colors.greyDark3};
     color: ${props => props.theme.colors.white};
     font-size: 14px;
-    border-radius: ${({ theme }) => theme.sizes.borderRadius};
+    border-radius: 3px;
     cursor: pointer;
     transition: all 1s;
     --webkit-backface-visibility: hidden;

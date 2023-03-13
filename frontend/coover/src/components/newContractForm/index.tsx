@@ -35,9 +35,8 @@ const schema = yup.object().shape({
         .required('O valor da franquia é um campo obrigatório')
 })
 
-interface Props {}
 
-const NewContractForm: React.FC<Props> = () => {
+const NewContractForm: React.FC = () => {
     const {
         register,
         handleSubmit,
