@@ -10,11 +10,11 @@ const colors = {
     white: '#fff',
     black: '#000',
 
-    primary: "#069be2"
+    primary: "#02DE82"
 }
 
 
-const fontFamily = "'Montserrat', sans-serif"
+const fontFamily = "'Inter', sans-serif"
 
 export const lightTheme = {
     colors: {
