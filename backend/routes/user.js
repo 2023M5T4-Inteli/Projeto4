@@ -1,12 +1,13 @@
 // importar bibliotecas
 const express = require('express')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const { authMiddleware, adminMiddleware } = require('../middleware/auth')
 const router = express.Router()
+const user = require('../models/user.js')
 
-router.post('/users/login', async (req,res) =>{
+router.post('/login', async (req,res) =>{
     try{
-        const user = await User.findByCredentials(req.body.email, req.body.password)
+        const user = await user.findByCredentials(req.body.email, req.body.password)
 
         const token = await user.generateAuthToken()
 
@@ -28,7 +29,7 @@ router.post('/users/login', async (req,res) =>{
     }
 })
 
-router.post('users/logout', authMiddleware, async (req, res) =>{
+router.post('/logout', authMiddleware, async (req, res) =>{
     try{
         res.clearCookie('token', {
             httpOnly: true,
@@ -43,37 +44,58 @@ router.post('users/logout', authMiddleware, async (req, res) =>{
     }
 })
 
-router.get('/users/me', authMiddleware, async (req, res)=>{
+router.get('/me', authMiddleware, async (req, res)=>{
         res.send(req.user)
 })
 
-router.get('/users/admin', adminMiddleware, async (req, res)=>{
+router.get('/admin', adminMiddleware, async (req, res)=>{
         try {
-            const users = await User.find()
+            const users = await user.find()
             res.send(users)
         } catch (err){
             res.status(500).send(err)
         }
 })
 
-router.post('users/create', adminMiddleware, async (req, res)=>{
+router.post('/signup', async (req, res)=>{
         try{
-            const userExists = await User.findOne ({email: req.body.email})
-            if (userExists){
-                throw new Error('Um usuário com esse email já existe!')
-            }
+            const {
+                email,
+                password,
+                imei,
+                phoneModel,
+                phoneValue,
+                //walletAddress,
+            } = req.body
 
-            const user = new User(req.body)
-            await user.save()
-            res.send(user)
+            const userPassword = await bcrypt.hash(req.body.password, 8)
+
+            await userSchema.create(user)
+
+            res.status(201)
+
+            await mongoose.close()
+
+            const token = await generateAuthToken(user._id)
+
+            res.cookie('token', token, {
+                httpOnly:true,
+                secure: process.env.NODE_ENV !== 'development',
+                maxAge: 2*60*60*1000,
+                path: '/',
+                sameSite: process.env.NODE_ENV !== 'development'?'none':'lax',
+            })
+    
+            res.redirect('/notifications')
+            
         } catch (err){
-            res.status(500).send({error: err.message})
+            res.status(500).send(err)
         }
 })
 
-router.delete('/users/:id', adminMiddleware, async (req, res)=>{
+router.delete('/:id', adminMiddleware, async (req, res)=>{
         try{
-            await User.findByIdAndDelete(req.params.id)
+            await user.findByIdAndDelete(req.params.id)
             res.send()
         }catch (err){
             res.status(500).send({error: err.message})
@@ -81,3 +103,5 @@ router.delete('/users/:id', adminMiddleware, async (req, res)=>{
 })
 
 module.exports = router
+
+

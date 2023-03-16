@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
 const port = 3000
-require('dotoenv').config()
+require('dotenv').config()
 
-require('.db/mongoose')()
+require('./database/mongoose')()
 
 app.use(express.json())
 
@@ -19,7 +19,7 @@ app.use(
 )
 
 const userRoutes = require("./routes/user")
-app.use(userRoutes)
+app.use('/users', userRoutes)
 
 app.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`)

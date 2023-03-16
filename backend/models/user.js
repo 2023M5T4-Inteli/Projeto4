@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
-const bycrypt = require('bycrypt')
+const bycrypt = require('bcryptjs')
 
 const userSchema = new mongoose.Schema(
     {
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
         required: true,
        },
        phoneValue:{
-        type: Int16Array,
+        type: Number,
         required: true,
         minlenght: 3,
         trim: true
