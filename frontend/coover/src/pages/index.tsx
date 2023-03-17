@@ -21,7 +21,7 @@ export default function Home() {
                 </LogoContainer>
                 <h1>Coover</h1>
                 <h2>Sua nova forma de se relacionar com seguros</h2>
-                <Button onClick={() => router.push('/login')}>
+                <Button onClick={() => router.push('/blockchain')}>
                     Entrar <RightIcon />
                 </Button>
             </PageContainer>

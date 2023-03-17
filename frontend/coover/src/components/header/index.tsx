@@ -6,7 +6,7 @@ import { HeaderContainer } from './style'
 import { useUser } from '@/contexts/user'
 import { BsFillPersonFill, BsPersonCircle } from 'react-icons/bs'
 
-interface Props {}
+interface Props { }
 
 const Header: React.FC<Props> = props => {
     const { user } = useUser()

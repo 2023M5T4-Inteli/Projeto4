@@ -13,7 +13,7 @@ export default function Login() {
 
     const backHandler = () => {
         if (stage == 0) {
-            router.replace("/")
+            router.replace("/blockchain")
         } else if (stage == 1) {
             setStage(0)
         }
@@ -25,11 +25,11 @@ export default function Login() {
                 <title>Coover - Login</title>
             </Head>
             <Header />
-            <BackIcon onClick={backHandler}/>
+            <BackIcon onClick={backHandler} />
             <Title>Proteja seu smartphone contra tudo, onde estiver</Title>
             <PageContainer stage={stage}>
                 <LoginForm setStage={setStage} />
-                <MetamaskForm  />
+                <MetamaskForm />
             </PageContainer>
         </>
     )

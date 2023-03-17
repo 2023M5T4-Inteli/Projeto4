@@ -22,9 +22,9 @@ const schema = yup.object().shape({
         .required('A senha é um campo obrigatório')
 })
 
-interface Props {}
+interface Props { }
 
-const AdminLoginForm: React.FC<Props> = ({}) => {
+const AdminLoginForm: React.FC<Props> = ({ }) => {
     const {
         register,
         handleSubmit,

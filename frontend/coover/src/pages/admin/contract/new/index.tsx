@@ -14,7 +14,7 @@ import Image from 'next/image'
 import React from 'react'
 import Coover from '../../../assets/images/coover_logo.png'
 
-interface Props {}
+interface Props { }
 
 const NewContract: React.FC<Props> = props => {
     return (
