@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
         required: true,
         minlenght: 3,
         trim: true
+       },
+       insurance:{
+        type: Schema.Types.ObjectId,
+        ref: "Insurance"
        }
     },
     {timestamps: true}

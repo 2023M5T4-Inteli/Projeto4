@@ -3,15 +3,17 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const { authMiddleware, adminMiddleware } = require('../middleware/auth')
 const router = express.Router()
-const user = require('../models/user.js')
+const User = require('../models/user.js')
+const Insurance = require('../models/insurance')
 
+//ROTA DE LOGIN DO USUÁRIO
 router.post('/login', async (req,res) =>{
     try{
-        const user = await user.findByCredentials(req.body.email, req.body.password)
+        const user = await User.findByCredentials(req.body.email, req.body.password)
 
         const token = await user.generateAuthToken()
 
-        const userResponse = user.toObject()
+        const userResponse = User.toObject()
         delete userResponse.password
         userResponse.token = token
 
@@ -29,6 +31,7 @@ router.post('/login', async (req,res) =>{
     }
 })
 
+//ROTA DE LOGOUT DO USUÁRIO
 router.post('/logout', authMiddleware, async (req, res) =>{
     try{
         res.clearCookie('token', {
@@ -44,35 +47,31 @@ router.post('/logout', authMiddleware, async (req, res) =>{
     }
 })
 
+//ROTA DE PERFIL DO USUÁRIO
 router.get('/me', authMiddleware, async (req, res)=>{
         res.send(req.user)
 })
 
+//ROTA DE DASHBOARD DO USUÁRIO (MOSTRA OS GRUPOS AINDA NÃO ATIVOS)
 router.get('/admin', adminMiddleware, async (req, res)=>{
         try {
-            const users = await user.find()
-            res.send(users)
+            const invites = await Insurance.find({isActive: false})
+            res.send(invites)
         } catch (err){
             res.status(500).send(err)
         }
 })
 
+//ROTA DE CRIAÇÃO DE CONTA DO USUÁRIO
 router.post('/signup', async (req, res)=>{
         try{
-            const {
-                email,
-                password,
-                imei,
-                phoneModel,
-                phoneValue,
-                //walletAddress,
-            } = req.body
+            const user = new User(req.body)
 
             const userPassword = await bcrypt.hash(req.body.password, 8)
 
-            await userSchema.create(user)
+            await user.save()
 
-            res.status(201)
+            res.send()
 
             await mongoose.close()
 
@@ -90,15 +89,6 @@ router.post('/signup', async (req, res)=>{
             
         } catch (err){
             res.status(500).send(err)
-        }
-})
-
-router.delete('/:id', adminMiddleware, async (req, res)=>{
-        try{
-            await user.findByIdAndDelete(req.params.id)
-            res.send()
-        }catch (err){
-            res.status(500).send({error: err.message})
         }
 })
 
