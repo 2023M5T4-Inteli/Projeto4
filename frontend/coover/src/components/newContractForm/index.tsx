@@ -29,10 +29,10 @@ const schema = yup.object().shape({
         .date()
         .typeError('Esse campo deve ser uma data')
         .required('O tempo do convite é um campo obrigatório'),
-    franchiseValue: yup
+    lmiTax: yup
         .number()
         .typeError('Esse campo deve ser um número')
-        .required('O valor da franquia é um campo obrigatório')
+        .required('O valor de taxa do limite máximo indenizável é um campo obrigatório')
 })
 
 

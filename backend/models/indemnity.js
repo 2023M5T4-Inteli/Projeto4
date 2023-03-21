@@ -1,20 +1,16 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
-const jwt = require('jsonwebtoken')
-const bycrypt = require('bcryptjs')
 
 const indemnitySchema = new mongoose.Schema(
     {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
+        },
         value:{
             type: Number,
             trim: true,
             required: true,
-        },
-        walletAdress: {
-            type: String,
-            trim: true,
-            required: true,
-            unique: true
         },
         imei:{
             type: String,
@@ -28,11 +24,17 @@ const indemnitySchema = new mongoose.Schema(
         type: String,
         required: true,
        },
+       approved:{
+        type: Boolean,
+        required: false,
+        default: false,
+
+       }
     },
     {timestamps: true}
 )
 
 
-const indemnity = mongoose.model('indemnity', indemnitySchema)
+const indemnity = mongoose.model('Indemnity', indemnitySchema)
 
-module.exports = User
+module.exports = indemnity
