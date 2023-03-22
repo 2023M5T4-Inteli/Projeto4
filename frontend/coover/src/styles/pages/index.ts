@@ -47,26 +47,27 @@ export const PageContainer2 = styled.div`
     bottom: 15px;
 
     h1 {
-        font-size: 40px;
+        font-size: 20px;
         font-weight: 600;
         text-align: center;
         padding-top: 0;
+        color: #02DE82;
     }
 
 
     h2 {
         font-weight: 400;
         font-size: 20px;
-        text-align: justify;
-        width: 75%;
-        margin-bottom: 40px;
+        text-align: center;
+        width: 80%;
+        padding: 5px;
         margin: 5px auto;
         
     }
 
     h3 {
         font-weight: 400;
-        font-size: 20px;
+        font-size: 15px;
         text-align: center;
         width: 75%;
         margin: 5px auto;
@@ -80,13 +81,14 @@ export const PageContainer2 = styled.div`
 
     h4 {
         font-weight: 600;
-        font-size: 20px;
-        text-align: center;
+        font-size: 15px;
+        text-align: justify;
         width: 100%;
         margin: 5px auto;
         margin-bottom: 15px;
-        color: #02DE82;
-        color-background: #000000;
+        padding-left:25px;
+        padding-right:25px;
+       
     }
 
 
@@ -98,6 +100,9 @@ export const BlackBackground2 = styled.div`
     padding:5px 15px 5px 15px;
     margin: 20px;
     background-color: ${props => props.theme.colors.black};
+    margin:auto;
+    margin-top:20px;
+    margin-bottom:20px;
 
     border-radius:30px
 `

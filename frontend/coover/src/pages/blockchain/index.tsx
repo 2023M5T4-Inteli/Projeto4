@@ -27,29 +27,24 @@ export default function Home() {
 
                 <Header2 />
                 <BackIcon2 onClick={backHandler} />
-                <h1>Como funciona o nosso seguro?</h1>
-                <h2>O seguro mútuo é uma forma de proteção coletiva onde um grupo de pessoas
-                    contribui com dinheiro para um fundo comum.
-                </h2>
                 <BlackBackground2>
-                    <h4>
-                        Aqui na Coover usamos "Contratos inteligentes" em uma plataforma blockchain,
-                        gerando um seguro mútuo confiável e transparente para seu celular!
-                    </h4>
+                    <h1>Como funciona o nosso seguro?</h1>
                 </BlackBackground2>
-                <h2>
-                    Estes "Contratos inteligentes" garantem a execução automática das regras do contrato e o cumprimento das obrigações de cada
-                    membro do grupo!
-                </h2>
+
+                <h4>
+                    Aqui na Coover usamos "Contratos inteligentes" em uma plataforma blockchain,garantindo
+                    a execução automática das regras do contrato e o cumprimento das obrigações de cada
+                    membro do grupo. Sem necessidade de terceira parte intermediária, reduzindo custos e fraudes!
+                </h4>
+
                 <BlackBackground2>
-                    <h4>
-                        Sem necessidade de terceira parte intermediária, reduzindo custos e fraudes.
-                    </h4>
+                    <h1>Como participar?</h1>
                 </BlackBackground2>
-                <h1>Como participar?</h1>
-                <h2>Para participar dessa iniciativa você só precisa ter uma "Carteira digital" - Metamask- e pronto!
-                    Você ja consegue se beneficiar do seguro mais tecnológico do Brasil!
-                </h2>
+
+                <h4>Para participar dessa iniciativa você só precisa ter uma "Carteira digital" - Metamask- e pronto!
+                    Você ja consegue se beneficiar com o seguro mútuo confiável e transparente para seu celular!
+                </h4>
+
                 <h3>
                     <a href="https://metamask.io/">
                         Ainda não tem a Metamask? <br />
