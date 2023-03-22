@@ -82,7 +82,7 @@ export const PageContainer2 = styled.div`
         font-weight: 600;
         font-size: 20px;
         text-align: center;
-        width: 75%;
+        width: 100%;
         margin: 5px auto;
         margin-bottom: 15px;
         color: #02DE82;
@@ -93,13 +93,11 @@ export const PageContainer2 = styled.div`
 `
 export const BlackBackground2 = styled.div`
     left: 0;
-    width: 40vh;
+    width: 50vh;
     height: 50%;
-    margin: auto;
+    padding:5px 15px 5px 15px;
+    margin: 20px;
     background-color: ${props => props.theme.colors.black};
 
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
+    border-radius:30px
 `

@@ -6,7 +6,6 @@ import { RightIcon } from '../rightIcon'
 import { Form } from './style'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMetamask } from '@/contexts/metamask'
 
 const schema = yup.object().shape({
     imei: yup.string().required('O imei é um campo obrigatório'),
@@ -23,7 +22,6 @@ interface Props {
 }
 
 const IndemnityForm: React.FC<Props> = ({ view, defaultValues, status }) => {
-    const {account} = useMetamask()
     const {
         register,
         handleSubmit,

@@ -8,6 +8,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import { useUser } from '@/contexts/user'
+import { useRouter } from 'next/router'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 
 const schema = yup.object().shape({
@@ -25,6 +26,7 @@ const schema = yup.object().shape({
 interface Props { }
 
 const AdminLoginForm: React.FC<Props> = ({ }) => {
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -60,10 +62,12 @@ const AdminLoginForm: React.FC<Props> = ({ }) => {
                 error={errors['password']}
                 Icon={AiOutlineLock}
             />
-            <Button marginTop>
+
+            <Button marginTop onClick={() => router.push('/admin/dashboard')}>
                 Continuar
             </Button>
-        </Form>
+
+        </Form >
     )
 }
 

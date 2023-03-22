@@ -14,7 +14,7 @@ declare global {
     }
 }
 
-const MetamaskForm: React.FC = () => {
+const MetamaskForm2: React.FC = () => {
     const { account, setAccount } = useMetamask()
     const router = useRouter()
 
@@ -44,14 +44,12 @@ const MetamaskForm: React.FC = () => {
     }
 
     const handleContinue = () => {
-        router.replace("/dashboard")
+        router.replace("/admin/walletCoover")
     }
 
     return (
         <Container>
-            <Paragraph>
-                Conecte-se com uma carteira da Metamask
-            </Paragraph>
+
 
             <Image
                 src={MetamaskImage}
@@ -65,13 +63,11 @@ const MetamaskForm: React.FC = () => {
                 </MetamaskAccount>
             ) : (
                 <span>
-                    Se você ainda não possui, instale o aplicativo primeiro*
+
                 </span>
             )}
 
-            <Button onClick={handleContinue} disabled={!account}>
-                Continuar <RightIcon />
-            </Button>
+
         </Container>
     )
 }
@@ -80,4 +76,4 @@ const MetamaskForm: React.FC = () => {
 
 
 
-export default MetamaskForm
+export default MetamaskForm2

@@ -20,7 +20,7 @@ const items = [
     },
     {
         icon: FaWallet,
-        link: '/admin/1'
+        link: '/admin/walletCoover'
     },
     {
         icon: MdOutlineGroups2,
@@ -36,7 +36,7 @@ const items = [
     }
 ]
 
-interface Props {}
+interface Props { }
 
 const Sidebar: React.FC<Props> = props => {
     const router = useRouter()
@@ -47,11 +47,11 @@ const Sidebar: React.FC<Props> = props => {
             {items.map(item => (
                 <Item key={item.link} isActive={router.asPath == item.link}>
                     {item.link &&
-                    (
-                        <Link href={item.link}>
-                            <item.icon />
-                        </Link>
-                    )}
+                        (
+                            <Link href={item.link}>
+                                <item.icon />
+                            </Link>
+                        )}
                 </Item>
             ))}
         </Container>

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: ${props => props.theme.colors.black};
     display: flex;
     align-items: stretch;
@@ -21,9 +21,11 @@ export const Title = styled.h4`
     font-size: 40px;
     font-weight: 500;
     margin-bottom: 20px;
+
 `
 
 export const Subtitle = styled.p`
   font-size: 20px;
-  margin-bottom: 40px;
-`;
+  margin-bottom: 20px;
+`
+

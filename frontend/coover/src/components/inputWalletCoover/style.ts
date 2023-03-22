@@ -1,17 +1,24 @@
 import styled from 'styled-components'
 
 export const Form = styled.form`
-  
+
 
     button {
-      float: right;
+      float: center;
     }
+
+    input {
+      border: 3px solid #ccc;
+      border-color:#02DE82;
+      border-radius: 10px;
+    }
+
+    
 `
 
 export const Grid = styled.div`
-   display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 20px;
+   padding-bottom: 20px;
+   
 `;
 
 export const ButtonContainer = styled.div`
@@ -19,3 +26,4 @@ export const ButtonContainer = styled.div`
   bottom: 40px;
   right: 40px;
 `;
+

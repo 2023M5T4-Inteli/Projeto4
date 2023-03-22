@@ -6,6 +6,7 @@ interface Props {
     children: JSX.Element
     title: string
     subtitle?: string
+
 }
 
 const AdminWrapper: React.FC<Props> = ({ children, title, subtitle }) => {
