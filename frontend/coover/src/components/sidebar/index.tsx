@@ -28,7 +28,7 @@ const items = [
     },
     {
         icon: FaMoneyBill,
-        link: '/admin/3'
+        link: '/admin/indemnity'
     },
     {
         icon: IoMdExit,

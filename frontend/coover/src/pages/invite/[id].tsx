@@ -23,7 +23,7 @@ export default function Wallet() {
 
         setShowConfirmModal(false)
         setIsAccepted(true)
-        toast.success('Grupo aceitado com sucesso, aguarde a ativação!')
+        toast.success('Grupo aceito com sucesso, aguarde a ativação!')
         setLoading(false)
     }
 

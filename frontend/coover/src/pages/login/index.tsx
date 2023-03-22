@@ -4,13 +4,16 @@ import LoginForm from '@/components/loginForm'
 import MetamaskForm from '@/components/metamaskForm'
 import { PageContainer, Title } from '@/styles/pages/login'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useRouter } from 'next/router' //Função para acessar o router do componente componente
+import { useState } from 'react' //É um React Hook que permite adicionar uma variável de estado ao seu componente
 
 export default function Login() {
+    //stage se refere ao estado atual da variável de estado (definido para o valor fornecido, nesse caso 0)
+    //setStage é a função que permite alterá-lo para qualquer outro valor em resposta à interação
     const [stage, setStage] = useState(0)
     const router = useRouter()
 
+    //Função para voltar a página
     const backHandler = () => {
         if (stage == 0) {
             router.replace("/blockchain")
