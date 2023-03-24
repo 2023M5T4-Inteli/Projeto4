@@ -39,7 +39,6 @@ router.get('/indemnity/:id', authMiddleware, async (req, res) => {
 
         const indemnity = await Indemnity.findOne({ _id: req.params.id, user: req.user._id })
 
-        res.status(200).json(indemnity)
         res.send(indemnity)
 
     } catch (err) {
@@ -50,9 +49,7 @@ router.get('/indemnity/:id', authMiddleware, async (req, res) => {
 
 //ROTA PARA O ADMINISTRADOR VER UMA INDENIZAÇÃO
 router.get('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
-
     try {
-
         const indemnity = await Indemnity.findOne({ _id: req.params.id })
 
         res.send(indemnity)
@@ -64,13 +61,11 @@ router.get('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
 //ROTA PARA O ADMINISTRADOR APROVAR OU RECUSAR UMA INDENIZAÇÃO
 router.patch('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
     try {
-
         const updatedindemnity = await Indemnity.findOne({ _id: req.params.id })
         updatedindemnity.approved = req.body.approved
         await updatedindemnity.save()
 
         res.send(updatedindemnity)
-
     } catch (err) {
         res.status(500).send(err)
     }

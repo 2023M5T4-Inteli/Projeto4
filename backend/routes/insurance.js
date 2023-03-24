@@ -10,8 +10,6 @@ const User = require('../models/user')
 router.post('/admin/create', adminMiddleware, async (req, res) => {
     try {
         const usersThatDontHaveGroup = await User.find({ insurance: { $exists: false } })
-        console.log(usersThatDontHaveGroup)
-        console.log(req.body.minPhoneValue)
 
         const invites = []
         for (let i = 0; i < usersThatDontHaveGroup.length; i++) {
@@ -21,14 +19,13 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
         }
 
         if (invites.length <= req.body.minPeople) {
-            return res.status(500).send("Não foram encontrados usuários suficientes")
+            return res.status(500).send('Não foram encontrados usuários suficientes')
         }
 
         const insurance = new Insurance({ ...req.body, isActive: false, invites })
         await insurance.save()
 
         res.send(insurance)
-
     } catch (err) {
         res.status(500).send(err)
     }
@@ -37,11 +34,9 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
 //ROTA PARA VER TODOS OS SEGUROS
 router.get('/admin', adminMiddleware, async (req, res) => {
     try {
-
         const insurance = await Insurance.find({})
 
-        res.json(insurance)
-
+        res.send(insurance)
     } catch (err) {
         res.status(500).send(err)
     }
@@ -50,7 +45,6 @@ router.get('/admin', adminMiddleware, async (req, res) => {
 //ROTA PARA VER UM ÚNICO GRUPO
 router.get('/admin/:id', adminMiddleware, async (req, res) => {
     try {
-
         const insurance = await Insurance.findOne({ _id: req.params.id })
 
         res.send(insurance)
@@ -62,11 +56,9 @@ router.get('/admin/:id', adminMiddleware, async (req, res) => {
 //ROTA PARA VER O GRUPO QUE O USUÁRIO PARTICIPA
 router.get('/user/me', authMiddleware, async (req, res) => {
     try {
-
         const insurance = await Insurance.findOne({ user: req.user._id })
 
         res.send(insurance)
-
     } catch (err) {
         res.status(500).send(err)
     }
@@ -75,16 +67,16 @@ router.get('/user/me', authMiddleware, async (req, res) => {
 router.patch('/user/invite', authMiddleware, async (req, res) => {
     try {
         if (req.user.insurance) {
-            return res.status(500).send("Esse usuário já participa de um grupo")
+            return res.status(500).send('Esse usuário já participa de um grupo')
         }
         const insurance = await Insurance.findOne({ _id: req.body.insurance })
-        
+
         if (!insurance) {
-            return res.status(500).send("Seguro não encontrado")
+            return res.status(500).send('Seguro não encontrado')
         }
 
         if (!insurance.invites) {
-            return res.status(500).send("Esse seguro não possui convites")
+            return res.status(500).send('Esse seguro não possui convites')
         }
 
         let exists = false
@@ -95,7 +87,7 @@ router.patch('/user/invite', authMiddleware, async (req, res) => {
         }
 
         if (!exists) {
-            return res.status(500).send("Esse usuário não foi chamado para este grupo")
+            return res.status(500).send('Esse usuário não foi chamado para este grupo')
         }
 
         req.user.insurance = req.body.insurance
