@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, SetStateAction } from 'react'
+import React, { createContext, useState, useContext, SetStateAction } from 'react'
 
 interface MetamaskContextInterface {
     account: string | null

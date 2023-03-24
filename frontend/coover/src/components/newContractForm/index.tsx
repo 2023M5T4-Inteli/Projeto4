@@ -86,7 +86,7 @@ const NewContractForm: React.FC = () => {
                 <Input
                     register={register}
                     name="franchiseValue"
-                    label="Valor da franquia *"
+                    label="Valor da reserva *"
                     error={errors['franchiseValue']}
                 />
             </Grid>

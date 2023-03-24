@@ -16,6 +16,10 @@ const notifications = [
     {
         id: 2,
         message: 'Eba! Você foi convidado para participar de um grupo'
+    },
+    {
+        id: 3,
+        message: 'Realize um depósito para concluir sua participação'
     }
 ]
 

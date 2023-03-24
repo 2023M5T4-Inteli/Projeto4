@@ -31,7 +31,7 @@ export default function Home() {
                     <h1>Como funciona o nosso seguro?</h1>
                 </BlackBackground2>
 
-                <h4>
+                <h4 style={{width:"90%", fontSize: "17px"}}>
                     Aqui na Coover usamos "Contratos inteligentes" em uma plataforma blockchain,garantindo
                     a execução automática das regras do contrato e o cumprimento das obrigações de cada
                     membro do grupo. Sem necessidade de terceira parte intermediária, reduzindo custos e fraudes!
@@ -41,7 +41,7 @@ export default function Home() {
                     <h1>Como participar?</h1>
                 </BlackBackground2>
 
-                <h4>Para participar dessa iniciativa você só precisa ter uma "Carteira digital" - Metamask- e pronto!
+                <h4 style={{width:"90%", fontSize: "17px"}}>Para participar dessa iniciativa você só precisa ter uma "Carteira digital" - Metamask- e pronto!
                     Você ja consegue se beneficiar com o seguro mútuo confiável e transparente para seu celular!
                 </h4>
 

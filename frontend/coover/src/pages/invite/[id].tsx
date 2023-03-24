@@ -49,11 +49,11 @@ export default function Wallet() {
                             value="30"
                         />
                         <ViewInfo
-                            label={'Quantidade mínima de participantes:'}
+                            label={'Quantidade máxima de participantes:'}
                             value="50"
                         />
-                        <ViewInfo label={'Franquia:'} value="R$0,00" />
-                        <ViewInfo label={'Vigência:'} value="R$0,00" />
+                        <ViewInfo label={'Valor da reserva:'} value="R$0,00" />
+                        <ViewInfo label={'Vigência:'} value="12 meses" />
                         <ViewInfo label={'Dias restantes:'} value="5" />
                         <span
                             onClick={() => {
@@ -64,7 +64,7 @@ export default function Wallet() {
                         </span>
                         {!isAccepted ? (
                             <Button onClick={handleAccept}>Aceitar</Button>
-                        ):  <Button inline disabled>Grupo aceitado</Button>}
+                        ):  <Button inline disabled>Grupo aceito</Button>}
                     </Content>
                 </>
             </PageWrapper>

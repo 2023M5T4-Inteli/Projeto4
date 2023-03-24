@@ -19,10 +19,10 @@ const UserContext = createContext<UserContextInterface | null>(null)
 
 export default function UserProvider({ children }: any) {
     const [user, setUser] = useState<User | null>({
-        name: "Sophia",
+        name: "Rebeca",
         lastName: "Dias",
         _id: "3891238921",
-        email: "sophia.teste@gmail.com",
+        email: "rebeca.teste@gmail.com",
         wallet: "0xuo4u1o4u12491"
     })
     const router = useRouter()

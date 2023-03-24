@@ -23,7 +23,7 @@ export default function Group() {
                         <ViewInfo label={'Saldo do grupo:'} value="R$0,00" />
                         <ViewInfo label={'Número de participantes:'} value="100" />
                         <ViewInfo label={'Coberturas:'} value="Roubo e furto" />
-                        <ViewInfo label={'Franquia:'} value="X%" />
+                        <ViewInfo label={'Valor da reserva:'} value="X%" />
                         <ViewInfo label={'Vigência:'} value="12 meses restantes" />
                     </Content>
                    

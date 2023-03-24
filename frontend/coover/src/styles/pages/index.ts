@@ -95,14 +95,14 @@ export const PageContainer2 = styled.div`
 `
 export const BlackBackground2 = styled.div`
     left: 0;
-    width: 50vh;
-    height: 50%;
-    padding:5px 15px 5px 15px;
+    width: 90%;
+    height: 60%;
+    padding:5px 17px 5px 17px;
     margin: 20px;
     background-color: ${props => props.theme.colors.black};
     margin:auto;
-    margin-top:20px;
-    margin-bottom:20px;
+    margin-top:35px;
+    margin-bottom:25px;
 
-    border-radius:30px
+    border-radius:7px
 `
