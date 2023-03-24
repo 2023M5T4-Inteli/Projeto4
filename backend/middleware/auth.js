@@ -26,7 +26,7 @@ exports.adminMiddleware = async (req, res, next) => {
         const token = req.cookies.token
         const decoded =  await jwt.verify(token, process.env.JWT_SECRET)
 
-        const user = await User.findOne({_id: decoded._id, admin: false})
+        const user = await User.findOne({_id: decoded._id, admin: true})
 
         if (!user){
             throw new Error()

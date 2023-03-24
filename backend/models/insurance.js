@@ -37,14 +37,19 @@ const insuranceSchema = new mongoose.Schema(
         required: true,
         default: false,
        },
-       users:[{
-        type: Schema.Type.ObjectId,
+       invites:[{
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
        }]
     },
     {timestamps: true}
 )
 
+insuranceSchema.virtual('users', {
+    ref: 'User',
+    localField: '_id',
+    foreignField: 'insurance'
+})
 
 const Insurance = mongoose.model('Insurance', insuranceSchema)
 

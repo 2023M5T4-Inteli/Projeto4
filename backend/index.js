@@ -12,14 +12,15 @@ app.use(cookieParser())
 
 const cors = require('cors')
 app.use(
-    cors({
-        credentials: true,
-        origin: process.env.CLIENT_URL
-    })
+    cors()
 )
 
 const userRoutes = require("./routes/user")
 app.use('/users', userRoutes)
+
+
+const insuranceRoutes = require("./routes/insurance")
+app.use('/insurance', insuranceRoutes)
 
 app.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`)
