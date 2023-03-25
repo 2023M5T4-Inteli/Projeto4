@@ -4,16 +4,16 @@ pragma solidity ^0.8.7;
 
 import "./seguroSprint3.sol";
 
-contract SeguroFactory{
+contract SeguroFactory {
     address owner;
 
     address[] public seguros;
 
-    constructor(){
+    constructor() {
         owner = msg.sender;
     }
 
-    modifier isOwner(){
+    modifier isOwner() {
         require(owner == msg.sender, "Not owner");
         _;
     }
@@ -23,15 +23,14 @@ contract SeguroFactory{
         address[] memory _members,
         string[] memory _imeis,
         uint _lmiTax
-    ) public isOwner{
+    ) public isOwner {
         Seguro2 seguro = new Seguro2(
-         _adminTax,
-        _members,
-         _imeis,
-         _lmiTax,
-         owner
+            _adminTax,
+            _members,
+            _imeis,
+            _lmiTax,
+            owner
         );
         seguros.push(address(seguro));
     }
-
 }

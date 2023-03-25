@@ -5,6 +5,7 @@ const { authMiddleware, adminMiddleware } = require('../middleware/auth')
 const router = express.Router()
 const Insurance = require('../models/insurance')
 const User = require('../models/user')
+const { SeguroFactory } = require('../ethers')
 
 //ROTA PARA CRIAR UM GRUPO DE SEGURO (ENVIAR OS CONVITES AOS INTERESSADOS)
 router.post('/admin/create', adminMiddleware, async (req, res) => {
@@ -23,6 +24,30 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
 
         res.send(insurance)
     } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
+// CRIAR ROTA DE APROVAR SEGURO...
+router.get('/admin/approve/:id', adminMiddleware, async (req, res) => {
+    try {
+        const insurance = await Insurance.findOne({_id: req.params.id})
+        await insurance.populate('users')
+        
+        const invitesUserWallets = []
+        const invitesUserImeis = []
+        for (let i = 0; i < insurance.users.length; i++) {
+            invitesUserWallets.push(insurance.users[i].wallet)
+            invitesUserImeis.push(insurance.users[i].imei)
+        }
+
+        const seguroFactory = await SeguroFactory()
+        const tx = await seguroFactory.createSeguro(insurance.adminTax, invitesUserWallets, invitesUserImeis, insurance.lmiTax)
+        await tx.wait()
+
+        res.send()
+    } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -60,7 +85,10 @@ router.get('/admin/:id', adminMiddleware, async (req, res) => {
 //ROTA PARA VER O GRUPO QUE O USUÁRIO PARTICIPA
 router.get('/user/me', authMiddleware, async (req, res) => {
     try {
-        const insurance = await Insurance.findOne({ user: req.user._id })
+        if (!req.user.insurance) {
+            return res.status(500).send('Esse usuário ainda não participa de um grupo')
+        }
+        const insurance = await Insurance.findOne({ _id: req.user.insurance })
 
         res.send(insurance)
     } catch (err) {

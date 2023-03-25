@@ -28,11 +28,11 @@ const MetamaskForm2: React.FC = () => {
                 // Checar aqui se carteira da metamask é a mesma que está cadastrada no sistema (caso seja a página de login)
 
                 setAccount(res[0])
-                const goerliNetwork = '0x5'
-                if (window.ethereum.chainId !== goerliNetwork) {
+                const sepoliaNetwork = '0x11155111'
+                if (window.ethereum.chainId !== sepoliaNetwork) {
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: goerliNetwork }]
+                        params: [{ chainId: sepoliaNetwork }]
                     })
                 }
             } catch (err) {

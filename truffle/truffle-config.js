@@ -86,6 +86,11 @@ module.exports = {
        provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${INFURA_API_KEY}`),
        network_id: 5,       // Goerli's id
      },
+
+    sepolia: {
+      provider:  () => new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${INFURA_API_KEY}`),
+      network_id: 11155111
+    }
     //
     // Useful for private networks
     // private: {

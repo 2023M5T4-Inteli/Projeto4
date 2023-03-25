@@ -47,6 +47,10 @@ const userSchema = new mongoose.Schema(
             required: true,
             default: false
         },
+        wallet: {
+            type: String,
+            required: true,
+        },
         insurance: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Insurance"
