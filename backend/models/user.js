@@ -55,6 +55,15 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
+userSchema.virtual('invites', {
+    ref: 'Insurance',
+    localField: '_id',
+    foreignField: 'invites'
+})
+
+userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true });
+
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {

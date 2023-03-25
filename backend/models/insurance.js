@@ -51,6 +51,9 @@ insuranceSchema.virtual('users', {
     foreignField: 'insurance'
 })
 
+insuranceSchema.set('toObject', { virtuals: true });
+insuranceSchema.set('toJSON', { virtuals: true });
+
 const Insurance = mongoose.model('Insurance', insuranceSchema)
 
 module.exports = Insurance

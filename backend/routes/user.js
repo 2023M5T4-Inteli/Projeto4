@@ -12,7 +12,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findByCredentials(req.body.email, req.body.password)
 
         const token = await user.generateAuthToken()
-        
+
         const userResponse = user.toObject()
         delete userResponse.password
         userResponse.token = token
@@ -49,6 +49,7 @@ router.post('/logout', authMiddleware, async (req, res) => {
 
 //ROTA DE PERFIL DO USUÁRIO
 router.get('/me', authMiddleware, async (req, res) => {
+    await req.user.populate('invites')
     res.send(req.user)
 })
 
@@ -65,20 +66,28 @@ router.get('/admin', adminMiddleware, async (req, res) => {
 //ROTA DE CRIAÇÃO DE CONTA DO USUÁRIO
 router.post('/signup', async (req, res) => {
     try {
-        
-
-        const userExists = await User.findOne({email: req.body.email})
+        const userExists = await User.findOne({ email: req.body.email })
         if (userExists) {
-            return res.status(500).send("Email já existente para um usuário!")
+            return res.status(500).send('Email já existente para um usuário!')
         }
 
-        
         const user = new User(req.body)
         user.admin = false
 
         await user.save()
 
         const token = await user.generateAuthToken(user._id)
+
+        const insurances = await Insurance.find({})
+        for (let i = 0; i < insurances.length; i++) {
+            await insurances[i].populate('users')
+            if (insurances[i].users.length < insurances[i].maxPeople) {
+                if (user.phoneValue >= insurances[i].minPhoneValue) {
+                    insurances[i].invites.push(user._id)
+                    await insurances[i].save()
+                }
+            }
+        }
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -89,7 +98,6 @@ router.post('/signup', async (req, res) => {
         })
 
         res.send(user)
-
     } catch (err) {
         console.log(err)
 
@@ -98,5 +106,3 @@ router.post('/signup', async (req, res) => {
 })
 
 module.exports = router
-
-

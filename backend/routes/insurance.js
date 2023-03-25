@@ -18,10 +18,6 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
             }
         }
 
-        if (invites.length <= req.body.minPeople) {
-            return res.status(500).send('Não foram encontrados usuários suficientes')
-        }
-
         const insurance = new Insurance({ ...req.body, isActive: false, invites })
         await insurance.save()
 
@@ -34,10 +30,17 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
 //ROTA PARA VER TODOS OS SEGUROS
 router.get('/admin', adminMiddleware, async (req, res) => {
     try {
-        const insurance = await Insurance.find({})
+        const fetchedInsurances = await Insurance.find({})
 
-        res.send(insurance)
+        if (fetchedInsurances.length == 0) {
+            return res.status(500).send('Nenhum seguro encontrado!')
+        }
+        const insurancesPromise = fetchedInsurances.map(async (insurance) => await insurance.populate('users'))
+        const insurances = await Promise.all(insurancesPromise)
+
+        res.send(insurances)
     } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -46,9 +49,10 @@ router.get('/admin', adminMiddleware, async (req, res) => {
 router.get('/admin/:id', adminMiddleware, async (req, res) => {
     try {
         const insurance = await Insurance.findOne({ _id: req.params.id })
-
+        await insurance.populate('users')
         res.send(insurance)
     } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -64,12 +68,29 @@ router.get('/user/me', authMiddleware, async (req, res) => {
     }
 })
 
+// ROTA PARA VER MEUS CONVITES
+router.get('/user/invites', authMiddleware, async (req, res) => {
+    try {
+        if (req.user.insurance) {
+            return res.status(500).send('Esse usuário já participa de um grupo')
+        }
+
+        await req.user.populate('invites')
+
+        res.send(req.user.invites)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
+// ROTA PARA ACEITAR UM CONVITE
 router.patch('/user/invite', authMiddleware, async (req, res) => {
     try {
         if (req.user.insurance) {
             return res.status(500).send('Esse usuário já participa de um grupo')
         }
         const insurance = await Insurance.findOne({ _id: req.body.insurance })
+        await insurance.populate('users')
 
         if (!insurance) {
             return res.status(500).send('Seguro não encontrado')
@@ -90,12 +111,17 @@ router.patch('/user/invite', authMiddleware, async (req, res) => {
             return res.status(500).send('Esse usuário não foi chamado para este grupo')
         }
 
+        if (insurance.users.length >= insurance.maxPeople) {
+            return res
+                .status(500)
+                .send('Não foi possível aceitar o convite, seguro já alcançou o número máximo de participantes')
+        }
+
         req.user.insurance = req.body.insurance
         await req.user.save()
 
         res.send(req.user)
     } catch (err) {
-        console.log(err)
         res.status(500).send(err)
     }
 })
