@@ -31,23 +31,38 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
 // CRIAR ROTA DE APROVAR SEGURO...
 router.get('/admin/approve/:id', adminMiddleware, async (req, res) => {
     try {
-        const insurance = await Insurance.findOne({_id: req.params.id})
+        const insurance = await Insurance.findOne({ _id: req.params.id })
+        if (insurance.isActive) {
+            return res.status(500).send('Seguro já está ativo!')
+        }
+
         await insurance.populate('users')
-        
+
         const invitesUserWallets = []
         const invitesUserImeis = []
+
         for (let i = 0; i < insurance.users.length; i++) {
             invitesUserWallets.push(insurance.users[i].wallet)
             invitesUserImeis.push(insurance.users[i].imei)
         }
 
         const seguroFactory = await SeguroFactory()
-        const tx = await seguroFactory.createSeguro(insurance.adminTax, invitesUserWallets, invitesUserImeis, insurance.lmiTax)
+        const tx = await seguroFactory.createSeguro(
+            insurance.adminTax,
+            invitesUserWallets,
+            invitesUserImeis,
+            insurance.lmiTax
+        )
         await tx.wait()
+
+        const seguroAddresses = await seguroFactory.viewSeguros()
+
+        insurance.address = seguroAddresses[seguroAddresses.length - 1]
+        insurance.isActive = true
+        await insurance.save()
 
         res.send()
     } catch (err) {
-        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -150,6 +165,19 @@ router.patch('/user/invite', authMiddleware, async (req, res) => {
 
         res.send(req.user)
     } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
+//ROTA PARA CRIAR UM GRUPO DE SEGURO (ENVIAR OS CONVITES AOS INTERESSADOS)
+router.get('/contracts', adminMiddleware, async (req, res) => {
+    try {
+        const seguroFactory = await SeguroFactory()
+        const tx = await seguroFactory.viewSeguros()
+
+        res.send(tx)
+    } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })

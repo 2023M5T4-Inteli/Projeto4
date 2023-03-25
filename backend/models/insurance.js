@@ -37,6 +37,10 @@ const insuranceSchema = new mongoose.Schema(
         required: true,
         default: false,
        },
+       address: {
+        type: String,
+        required: false
+       },
        invites:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

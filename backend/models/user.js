@@ -30,7 +30,6 @@ const userSchema = new mongoose.Schema(
             required: true,
             minlenght: 15,
             maxlenght: 15,
-            select: false
         },
         phoneModel: {
             type: String,

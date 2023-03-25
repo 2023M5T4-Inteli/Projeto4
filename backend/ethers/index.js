@@ -1,19 +1,15 @@
-const  { ethers } = require('ethers') 
-const campaignFactoryJson = require('../contracts/SeguroFactory.json')
+const { ethers } = require('ethers')
+const seguroFactoryJson = require('../contracts/SeguroFactory.json')
 
 const SeguroFactory = async () => {
-    console.log(ethers)
+    const { MNEMONIC, INFURA_API_KEY, SEGURO_FACTORY_ADDRESS } = process.env
+    const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/' + INFURA_API_KEY)
+    const wallet = ethers.Wallet.fromMnemonic(MNEMONIC)
+    const connectedWallet = wallet.connect(provider)
+    
+    const contract = new ethers.Contract(SEGURO_FACTORY_ADDRESS, seguroFactoryJson.abi, connectedWallet)
 
-    const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/" + process.env.INFURA_API_KEY);
-
-    const contractAddress = process.env.SEGURO_FACTORY_ADDRESS
-    const contract = new ethers.Contract(contractAddress, campaignFactoryJson.abi, provider)
-
-    const privateKey = process.env.MNEMONIC
-    const wallet = new ethers.Wallet(privateKey, provider)
-
-    return contract.connect(wallet)
-
+    return contract
 }
 
-module.exports = {SeguroFactory}
+module.exports = { SeguroFactory }

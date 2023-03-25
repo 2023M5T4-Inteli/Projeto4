@@ -18,6 +18,10 @@ contract SeguroFactory {
         _;
     }
 
+    function viewSeguros() public view returns (address[] memory) {
+        return seguros;
+    }
+
     function createSeguro(
         uint256 _adminTax,
         address[] memory _members,
