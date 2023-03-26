@@ -7,6 +7,7 @@ import { RightIcon } from '../rightIcon'
 import { useMetamask } from '@/contexts/metamask'
 import { useRouter } from 'next/router'
 
+//Tornar objeto (com a propriedade ethereum) global
 declare global {
     interface Window {
         // ⚠️ notice that "Window" is capitalized here
@@ -14,12 +15,15 @@ declare global {
     }
 }
 
+//Formulário de conexão com a carteira Metamask.
 const MetamaskForm: React.FC = () => {
-    const { account, setAccount } = useMetamask()
-    const router = useRouter()
+    const { account, setAccount } = useMetamask() //Definição do hook useMetamask, que recupera o estado da account
+    const router = useRouter() //Hook para manipular a navegação
 
+    //Função para se conectar a metamask
     const connectToMetamask = async () => {
         if (window.ethereum) {
+            //Se conecta a carteira através do método abaixo e define o estado da account
             try {
                 const res = await window.ethereum.request({
                     method: 'eth_requestAccounts'
@@ -35,18 +39,22 @@ const MetamaskForm: React.FC = () => {
                         params: [{ chainId: sepolia }]
                     })
                 }
+            //Caso haja algum erro
             } catch (err) {
                 console.error(err)
             }
+        //Caso não tenha a metamask instalada
         } else {
             alert('Install MetaMask')
         }
     }
 
+    //Se for conecatado o usuário é direcionado para a página dashboard
     const handleContinue = () => {
         router.replace("/dashboard")
     }
 
+    //Retorna a interface do formulário
     return (
         <Container>
             <Paragraph>
@@ -59,9 +67,10 @@ const MetamaskForm: React.FC = () => {
                 alt="Metamask Image"
             />
             {account ? (
+                //Retorna o endereço da carteira da conta conectado 
                 <MetamaskAccount>
                     Endereço conectado: <br />
-                    {account}
+                    {account} 
                 </MetamaskAccount>
             ) : (
                 <span>
