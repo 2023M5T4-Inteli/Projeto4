@@ -32,18 +32,20 @@ contract testSuite {
         imeis[0] = "0001";
         imeis[1] = "0002";
 
+        /// ACT
         // Instancia o seguro
         seguro = new Seguro2(10, addresses, imeis, 10, acc0);
     }
-    
+
     /// ASSERT
     //Verifica se o owner do seguro realmente é quem fez o deploy
     function checkOwnerSeguro() public {
         Assert.equal(seguro.getOwner(), acc0, "Owner should be acc0");
     }
 
-    // Verifica se o endereço foi relacionado ao Imei correto.
     // A anotação especial NatSpec "#sender: account-1" é utilizada para indicar qual conta será usada como msg.sender.
+
+    // Verifica se o endereço foi relacionado ao Imei correto.
     /// #sender: account-1
     function testeImei() public{
         Assert.equal(seguro.getMemberImei(msg.sender), "0001", "Imei nao bate");
