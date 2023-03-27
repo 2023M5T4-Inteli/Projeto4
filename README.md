@@ -26,15 +26,29 @@ Uma solução em blockchain Ethereum foi proposta para criar grupos de seguro m�
 |--> documentos<br>
   &emsp;| --> outros <br>
   &emsp;| DocumentaçãoProjetoModulo5.docx.pdf<br>
-|--> src<br>
-  &emsp;|--> Backend<br>
-  &emsp;|--> Frontend<br>
-  &emsp;&emsp;|--> Frontend<br>
-  &emsp;|--> Smart_Contracts<br>
+|--> backend<br>
+|--> frontend<br>
+&emsp;|--> coover<br>
+&emsp;&emsp;|--> src<br>
+&emsp;&emsp;&emsp;|--> assets<br>
+&emsp;&emsp;&emsp;|--> components<br>
+&emsp;&emsp;&emsp;|--> contexts<br>
+&emsp;&emsp;&emsp;|--> HOC<br>
+&emsp;&emsp;&emsp;|--> pages<br>
+&emsp;&emsp;&emsp;|--> styles<br>
+|--> contracts<br>
 | readme.md<br>
 
 
 Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
+
+Estruturação do frontend:
+- assets: diretório para armazenar os arquivos usados para compor a página
+- components: diretório para armazenar os componentes usados para compor a página
+- contexts: diretório utilizado para compartilhar dados considerados globais 
+- HOC: diretório de autenticação
+- pages: diretório para armazenar as páginas do site
+- styles: diretório para armazenar os códigos de estilização das páginas do site
 
 readme.md: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
 
