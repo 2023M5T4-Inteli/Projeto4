@@ -81,7 +81,7 @@ router.post('/signup', async (req, res) => {
         const insurances = await Insurance.find({})
         for (let i = 0; i < insurances.length; i++) {
             await insurances[i].populate('users')
-            if (insurances[i].users.length < insurances[i].maxPeople) {
+            if (!insurances[i].isActive && insurances[i].users.length < insurances[i].maxPeople) {
                 if (user.phoneValue >= insurances[i].minPhoneValue) {
                     insurances[i].invites.push(user._id)
                     await insurances[i].save()
