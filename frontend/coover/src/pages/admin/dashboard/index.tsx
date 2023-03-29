@@ -1,40 +1,132 @@
-import AdminLoginForm from '@/components/adminLoginForm'
 import AdminWrapper from '@/components/adminWrapper'
-import Input from '@/components/input'
-import {
-    AuthBox,
-    LeftContainer,
-    PageContainer,
-    RightContainer
-} from '@/styles/pages/admin/auth'
 import Head from 'next/head'
-import Image from 'next/image'
-import React from 'react'
-import Coover from '../../../assets/images/coover_logo.png'
-import { Button } from '@/components/button'
+//import React, {useState} from 'react'
 import { useRouter } from 'next/router'
+import Title from '@/components/title'
+import Notification from '@/components/updates'
+import { NoNotification } from '@/components/updates/style'
+import { group } from 'console'
+import Status from '@/components/status'
 
+const notifications = [
+    {
+        id: 0,
+        message: 'Novo pedido de indenização!',
+        page: '/admin/indemnity/'
+    },
+    {
+        id: 1,
+        message: 'Transferência de indenização concluída',
+        page: '/admin/indemnity/'
+    },
+    {
+        id: 2,
+        message: 'Erro na indenização: IMEI não correspondente',
+        page: '/admin/indemnity/'
+    },
+    {
+        id: 3,
+        message: 'Erro na indenização: IMEI não correspondente',
+        page: '/admin/indemnity/'
+    },
+]
+
+const status = [
+    {
+        id: 0,
+        message: 'Número mínimo atingido!',
+        group: 'FVCIACOA',
+        min: 40,
+        max: 80,
+        total: 40
+    },
+    {
+        id: 1,
+        message: 'Número máximo atingido!',
+        group: 'FVCIACOB',
+        min: 40,
+        max: 80,
+        total: 80
+    },
+    {
+        id: 2,
+        message: 'Ainda sem participantes',
+        group: 'FVCIACOA',
+        min: 40,
+        max: 80,
+        total: 0
+    },
+    {
+        id: 3,
+        message: 'Ainda sem participantes',
+        group: 'FVCIACOA',
+        min: 40,
+        max: 80,
+        total: 0
+    },{
+        id: 4,
+        message: 'Ainda sem participantes',
+        group: 'FVCIACOA',
+        min: 40,
+        max: 80,
+        total: 0
+    }
+]
 
 interface Props { }
 
 
 const AdminDashboard: React.FC<Props> = props => {
+    //const [showComponent, setShowComponent] = useState(false);
     const router = useRouter()
     return (
         <>
             <Head>
                 <title>Admin - Dashboard</title>
             </Head>
-            <AdminWrapper title='Dashboard'
-                subtitle='Ainda não há nenhum grupo ativo!'>
-
-                <Button onClick={() => router.push('/admin/contract/new')}>Criar grupo!</Button>
-
+            <AdminWrapper title='Dashboard'>
+                <>
+                    <Title text="Atualizações"/>
+                    {notifications.length > 0 ? (
+                        notifications.map(notification => (
+                            <Notification key={notification.id} {...notification} />
+                        ))
+                    ) : (
+                        <NoNotification>
+                            Nosso sistema já está a procura de um grupo para
+                            você entrar. Em breve você receberá um convite.
+                        </NoNotification>
+                    )}
+                    <Title text="Status do grupo"/>
+                    {status.length > 0 ? (
+                        status.map(status => (
+                            <Status key={status.id} {...status} />
+                        ))
+                    ) : (
+                        <NoNotification>
+                            Nosso sistema já está a procura de um grupo para
+                            você entrar. Em breve você receberá um convite.
+                        </NoNotification>
+                    )}
+                </>
             </AdminWrapper>
         </>
     )
 }
 
-
-
 export default AdminDashboard
+/*
+return (
+    <>
+        <Head>
+            <title>Admin - Dashboard</title>
+        </Head>
+        <AdminWrapper title='Dashboard'
+            subtitle='Ainda não há nenhum grupo ativo!'>
+
+            <Button onClick={() => router.push('/admin/contract/new')}>Criar grupo!</Button>
+
+        </AdminWrapper>
+    </>
+)
+*/
