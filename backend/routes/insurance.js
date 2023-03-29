@@ -10,15 +10,18 @@ const { SeguroFactory } = require('../ethers')
 //ROTA PARA CRIAR UM GRUPO DE SEGURO (ENVIAR OS CONVITES AOS INTERESSADOS)
 router.post('/admin/create', adminMiddleware, async (req, res) => {
     try {
+        // Encontre os usuários que não têm um grupo de seguro
         const usersThatDontHaveGroup = await User.find({ insurance: { $exists: false } })
 
         const invites = []
+        // Verifique se os usuários atendem ao requisito mínimo de valor do telefone e adicione-os aos convites
         for (let i = 0; i < usersThatDontHaveGroup.length; i++) {
             if (usersThatDontHaveGroup[i].phoneValue >= req.body.minPhoneValue) {
                 invites.push(usersThatDontHaveGroup[i]._id)
             }
         }
 
+         // Crie uma nova instância do grupo de seguro com os dados fornecidos e os convites
         const insurance = new Insurance({ ...req.body, isActive: false, invites })
         await insurance.save()
 
@@ -31,21 +34,25 @@ router.post('/admin/create', adminMiddleware, async (req, res) => {
 // CRIAR ROTA DE APROVAR SEGURO...
 router.get('/admin/approve/:id', adminMiddleware, async (req, res) => {
     try {
+        // Encontre o grupo de seguro pelo ID fornecido
         const insurance = await Insurance.findOne({ _id: req.params.id })
         if (insurance.isActive) {
             return res.status(500).send('Seguro já está ativo!')
         }
 
+        // Popule os usuários associados ao grupo de seguro
         await insurance.populate('users')
 
         const invitesUserWallets = []
         const invitesUserImeis = []
 
+        // Obtenha os endereços das carteiras e IMEIs dos usuários convidados
         for (let i = 0; i < insurance.users.length; i++) {
             invitesUserWallets.push(insurance.users[i].wallet)
             invitesUserImeis.push(insurance.users[i].imei)
         }
 
+        // Crie uma nova instância do contrato Seguro na blockchain usando a factory
         const seguroFactory = await SeguroFactory()
         const tx = await seguroFactory.createSeguro(
             insurance.adminTax,
@@ -55,8 +62,8 @@ router.get('/admin/approve/:id', adminMiddleware, async (req, res) => {
         )
         await tx.wait()
 
+        // Obtenha o endereço do contrato recém-criado e salve-o no grupo de seguro
         const seguroAddresses = await seguroFactory.viewSeguros()
-
         insurance.address = seguroAddresses[seguroAddresses.length - 1]
         insurance.isActive = true
         await insurance.save()
@@ -70,14 +77,19 @@ router.get('/admin/approve/:id', adminMiddleware, async (req, res) => {
 //ROTA PARA VER TODOS OS SEGUROS
 router.get('/admin', adminMiddleware, async (req, res) => {
     try {
+        // Buscar todos os seguros no banco de dados
         const fetchedInsurances = await Insurance.find({})
 
+        // Se nenhum seguro for encontrado, retorne um erro
         if (fetchedInsurances.length == 0) {
             return res.status(500).send('Nenhum seguro encontrado!')
         }
+
+        // Popular os seguros com os usuários relacionados
         const insurancesPromise = fetchedInsurances.map(async (insurance) => await insurance.populate('users'))
         const insurances = await Promise.all(insurancesPromise)
 
+        // Enviar os seguros encontrados como resposta
         res.send(insurances)
     } catch (err) {
         console.log(err)
@@ -88,8 +100,13 @@ router.get('/admin', adminMiddleware, async (req, res) => {
 //ROTA PARA VER UM ÚNICO GRUPO
 router.get('/admin/:id', adminMiddleware, async (req, res) => {
     try {
+        // Buscar o seguro no banco de dados pelo ID
         const insurance = await Insurance.findOne({ _id: req.params.id })
+
+        // Popular o seguro com os usuários relacionados
         await insurance.populate('users')
+
+        // Enviar o seguro encontrado como resposta
         res.send(insurance)
     } catch (err) {
         console.log(err)
@@ -100,11 +117,15 @@ router.get('/admin/:id', adminMiddleware, async (req, res) => {
 //ROTA PARA VER O GRUPO QUE O USUÁRIO PARTICIPA
 router.get('/user/me', authMiddleware, async (req, res) => {
     try {
+        // Se o usuário não está participando de nenhum seguro, retorne um erro
         if (!req.user.insurance) {
             return res.status(500).send('Esse usuário ainda não participa de um grupo')
         }
+
+        // Buscar o seguro no banco de dados pelo ID
         const insurance = await Insurance.findOne({ _id: req.user.insurance })
 
+        // Enviar o seguro encontrado como resposta
         res.send(insurance)
     } catch (err) {
         res.status(500).send(err)
@@ -114,12 +135,15 @@ router.get('/user/me', authMiddleware, async (req, res) => {
 // ROTA PARA VER MEUS CONVITES
 router.get('/user/invites', authMiddleware, async (req, res) => {
     try {
+         // Se o usuário já está participando de um seguro, retorne um erro
         if (req.user.insurance) {
             return res.status(500).send('Esse usuário já participa de um grupo')
         }
 
+        // Popular o usuário com os convites relacionados
         await req.user.populate('invites')
 
+        // Enviar os convites encontrados como resposta
         res.send(req.user.invites)
     } catch (err) {
         res.status(500).send(err)
@@ -129,20 +153,27 @@ router.get('/user/invites', authMiddleware, async (req, res) => {
 // ROTA PARA ACEITAR UM CONVITE
 router.patch('/user/invite', authMiddleware, async (req, res) => {
     try {
+        // Se o usuário já está participando de um seguro, retorne um erro
         if (req.user.insurance) {
             return res.status(500).send('Esse usuário já participa de um grupo')
         }
+
+        // Buscar o seguro no banco de dados pelo ID
         const insurance = await Insurance.findOne({ _id: req.body.insurance })
+        // Popular o seguro com os usuários relacionados
         await insurance.populate('users')
 
+        // Se o seguro não for encontrado, retorne um erro
         if (!insurance) {
             return res.status(500).send('Seguro não encontrado')
         }
 
+        // Se o seguro não tiver convites, retorne um erro
         if (!insurance.invites) {
             return res.status(500).send('Esse seguro não possui convites')
         }
 
+        // Verificar se o usuário tem um convite válido para o seguro
         let exists = false
         for (let i = 0; i < insurance.invites.length; i++) {
             if (insurance.invites[i].equals(req.user._id)) {
@@ -150,19 +181,23 @@ router.patch('/user/invite', authMiddleware, async (req, res) => {
             }
         }
 
+        // Se o usuário não foi convidado para o seguro, retorne um erro
         if (!exists) {
             return res.status(500).send('Esse usuário não foi chamado para este grupo')
         }
 
+         // Se o seguro já atingiu o número máximo de participantes, retorne um erro
         if (insurance.users.length >= insurance.maxPeople) {
             return res
                 .status(500)
                 .send('Não foi possível aceitar o convite, seguro já alcançou o número máximo de participantes')
         }
 
+        // Atualizar o usuário com a informação do seguro aceito
         req.user.insurance = req.body.insurance
         await req.user.save()
 
+        // Enviar o usuário atualizado como resposta
         res.send(req.user)
     } catch (err) {
         res.status(500).send(err)
@@ -172,9 +207,13 @@ router.patch('/user/invite', authMiddleware, async (req, res) => {
 //ROTA PARA CRIAR UM GRUPO DE SEGURO (ENVIAR OS CONVITES AOS INTERESSADOS)
 router.get('/contracts', adminMiddleware, async (req, res) => {
     try {
+        // Criar uma instância da fábrica de seguros
         const seguroFactory = await SeguroFactory()
+
+        // Visualizar os seguros disponíveis
         const tx = await seguroFactory.viewSeguros()
 
+        // Enviar os seguros encontrados como resposta
         res.send(tx)
     } catch (err) {
         console.log(err)
@@ -182,4 +221,5 @@ router.get('/contracts', adminMiddleware, async (req, res) => {
     }
 })
 
+// Exportar o módulo de rotas
 module.exports = router
