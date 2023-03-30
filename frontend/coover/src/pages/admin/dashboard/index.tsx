@@ -33,43 +33,53 @@ const notifications = [
 
 const status = [
     {
+        _id: 0,
         id: 0,
         message: 'Número mínimo atingido!',
         group: 'FVCIACOA',
         min: 40,
         max: 80,
-        total: 40
+        total: 40,
+        page: '/admin/groups/'
     },
     {
+        _id: 1,
         id: 1,
         message: 'Número máximo atingido!',
         group: 'FVCIACOB',
         min: 40,
         max: 80,
-        total: 80
+        total: 80,
+        page: '/admin/groups/'
     },
     {
+        _id: 2,
         id: 2,
         message: 'Ainda sem participantes',
         group: 'FVCIACOA',
         min: 40,
         max: 80,
-        total: 0
+        total: 0,
+        page: '/admin/groups/'
     },
     {
+        _id: 3,
         id: 3,
         message: 'Ainda sem participantes',
         group: 'FVCIACOA',
         min: 40,
         max: 80,
-        total: 0
+        total: 0,
+        page: '/admin/groups/'
     },{
+        _id: 4,
         id: 4,
         message: 'Ainda sem participantes',
         group: 'FVCIACOA',
         min: 40,
         max: 80,
-        total: 0
+        total: 0,
+        page: '/admin/groups/'
     }
 ]
 

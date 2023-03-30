@@ -9,13 +9,14 @@ interface Props {
     min: number
     max: number
     total: number
+    page: string
 }
 
-const Notification: React.FC<Props> = ({ id, message, group, min, max, total }) => {
+const Notification: React.FC<Props> = ({ id, page, message, group, min, max, total }) => {
     return (
         <Status>
             <Container>
-                <Link key={id} href={'/admin/dashboard/' + id}>
+                <Link key={id} href={page + id}>
                     <h4>#{group}</h4>
                     <h1>{message}</h1>
                     <p>Mínimo: {min}</p>

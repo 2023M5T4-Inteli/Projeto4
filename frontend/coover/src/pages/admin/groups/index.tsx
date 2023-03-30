@@ -11,22 +11,22 @@ interface Props {}
 const AdminGroups: React.FC<Props> = () => {
     const [groups, setGroups] = useState([
         {
-            _id: '#4901289',
-            id: '#4901289',
+            _id: '4901289',
+            id: '4901289',
             numberPeople: 20,
             contractTotalValue: 6000,
             status: true
         },
         {
-            _id: '#90682405',
-            id: '#90682405',
+            _id: '90682405',
+            id: '90682405',
             numberPeople: 50,
             contractTotalValue: 2000,
             status: true
         },
         {
-            _id: '#598252',
-            id: '#598252',
+            _id: '598252',
+            id: '598252',
             numberPeople: 40,
             contractTotalValue: 500,
             status: false
