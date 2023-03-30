@@ -69,7 +69,7 @@ export default function Wallet() {
                 </>
             </PageWrapper>
             <ConfirmModal
-                title="Tem certeza que deseja aceitar o convite?"
+                title="Tem certeza que deseja aceitar o convite? Para ativá-lo realize o primeiro depósito"
                 show={showConfirmModal}
                 closeModal={() => setShowConfirmModal(false)}
                 confirmHandler={confirmHandler}

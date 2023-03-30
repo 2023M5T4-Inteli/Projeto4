@@ -52,15 +52,27 @@ const AdminViewGroups: React.FC<Props> = () => {
                         <ViewInfo label={'Valor da franquia:'} value={'R$ 10000,00'} />
                     </Content>
                     <br></br>
-                    {!isAccepted ? (
-                    <Button style={{display: "inline"}} onClick={handleAccept}>Aprovar</Button>
-                    ):  <Button inline disabled>Aprovado</Button>}
-                    {!isAccepted ? (
-                    <Button  style={{backgroundColor: "#bc1515", display: "inline", marginLeft: "20px"}} onClick={handleAccept}>Recusar</Button>
-                    ):  <Button style={{marginLeft: "20px"}} inline disabled>Recusado</Button>}
+                    
+
+                    <Button style={{display: "inline"}}>Aprovar</Button>
+                    <Button  style={{backgroundColor: "#bc1515", display: "inline", marginLeft: "20px"}}>Recusar</Button>
                 </>
             </AdminWrapper>
-            <ConfirmModal
+        </>
+    )
+}
+
+export default AdminViewGroups
+
+/*
+{!isAccepted ? (
+    <Button style={{display: "inline"}} onClick={handleAccept}>Aprovar</Button>
+    ):  <Button inline disabled>Aprovado</Button>}
+    {!isAccepted ? (
+    <Button  style={{backgroundColor: "#bc1515", display: "inline", marginLeft: "20px"}} onClick={handleAccept}>Recusar</Button>
+    ):  <Button style={{marginLeft: "20px"}} inline disabled>Recusado</Button>}
+
+    <ConfirmModal
                 title="Você quer aceitar o pedido?"
                 show={showConfirmModal}
                 closeModal={() => setShowConfirmModal(false)}
@@ -74,8 +86,4 @@ const AdminViewGroups: React.FC<Props> = () => {
                 confirmHandler={confirmHandler}
                 loading={loading}
             />
-        </>
-    )
-}
-
-export default AdminViewGroups
+*/

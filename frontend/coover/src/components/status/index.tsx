@@ -15,7 +15,7 @@ const Notification: React.FC<Props> = ({ id, message, group, min, max, total }) 
     return (
         <Status>
             <Container>
-                <Link key={id} href={'/invite/' + id}>
+                <Link key={id} href={'/admin/dashboard/' + id}>
                     <h4>#{group}</h4>
                     <h1>{message}</h1>
                     <p>Mínimo: {min}</p>
