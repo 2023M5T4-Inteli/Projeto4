@@ -9,7 +9,7 @@ interface Props {
 
 }
 
-const AdminWrapper: React.FC<Props> = ({ children, title, subtitle }) => {
+const AdminWrapper: React.FC<Props> = ({ children, title, subtitle}) => {
     return (
         <Container>
             <Sidebar />

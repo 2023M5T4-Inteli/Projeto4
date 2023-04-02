@@ -16,7 +16,7 @@ const Notification: React.FC<Props> = ({ id, page, message, group, min, max, tot
     return (
         <Status>
             <Container>
-                <Link key={id} href={page + id}>
+            <Link href={{ pathname: page+id, query: { id, message, group, min, max, total } }} as={page + id}>
                     <h4>#{group}</h4>
                     <h1>{message}</h1>
                     <p>Mínimo: {min}</p>
@@ -29,3 +29,5 @@ const Notification: React.FC<Props> = ({ id, page, message, group, min, max, tot
 }
  
 export default Notification
+
+//<Link key={id} href={page + id}>

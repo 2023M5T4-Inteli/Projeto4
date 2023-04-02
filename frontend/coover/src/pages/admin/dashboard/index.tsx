@@ -39,7 +39,7 @@ const status = [
         min: 40,
         max: 80,
         total: 40,
-        page: '/admin/groups/'
+        page: '/admin/dashboard/'
     },
     {
         _id: 1,
@@ -49,7 +49,7 @@ const status = [
         min: 40,
         max: 80,
         total: 80,
-        page: '/admin/groups/'
+        page: '/admin/dashboard/'
     },
     {
         _id: 2,
@@ -59,7 +59,7 @@ const status = [
         min: 40,
         max: 80,
         total: 0,
-        page: '/admin/groups/'
+        page: '/admin/dashboard/'
     },
     {
         _id: 3,
@@ -69,7 +69,7 @@ const status = [
         min: 40,
         max: 80,
         total: 0,
-        page: '/admin/groups/'
+        page: '/admin/dashboard/'
     },{
         _id: 4,
         id: 4,
@@ -78,7 +78,7 @@ const status = [
         min: 40,
         max: 80,
         total: 0,
-        page: '/admin/groups/'
+        page: '/admin/dashboard/'
     }
 ]
 
@@ -88,6 +88,7 @@ interface Props { }
 const AdminDashboard: React.FC<Props> = props => {
     //const [showComponent, setShowComponent] = useState(false);
     const router = useRouter()
+    console.log(...status)
     return (
         <>
             <Head>
@@ -117,6 +118,7 @@ const AdminDashboard: React.FC<Props> = props => {
                             você entrar. Em breve você receberá um convite.
                         </NoNotification>
                     )}
+                    
                 </>
             </AdminWrapper>
         </>
