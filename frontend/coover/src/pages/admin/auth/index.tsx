@@ -1,5 +1,4 @@
 import AdminLoginForm from '@/components/adminLoginForm'
-import Input from '@/components/input'
 import {
     AuthBox,
     LeftContainer,

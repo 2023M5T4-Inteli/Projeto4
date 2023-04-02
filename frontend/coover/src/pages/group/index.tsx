@@ -1,10 +1,10 @@
 import PageWrapper from '@/components/pageWrapper'
-import ReplaceBalance from '@/components/replaceBalance'
 import { StartText } from '@/components/startText'
 import ViewInfo from '@/components/viewInfo'
-import Warning from '@/components/warning'
 import { Content, Status } from '@/styles/pages/group'
 import Head from 'next/head'
+import Web3 from 'web3';
+import { useState, useEffect } from 'react';
 
 export default function Group() {
     return (

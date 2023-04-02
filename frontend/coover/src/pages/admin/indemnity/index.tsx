@@ -4,9 +4,7 @@ import TableComponent from '@/components/table'
 import Head from 'next/head'
 import React from 'react'
 import { useState } from 'react'
-import { FaRegEye } from 'react-icons/fa'
 import { FaSearch } from 'react-icons/fa'
-import { createPropertySignature } from 'typescript'
 
 interface Props {}
 

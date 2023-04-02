@@ -1,6 +1,4 @@
-import AdminLoginForm from '@/components/adminLoginForm'
 import AdminWrapper from '@/components/adminWrapper'
-import Input from '@/components/input'
 
 import {
     AuthBox2,

@@ -3,11 +3,8 @@ import Head from 'next/head'
 import React from 'react'
 import ViewInfo from '@/components/viewInfo'
 import { Content } from '@/styles/pages/account'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import RefuseModal from '@/components/popUp/refuseIndemnity'
-import ConfirmModal from '@/components/popUp/confirmIndemnity'
 import { Button } from '@/components/button'
 
 

@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import Title from '@/components/title'
 import Notification from '@/components/updates'
 import { NoNotification } from '@/components/updates/style'
-import { group } from 'console'
 import Status from '@/components/status'
 
 const notifications = [
