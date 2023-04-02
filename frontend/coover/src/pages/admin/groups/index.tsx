@@ -69,7 +69,8 @@ const AdminGroups: React.FC<Props> = () => {
                         Cell: (props: any) => {
                             const actions = [
                                 {
-                                    link: '/admin/groups/' + props.value,
+                                    link: `/admin/groups/${props.value}?status=${props.row.original.status}&contractTotalValue=${props.row.original.contractTotalValue}&numberPeople=${props.row.original.numberPeople}`,
+
                                     icon: FaRegEye,
                                     color: '#02DE82'
                                 }

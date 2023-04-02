@@ -1,29 +1,28 @@
 import AdminWrapper from '@/components/adminWrapper'
 import Head from 'next/head'
 import React from 'react'
+import { useRouter } from 'next/router'
+import ViewInfo from '@/components/viewInfo'
+import {} from '@/components/button'
+import { Button } from '@/components/button'
 
-
-interface Props {
-    id: string
-    numberPeople: number
-    contractTotalValue: number
-    status: boolean
-}
-
-const AdminViewGroups: React.FC<Props> = ({ id, numberPeople, contractTotalValue, status }) => {
+const AdminViewGroups = () => {
+    const router = useRouter()
+    const { id, status, contractTotalValue, numberPeople } = router.query
     return (
         <>
             <Head>
                 <title>Admin - Novo contrato</title>
             </Head>
             <AdminWrapper
-                title={`Grupos - #4901289`}
-                subtitle="Em breve: dados do grupo!"
+                title={`Grupo #${id}`}
+                subtitle="Veja mais informações sobre esse grupo"
             >
                 <>
-                    <h1>{id}</h1>
-                    <h1>{numberPeople}</h1>
-
+                    <ViewInfo label={'Status:'} value={status ? 'Ativo' : 'Inativo'} />
+                    <ViewInfo label={'Saldo:'} value={`${contractTotalValue}`} />
+                    <ViewInfo label={'Número de participantes:'} value={`${numberPeople}`} />
+                    <Button  style={{backgroundColor: "#bc1515", display: "inline", marginLeft: "20px"}}>Desativar</Button>
                 </>
             </AdminWrapper>
         </>

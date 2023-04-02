@@ -9,7 +9,6 @@ import { Button } from '@/components/button'
 const AdminViewGroups = () => {
     const router = useRouter()
     const { id, message, group, min, max, total } = router.query
-    console.log(id);
     return (
         <>
             <Head>
