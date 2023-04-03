@@ -7,31 +7,31 @@ const indemnitySchema = new mongoose.Schema(
             required: true,
             ref: 'User',
         },
-        value:{
+        value: {
             type: Number,
             trim: true,
             required: true,
         },
-        imei:{
+        imei: {
             type: String,
             trim: true,
             required: true,
             minlenght: 15,
-            maxlenght: 15, 
+            maxlenght: 15,
             select: false
         },
-       motive:{
-        type: String,
-        required: true,
-       },
-       approved:{
-        type: Boolean,
-        required: false,
-        default: false,
+        motive: {
+            type: String,
+            required: true,
+        },
+        approved: {
+            type: Boolean,
+            required: false,
+            default: false,
 
-       }
+        }
     },
-    {timestamps: true}
+    { timestamps: true }
 )
 
 

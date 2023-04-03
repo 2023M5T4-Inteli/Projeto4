@@ -7,8 +7,10 @@ import { StartText } from '@/components/startText'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import axios from '../../../axios'
 
 export default function NewIndemnity() {
+    
     const router = useRouter()
 
     const backHandler = () => {

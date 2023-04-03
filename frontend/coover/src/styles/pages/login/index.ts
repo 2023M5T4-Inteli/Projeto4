@@ -9,21 +9,8 @@ export const Title = styled.h3`
     margin-bottom: 20px;
 `
 
-interface PageContainerProps {
-    stage: number
-}
 
-export const PageContainer = styled.div<PageContainerProps>`
-    display: grid;
-    grid-template-columns: repeat(2, 100vw);
-    max-height: 100vh;
-    grid-gap: 5vw;
-    transition: all 0.4s;
+export const PageContainer = styled.div`
 
-    ${props =>
-        props.stage == 1 &&
-        css`
-            transform: translateX(-105vw);
-            
-        `}
+  
 `

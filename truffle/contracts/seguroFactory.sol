@@ -28,7 +28,7 @@ contract SeguroFactory {
         string[] memory _imeis,
         uint _lmiTax
     ) public isOwner {
-        Seguro2 seguro = new Seguro2(
+        SeguroMutuo seguro = new SeguroMutuo(
             _adminTax,
             _members,
             _imeis,

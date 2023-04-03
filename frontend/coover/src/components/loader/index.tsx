@@ -3,7 +3,7 @@ import { ClipLoader } from 'react-spinners'
 import { LoaderContainer } from './style'
 
 
-const loader: React.FC = () => {
+const Loader: React.FC = () => {
     return (
         <LoaderContainer>
             <ClipLoader color={'#00c2a8'} size={120} />
@@ -11,4 +11,4 @@ const loader: React.FC = () => {
     )
 }
 
-export default loader
+export default Loader

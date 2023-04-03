@@ -6,6 +6,8 @@ import { Button } from '../button'
 import { RightIcon } from '../rightIcon'
 import { useMetamask } from '@/contexts/metamask'
 import { useRouter } from 'next/router'
+import axios from '../../../axios'
+import { toast } from 'react-toastify'
 
 //Tornar objeto (com a propriedade ethereum) global
 declare global {
@@ -15,8 +17,12 @@ declare global {
     }
 }
 
+interface Props {
+    watch: any
+}
+
 //Formulário de conexão com a carteira Metamask.
-const MetamaskForm: React.FC = () => {
+const MetamaskForm: React.FC<Props> = ({watch}) => {
     const { account, setAccount } = useMetamask() //Definição do hook useMetamask, que recupera o estado da account
     const router = useRouter() //Hook para manipular a navegação
 
@@ -29,10 +35,8 @@ const MetamaskForm: React.FC = () => {
                     method: 'eth_requestAccounts'
                 })
 
-                // Checar aqui se carteira da metamask é a mesma que está cadastrada no sistema (caso seja a página de login)
                 setAccount(res[0])
                 const sepolia = '0xaa36a7'
-                console.log(window.ethereum.chainId)
                 if (window.ethereum.chainId !== sepolia) {
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
@@ -50,8 +54,24 @@ const MetamaskForm: React.FC = () => {
     }
 
     //Se for conecatado o usuário é direcionado para a página dashboard
-    const handleContinue = () => {
-        router.replace("/dashboard")
+    const handleContinue = async () => {
+        const signupForm = watch()
+        signupForm.wallet = account
+
+        try {
+            const res = await axios.post('/users/signup', signupForm)
+            localStorage.setItem("token", res.data.token)
+            toast.success("Usuário cadastrado com sucesso!")
+            router.replace("/dashboard")
+        } catch (err: any) {
+            if (err.response) {
+                toast.error(err.response.data)
+            } else {
+
+                toast.error("Erro ao cadastrar usuário!")
+            }
+        }
+       
     }
 
     //Retorna a interface do formulário
@@ -79,7 +99,7 @@ const MetamaskForm: React.FC = () => {
             )}
 
             <Button onClick={handleContinue} disabled={!account}>
-                Continuar <RightIcon />
+                Criar conta <RightIcon />
             </Button>
         </Container>
     )

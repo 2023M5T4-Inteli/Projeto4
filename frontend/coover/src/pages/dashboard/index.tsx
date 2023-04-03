@@ -3,27 +3,45 @@ import { NoNotification } from '@/components/notification/style'
 import PageWrapper from '@/components/pageWrapper'
 import { StartText } from '@/components/startText'
 import Head from 'next/head'
+import React, { useState, useEffect } from 'react'
+import axios from '../../../axios'
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
-const notifications = [
-    {
-        id: 0,
-        message: 'Eba! Você foi convidado para participar de um grupo'
-    },
-    {
-        id: 1,
-        message: 'Eba! Você foi convidado para participar de um grupo'
-    },
-    {
-        id: 2,
-        message: 'Eba! Você foi convidado para participar de um grupo'
-    },
-    {
-        id: 3,
-        message: 'Realize um depósito para concluir sua participação'
-    }
-]
+// const notifications = [
+//     {
+//         id: 0,
+//         message: 'Eba! Você foi convidado para participar de um grupo'
+//     },
+//     {
+//         id: 1,
+//         message: 'Eba! Você foi convidado para participar de um grupo'
+//     },
+//     {
+//         id: 2,
+//         message: 'Eba! Você foi convidado para participar de um grupo'
+//     },
+//     {
+//         id: 3,
+//         message: 'Realize um depósito para concluir sua participação'
+//     }
+// ]
 
 const Dashboard = () => {
+    const [notifications, setNotifications] = useState<any>([])
+
+    const getInvites = async () => {
+        try {
+            const res = await axios.get('/insurance/user/invites')
+            setNotifications(res.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getInvites()
+    }, [])
+
     return (
         <>
             <Head>
@@ -35,9 +53,9 @@ const Dashboard = () => {
                         Olá!
                         <br /> Vamos começar?
                     </StartText>
-                    {notifications.length > 0 ? (
-                        notifications.map(notification => (
-                            <Notification key={notification.id} {...notification} />
+                    {notifications && notifications.length > 0 ? (
+                        notifications.map((notification: any) => (
+                            <Notification key={notification._id} id={notification._id} message='Eba! Você foi convidado para participar de um grupo' />
                         ))
                     ) : (
                         <NoNotification>
@@ -51,4 +69,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default RequireAuthentication(Dashboard)

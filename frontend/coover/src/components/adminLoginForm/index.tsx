@@ -10,6 +10,8 @@ import Link from 'next/link'
 import { useUser } from '@/contexts/user'
 import { useRouter } from 'next/router'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
+import axios from '../../../axios'
+import { toast } from 'react-toastify'
 
 const schema = yup.object().shape({
     email: yup
@@ -38,8 +40,14 @@ const AdminLoginForm: React.FC<Props> = ({ }) => {
     const { setUser } = useUser()
 
     const onSubmit = (data: any) => {
-        // Fazer requisição para backend aqui
-        // setUser(user)
+            try{
+                await axios.post('/users/login', data)
+                toast.success('Login feito com sucesso!')
+                router.replace('/users/admin')
+            }catch(err:any){
+                toast.error(err.response.data)
+            }
+        }
     }
 
     return (

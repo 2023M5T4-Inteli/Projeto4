@@ -124,6 +124,7 @@ router.get('/user/me', authMiddleware, async (req, res) => {
 
         // Buscar o seguro no banco de dados pelo ID
         const insurance = await Insurance.findOne({ _id: req.user.insurance })
+        await insurance.populate('users')
 
         // Enviar o seguro encontrado como resposta
         res.send(insurance)
@@ -146,6 +147,23 @@ router.get('/user/invites', authMiddleware, async (req, res) => {
         // Enviar os convites encontrados como resposta
         res.send(req.user.invites)
     } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
+// ROTA PARA VER UM CONVITE
+router.get('/user/invites/:id', authMiddleware, async (req, res) => {
+    try {
+
+        // Popular o usuário com os convites relacionados
+        await req.user.populate('invites')
+
+        const invite = req.user.invites.filter(invite => invite._id == req.params.id)
+
+        // Enviar os convites encontrados como resposta
+        res.send(invite[0])
+    } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -204,7 +222,6 @@ router.patch('/user/invite', authMiddleware, async (req, res) => {
     }
 })
 
-//ROTA PARA CRIAR UM GRUPO DE SEGURO (ENVIAR OS CONVITES AOS INTERESSADOS)
 router.get('/contracts', adminMiddleware, async (req, res) => {
     try {
         // Criar uma instância da fábrica de seguros

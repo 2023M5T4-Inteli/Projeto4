@@ -4,56 +4,25 @@ import { Button } from '../button'
 import Input from '../input'
 import { RightIcon } from '../rightIcon'
 import { Form } from './style'
-import * as yup from 'yup'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Link from 'next/link'
 
-const schema = yup.object().shape({
-    email: yup
-        .string()
-        .email('Insira um email válido')
-        .required('O email é um campo obrigatório'),
-    password: yup
-        .string()
-        .min(8, 'A senha deve ter pelo menos 8 caracteres')
-        .max(32, 'A senha deve ter no máximo 32 caracteres')
-        .required('A senha é um campo obrigatório'),
-    confirmPassword: yup
-        .string()
-        .min(8, 'A senha deve ter pelo menos 8 caracteres')
-        .max(32, 'A senha deve ter no máximo 32 caracteres')
-        .required('A confirmação de senha é um campo obrigatório'),
-    imei: yup.string().required('O imei é um campo obrigatório'),
-    confirmImei: yup
-        .string()
-        .required('A confirmação do imei é um campo obrigatório'),
-    phoneModel: yup
-        .string()
-        .required('O modelo do celular é um campo obrigatório'),
-    phoneValue: yup
-        .number().typeError("O valor do celular deve ser um número")
-        .required('O valor do celular é um campo obrigatório')
-})
 
 interface Props {
     setStage(stage: number): void
+    handleSubmit: any
+    register: any
+    errors: any
 }
 
-const SignupForm: React.FC<Props> = ({ setStage }) => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm({
-        // resolver: yupResolver(schema)
-    })
+const SignupForm: React.FC<Props> = ({ setStage,errors,handleSubmit,register }) => {
 
     const onSubmit = (data: any) => {
-        if (data.password != data.confirmPassword) {
-            return toast.error("As senhas estão diferentes!")
-        } else if (data.imei != data.confirmImei) {
-            return toast.error("Os IMEIS estão diferentes!")
-        }
+        // if (data.password != data.confirmPassword) {
+        //     return toast.error("As senhas estão diferentes!")
+        // } else if (data.imei != data.confirmImei) {
+        //     return toast.error("Os IMEIS estão diferentes!")
+        // }
 
         setStage(1)
 

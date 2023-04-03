@@ -2,12 +2,20 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const { authMiddleware, adminMiddleware } = require('../middleware/auth')
-const Indemnity = require('../models/indemnity.js')
+const Indemnity = require('../models/indemnity')
 const router = express.Router()
 
 //ROTA PARA PEDIR UMA NOVA INDENIZAÇÃO
-router.post('/indemnity/create', authMiddleware, async (req, res) => {
+router.post('/create', authMiddleware, async (req, res) => {
     try {
+        if (req.user.imei != req.body.imei) {
+            return res.status(500).send("Imei diferente do cadastrado!")
+        }
+
+        if (req.body.value > req.user.phoneValue) {
+            return res.status(500).send("Valor requisitado não deve ser maior que o do seu celular!")
+        }
+
         // Cria uma nova instância do modelo de Indemnity com os dados do corpo da requisição
         const indemnity = new Indemnity(req.body)
         // Define a propriedade 'approved' como false por padrão
@@ -25,7 +33,7 @@ router.post('/indemnity/create', authMiddleware, async (req, res) => {
 })
 
 //ROTA PARA VISUALIZAR AS INDENIZAÇÕES
-router.get('/indemnity/admin', adminMiddleware, async (req, res) => {
+router.get('/admin', adminMiddleware, async (req, res) => {
     try {
         // Busca todos os documentos de Indemnity no banco de dados
         const indemnity = await Indemnity.find({})
@@ -40,7 +48,7 @@ router.get('/indemnity/admin', adminMiddleware, async (req, res) => {
 })
 
 //ROTA PARA O USUÁRIO VER UMA INDENIZAÇÃO
-router.get('/indemnity/:id', authMiddleware, async (req, res) => {
+router.get('/:id', authMiddleware, async (req, res) => {
 
     try {
         // Busca o documento de Indemnity correspondente ao ID fornecido e associado ao usuário atual
@@ -57,7 +65,7 @@ router.get('/indemnity/:id', authMiddleware, async (req, res) => {
 })
 
 //ROTA PARA O ADMINISTRADOR VER UMA INDENIZAÇÃO
-router.get('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
+router.get('/admin/:id', adminMiddleware, async (req, res) => {
     try {
         // Busca o documento de Indemnity correspondente ao ID fornecido
         const indemnity = await Indemnity.findOne({ _id: req.params.id })
@@ -71,7 +79,7 @@ router.get('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
 })
 
 //ROTA PARA O ADMINISTRADOR APROVAR OU RECUSAR UMA INDENIZAÇÃO
-router.patch('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
+router.patch('/admin/:id', adminMiddleware, async (req, res) => {
     try {
         // Busca o documento de Indemnity correspondente ao ID fornecido
         const updatedindemnity = await Indemnity.findOne({ _id: req.params.id })
@@ -87,3 +95,5 @@ router.patch('/indemnity/admin/:id', adminMiddleware, async (req, res) => {
         res.status(500).send(err)
     }
 })
+
+module.exports = router

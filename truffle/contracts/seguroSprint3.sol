@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.19;
 /*Importação de biblioteca que faz com que as equações da indenização funcionem, visto que com operações 
 normais os valores resultantes estavam excedendo os limites do tipo de dados usado para armazenar o valor*/
 import "../node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol";
@@ -10,7 +10,7 @@ import "../node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol";
 // inteiro -> percentual do limite máximo indenizável
 // mapping (DHT) -> endereço de carteiras dos membros são chaves que levam ao IMEI dos celulares
 // mapping (DHT) -> endereço de carteiras dos membros são chaves ao valor que possuem de reseva pessoal
-contract Seguro2 {
+contract SeguroMutuo {
     using SafeMath for uint256;
     address payable owner;
     uint256 adminTax;

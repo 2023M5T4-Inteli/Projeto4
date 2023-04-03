@@ -5,8 +5,27 @@ import { Content, Status } from '@/styles/pages/group'
 import Head from 'next/head'
 import Web3 from 'web3';
 import { useState, useEffect } from 'react';
+import axios from '../../../axios'
+import Loader from '@/components/loader'
 
 export default function Group() {
+
+    const [group, setGroup] = useState<any>(null)
+
+
+    const getGroup = async () => {
+        try {
+            const res = await axios.get('/insurance/user/me')
+            setGroup(res.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getGroup()
+    }, [])
+
     return (
         <>
             <Head>
@@ -19,14 +38,15 @@ export default function Group() {
                         <br /> Veja as informações do seu grupo
                     </StartText>
                     <Content>
-                        <Status>Status: <span>ativo</span></Status>
-                        <ViewInfo label={'Saldo do grupo:'} value="R$0,00" />
-                        <ViewInfo label={'Número de participantes:'} value="100" />
-                        <ViewInfo label={'Coberturas:'} value="Roubo e furto" />
-                        <ViewInfo label={'Valor da reserva:'} value="X%" />
-                        <ViewInfo label={'Vigência:'} value="12 meses restantes" />
+                        {
+                            group ? <> <Status isActive={group.isActive}>Status: <span>{group.isActive ? "Ativo" : "Em análise"}</span></Status>
+                                {/* <ViewInfo label={'Saldo do grupo:'} value="R$0,00" /> */}
+                                <ViewInfo label={'Número de participantes:'} value={group.users.length} />
+                                <ViewInfo label={'Coberturas:'} value="Roubo e furto" />
+                                <ViewInfo label={'Taxa máxima de limite indenizável:'} value={group.lmiTax + "%"} /></> : <Loader />
+                        }
                     </Content>
-                   
+
 
                     {/* <Warning />
                     <ReplaceBalance /> */}

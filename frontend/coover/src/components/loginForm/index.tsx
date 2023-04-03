@@ -1,13 +1,16 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
 import { Button } from '../button'
 import Input from '../input'
 import { RightIcon } from '../rightIcon'
 import { Form } from './style'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
-import { useUser } from '@/contexts/user'
+import { toast } from 'react-toastify'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import axios from '../../../axios'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 const schema = yup.object().shape({
     email: yup
@@ -21,11 +24,12 @@ const schema = yup.object().shape({
         .required('A senha é um campo obrigatório')
 })
 
+
 interface Props {
-    setStage(stage: number): void
 }
 
-const LoginForm: React.FC<Props> = ({ setStage }) => {
+const LoginForm: React.FC<Props> = ({ }) => {
+
     const {
         register,
         handleSubmit,
@@ -34,13 +38,17 @@ const LoginForm: React.FC<Props> = ({ setStage }) => {
         resolver: yupResolver(schema)
     })
 
-    const {setUser} = useUser()
+    const router = useRouter()
+    const [login, setLogin] = useState<any>(null)
 
-    const onSubmit = (data: any) => {
-        // Fazer requisição para backend aqui
-        
-        setStage(1)
-        // setUser(user)
+    const onSubmit = async (data: any) => {
+        try{
+            await axios.post('/users/login', data)
+            toast.success('Login feito com sucesso!')
+            router.replace('/dashboard')
+        }catch(err:any){
+            toast.error(err.response.data)
+        }
     }
 
     return (

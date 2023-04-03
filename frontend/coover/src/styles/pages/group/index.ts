@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
-export const Status = styled.p`
+
+interface StatusProps {
+  isActive: boolean
+}
+
+export const Status = styled.p<StatusProps>`
   font-size: 20px;
   font-weight: 500;
 
   span {
     font-weight: 400;
-    color: ${props => props.theme.colors.primary};
+    color:  ${props => props.isActive ? props.theme.colors.primary : "#edd900"};
   }
 `;
 
