@@ -6,7 +6,8 @@ import { StartText } from '@/components/startText'
 import { Content, NoIndemnity } from '@/styles/pages/indemnity'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from '../../../axios'
 
 export enum IndemnityStatus {
     requested,
@@ -21,11 +22,30 @@ export interface IndemnityInterface {
 }
 
 export default function Indemnity() {
+
     const router = useRouter()
     const [indemnity, setIndemnity] = useState<IndemnityInterface | null>({
         id: "0",
         status: IndemnityStatus.denied
     })
+
+    const getIndemnity = async () => {
+        try {
+            const res = await axios.get('/indemnity/me')
+            // let status = 
+            const inden = {
+                id: res.data._id,
+                status: 
+            }
+            setIndemnity(res.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getIndemnity()
+    }, [])
 
     return (
         <>
@@ -45,10 +65,10 @@ export default function Indemnity() {
                                 {indemnity.status !=
                                     IndemnityStatus.requested &&
                                     indemnity.status !=
-                                        IndemnityStatus.analysis && (
-                                            <Button onClick={() => router.push("/indemnity/new")}>
-                                                Solicitar <RightIcon />
-                                            </Button>
+                                    IndemnityStatus.analysis && (
+                                        <Button onClick={() => router.push("/indemnity/new")}>
+                                            Solicitar <RightIcon />
+                                        </Button>
                                     )}
                             </>
                         )}

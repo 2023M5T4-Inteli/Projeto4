@@ -8,9 +8,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import axios from '../../../axios'
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
-export default function NewIndemnity() {
-    
+const NewIndemnity = () => {
+
     const router = useRouter()
 
     const backHandler = () => {
@@ -35,3 +36,5 @@ export default function NewIndemnity() {
         </>
     )
 }
+
+export default RequireAuthentication(NewIndemnity)

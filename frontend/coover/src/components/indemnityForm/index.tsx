@@ -45,7 +45,7 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues, status }) => {
         try {
             await axios.post('/indemnity/create', data)
             toast.success('Pedido de indenização criado com sucesso!')
-            router.replace('/create')
+            router.replace('/indemnity')
         } catch (err: any) {
             console.log(err)
             toast.error(err.response.data)

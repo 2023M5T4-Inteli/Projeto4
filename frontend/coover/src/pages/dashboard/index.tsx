@@ -6,6 +6,8 @@ import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 import axios from '../../../axios'
 import RequireAuthentication from '@/HOC/requireAuthentication'
+import { useUser } from '@/contexts/user'
+import { useRouter } from 'next/router'
 
 // const notifications = [
 //     {
@@ -28,6 +30,8 @@ import RequireAuthentication from '@/HOC/requireAuthentication'
 
 const Dashboard = () => {
     const [notifications, setNotifications] = useState<any>([])
+    const {user} = useUser()
+    const router = useRouter()
 
     const getInvites = async () => {
         try {
@@ -37,6 +41,13 @@ const Dashboard = () => {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        if (user && user!.insurance!) {
+            router.replace('/group')
+            return
+        }
+    }, [user])
 
     useEffect(() => {
         getInvites()

@@ -8,6 +8,7 @@ import { useMetamask } from '@/contexts/metamask'
 import { useRouter } from 'next/router'
 import axios from '../../../axios'
 import { toast } from 'react-toastify'
+import { useUser } from '@/contexts/user'
 
 //Tornar objeto (com a propriedade ethereum) global
 declare global {
@@ -25,6 +26,7 @@ interface Props {
 const MetamaskForm: React.FC<Props> = ({watch}) => {
     const { account, setAccount } = useMetamask() //Definição do hook useMetamask, que recupera o estado da account
     const router = useRouter() //Hook para manipular a navegação
+    const {setUser} = useUser()
 
     //Função para se conectar a metamask
     const connectToMetamask = async () => {
@@ -60,7 +62,7 @@ const MetamaskForm: React.FC<Props> = ({watch}) => {
 
         try {
             const res = await axios.post('/users/signup', signupForm)
-            localStorage.setItem("token", res.data.token)
+            setUser(res.data)
             toast.success("Usuário cadastrado com sucesso!")
             router.replace("/dashboard")
         } catch (err: any) {

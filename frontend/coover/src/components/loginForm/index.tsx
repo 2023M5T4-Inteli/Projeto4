@@ -11,6 +11,7 @@ import * as yup from 'yup'
 import axios from '../../../axios'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useUser } from '@/contexts/user'
 
 const schema = yup.object().shape({
     email: yup
@@ -39,13 +40,19 @@ const LoginForm: React.FC<Props> = ({ }) => {
     })
 
     const router = useRouter()
-    const [login, setLogin] = useState<any>(null)
-
+    const {setUser} = useUser()
     const onSubmit = async (data: any) => {
         try{
-            await axios.post('/users/login', data)
+            console.log(data)
+            const res = await axios.post('/users/login', data)
+            setUser(res.data)
             toast.success('Login feito com sucesso!')
-            router.replace('/dashboard')
+            if (res.data.insurance) {
+                router.replace('/group')
+            } else {
+                router.replace('/dashboard')
+
+            }
         }catch(err:any){
             toast.error(err.response.data)
         }

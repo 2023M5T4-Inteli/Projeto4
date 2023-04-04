@@ -24,6 +24,11 @@ const indemnitySchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        isActive: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
         approved: {
             type: Boolean,
             required: false,

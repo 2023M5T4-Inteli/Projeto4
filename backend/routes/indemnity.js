@@ -4,11 +4,13 @@ const bcrypt = require('bcryptjs')
 const { authMiddleware, adminMiddleware } = require('../middleware/auth')
 const Indemnity = require('../models/indemnity')
 const router = express.Router()
+const bycrypt = require('bcryptjs')
 
 //ROTA PARA PEDIR UMA NOVA INDENIZAÇÃO
 router.post('/create', authMiddleware, async (req, res) => {
     try {
-        if (req.user.imei != req.body.imei) {
+        const isImeiEqual =  await bycrypt.compare(req.user.imei, req.body.imei)
+        if (isImeiEqual) {
             return res.status(500).send("Imei diferente do cadastrado!")
         }
 
@@ -17,7 +19,8 @@ router.post('/create', authMiddleware, async (req, res) => {
         }
 
         // Cria uma nova instância do modelo de Indemnity com os dados do corpo da requisição
-        const indemnity = new Indemnity(req.body)
+        const indemnity = new Indemnity({...req.body, user: req.user._id})
+        
         // Define a propriedade 'approved' como false por padrão
         indemnity.approved = false
         // Salva a nova instância de Indemnity no banco de dados
@@ -27,6 +30,7 @@ router.post('/create', authMiddleware, async (req, res) => {
         res.send()
 
     } catch (err) {
+        console.log(err)
          // Retorna um erro 500 (Erro Interno do Servidor) em caso de falha
         res.status(500).send(err)
     }
@@ -48,16 +52,16 @@ router.get('/admin', adminMiddleware, async (req, res) => {
 })
 
 //ROTA PARA O USUÁRIO VER UMA INDENIZAÇÃO
-router.get('/:id', authMiddleware, async (req, res) => {
+router.get('/me', authMiddleware, async (req, res) => {
 
     try {
         // Busca o documento de Indemnity correspondente ao ID fornecido e associado ao usuário atual
-        const indemnity = await Indemnity.findOne({ _id: req.params.id, user: req.user._id })
-
+        const indemnities = await Indemnity.find({  user: req.user._id }).sort('created_at')
         // Retorna o documento encontrado
-        res.send(indemnity)
+        res.send(indemnities[indemnities.length - 1])
 
     } catch (err) {
+        console.log(err)
         // Retorna um erro 500 (Erro Interno do Servidor) em caso de falha
         res.status(500).send(err)
     }

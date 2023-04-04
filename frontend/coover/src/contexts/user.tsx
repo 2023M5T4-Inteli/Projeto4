@@ -7,6 +7,7 @@ interface User {
     lastName: string
     email: string
     wallet: string
+    insurance?: string
 }
 
 interface UserContextInterface {
@@ -18,13 +19,7 @@ interface UserContextInterface {
 const UserContext = createContext<UserContextInterface | null>(null)
 
 export default function UserProvider({ children }: any) {
-    const [user, setUser] = useState<User | null>({
-        name: "Rebeca",
-        lastName: "Dias",
-        _id: "3891238921",
-        email: "rebeca.teste@gmail.com",
-        wallet: "0xuo4u1o4u12491"
-    })
+    const [user, setUser] = useState<User | null>(null)
     const router = useRouter()
 
     const handleLogout = async (replaceLink: string) => {
