@@ -8,10 +8,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import axios from '../../../axios'
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
 export enum IndemnityStatus {
     requested,
-    analysis,
     accepted,
     denied
 }
@@ -21,23 +21,28 @@ export interface IndemnityInterface {
     status: IndemnityStatus
 }
 
-export default function Indemnity() {
+const Indemnity = ()=> {
 
     const router = useRouter()
-    const [indemnity, setIndemnity] = useState<IndemnityInterface | null>({
-        id: "0",
-        status: IndemnityStatus.denied
-    })
+    const [indemnity, setIndemnity] = useState<IndemnityInterface | null>(null)
 
     const getIndemnity = async () => {
         try {
             const res = await axios.get('/indemnity/me')
-            // let status = 
+            let status = IndemnityStatus.requested
+            if (!res.data.approved && res.data.isActive){
+                status = IndemnityStatus.requested
+            } else if (res.data.approved && !res.data.isActive){
+                status = IndemnityStatus.accepted
+            } else if (!res.data.approved && !res.data.isActive){
+                status = IndemnityStatus.denied
+            }
+
             const inden = {
                 id: res.data._id,
-                status: 
+                status
             }
-            setIndemnity(res.data)
+            setIndemnity(inden)
         } catch (err) {
             console.log(err)
         }
@@ -63,9 +68,8 @@ export default function Indemnity() {
                             <>
                                 <IndemnityBox {...indemnity} />
                                 {indemnity.status !=
-                                    IndemnityStatus.requested &&
-                                    indemnity.status !=
-                                    IndemnityStatus.analysis && (
+                                    IndemnityStatus.requested
+                                     && (
                                         <Button onClick={() => router.push("/indemnity/new")}>
                                             Solicitar <RightIcon />
                                         </Button>
@@ -90,3 +94,6 @@ export default function Indemnity() {
         </>
     )
 }
+
+export default RequireAuthentication(Indemnity)
+

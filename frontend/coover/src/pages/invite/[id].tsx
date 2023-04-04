@@ -11,8 +11,9 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Loader from '@/components/loader'
 import Moment from 'react-moment';
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
-export default function Wallet() {
+const  Wallet =()=> {
     const [isAccepted, setIsAccepted] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -108,3 +109,5 @@ export default function Wallet() {
         </>
     )
 }
+
+export default RequireAuthentication(Wallet)

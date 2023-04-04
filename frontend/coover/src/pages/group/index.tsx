@@ -7,8 +7,9 @@ import Web3 from 'web3';
 import { useState, useEffect } from 'react';
 import axios from '../../../axios'
 import Loader from '@/components/loader'
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
-export default function Group() {
+const Group = () => {
 
     const [group, setGroup] = useState<any>(null)
 
@@ -55,3 +56,5 @@ export default function Group() {
         </>
     )
 }
+
+export default RequireAuthentication(Group)

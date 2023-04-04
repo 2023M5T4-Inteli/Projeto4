@@ -6,6 +6,7 @@ import { Content } from '@/styles/pages/account'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Button } from '@/components/button'
+import axios from '../../../../axios'
 
 
 interface Props {}

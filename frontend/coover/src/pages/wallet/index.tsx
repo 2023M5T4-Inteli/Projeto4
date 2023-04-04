@@ -1,3 +1,4 @@
+import RequireAuthentication from '@/HOC/requireAuthentication'
 import { BackIcon } from '@/components/backIcon'
 import { Button } from '@/components/button'
 import Header from '@/components/header'
@@ -12,7 +13,7 @@ import Warning from '@/components/warning'
 import Head from 'next/head'
 
 
-export default function Wallet() {
+const Wallet = ()=> {
     return (
         <>
             <Head>
@@ -33,3 +34,6 @@ export default function Wallet() {
         </>
     )
 }
+
+export default RequireAuthentication(Wallet)
+

@@ -57,6 +57,11 @@ router.get('/me', authMiddleware, async (req, res) => {
     try {
         // Busca o documento de Indemnity correspondente ao ID fornecido e associado ao usuário atual
         const indemnities = await Indemnity.find({  user: req.user._id }).sort('created_at')
+    
+        if (indemnities.length == 0) {
+            res.status(500).send('Nenhuma indenização solicitada!')
+            return
+        }
         // Retorna o documento encontrado
         res.send(indemnities[indemnities.length - 1])
 

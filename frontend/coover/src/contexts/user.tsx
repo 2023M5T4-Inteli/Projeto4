@@ -5,6 +5,8 @@ interface User {
     _id: string
     name: string
     lastName: string
+    phoneValue: string
+    phoneModel: string
     email: string
     wallet: string
     insurance?: string

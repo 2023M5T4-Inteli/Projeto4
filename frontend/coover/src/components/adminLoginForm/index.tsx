@@ -39,15 +39,15 @@ const AdminLoginForm: React.FC<Props> = ({ }) => {
 
     const { setUser } = useUser()
 
-    const onSubmit = (data: any) => {
-            try{
-                await axios.post('/users/login', data)
-                toast.success('Login feito com sucesso!')
-                router.replace('/users/admin')
-            }catch(err:any){
-                toast.error(err.response.data)
-            }
+    const onSubmit = async (data: any) => {
+        try {
+            await axios.post('/users/login', data)
+            toast.success('Login feito com sucesso!')
+            router.replace('/admin/dashboard')
+        } catch (err: any) {
+            toast.error(err.response.data)
         }
+
     }
 
     return (

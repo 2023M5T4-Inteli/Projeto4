@@ -18,7 +18,6 @@ const indemnitySchema = new mongoose.Schema(
             required: true,
             minlenght: 15,
             maxlenght: 15,
-            select: false
         },
         motive: {
             type: String,

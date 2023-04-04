@@ -9,25 +9,6 @@ import RequireAuthentication from '@/HOC/requireAuthentication'
 import { useUser } from '@/contexts/user'
 import { useRouter } from 'next/router'
 
-// const notifications = [
-//     {
-//         id: 0,
-//         message: 'Eba! Você foi convidado para participar de um grupo'
-//     },
-//     {
-//         id: 1,
-//         message: 'Eba! Você foi convidado para participar de um grupo'
-//     },
-//     {
-//         id: 2,
-//         message: 'Eba! Você foi convidado para participar de um grupo'
-//     },
-//     {
-//         id: 3,
-//         message: 'Realize um depósito para concluir sua participação'
-//     }
-// ]
-
 const Dashboard = () => {
     const [notifications, setNotifications] = useState<any>([])
     const {user} = useUser()

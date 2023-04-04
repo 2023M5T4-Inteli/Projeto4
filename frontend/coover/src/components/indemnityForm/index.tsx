@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '../button'
 import Input from '../input'
@@ -22,18 +22,23 @@ const schema = yup.object().shape({
 interface Props {
     view?: boolean
     defaultValues?: any
-    status?: string
 }
 
-const IndemnityForm: React.FC<Props> = ({ view, defaultValues, status }) => {
+const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
+    console.log(defaultValues)
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm({
         defaultValues,
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(defaultValues)
+    }, [defaultValues])
 
     const router = useRouter()
     const onSubmit = async (data: any) => {
@@ -61,13 +66,13 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues, status }) => {
                 error={errors['imei']}
                 disabled={view}
             />
-            <Input
+            {!view && <Input
                 register={register}
                 name="confirmImei"
                 label="Confirme o IMEI do celular *"
                 error={errors['confirmImei']}
                 disabled={view}
-            />
+            />}
             <Input
                 register={register}
                 name="value"
@@ -84,15 +89,11 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues, status }) => {
                 disabled={view}
             />
 
-            <Button disabled={view} marginTop>
-                {status ? (
-                    status
-                ) : (
-                    <span>
-                        Solicitar <RightIcon />
-                    </span>
-                )}
-            </Button>
+            {!view && <Button disabled={view} marginTop>
+                <span>
+                    Solicitar <RightIcon />
+                </span>
+            </Button>}
         </Form>
     )
 }
