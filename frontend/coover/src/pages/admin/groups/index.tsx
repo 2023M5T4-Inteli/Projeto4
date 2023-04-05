@@ -2,36 +2,31 @@ import ActionsTd from '@/components/actionsTd'
 import AdminWrapper from '@/components/adminWrapper'
 import TableComponent from '@/components/table'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { FaRegEye } from 'react-icons/fa'
+import axios from '../../../../axios'
+import Loader from '@/components/loader'
+import { BiWallet } from 'react-icons/bi'
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
 interface Props {}
 
 const AdminGroups: React.FC<Props> = () => {
-    const [groups, setGroups] = useState([
-        {
-            _id: '4901289',
-            id: '4901289',
-            numberPeople: 20,
-            contractTotalValue: 6000,
-            status: true
-        },
-        {
-            _id: '90682405',
-            id: '90682405',
-            numberPeople: 50,
-            contractTotalValue: 2000,
-            status: true
-        },
-        {
-            _id: '598252',
-            id: '598252',
-            numberPeople: 40,
-            contractTotalValue: 500,
-            status: false
+    const [groups, setGroups] = useState([])
+
+    const getGroups = async () => {
+        try {
+            const res = await axios.get('/insurance/admin')
+            setGroups(res.data)
+        } catch (err) {
+            console.log(err)
         }
-    ])
+    }
+
+    useEffect(() => {
+        getGroups()
+    }, [])
 
     const columns = React.useMemo(
         () => [
@@ -44,18 +39,16 @@ const AdminGroups: React.FC<Props> = () => {
                     },
                     {
                         Header: 'Número de participantes',
-                        accessor: 'numberPeople'
+                        accessor: 'users',
+                        Cell: (props: any) => <span>{props.value.length}</span>
                     },
                     {
                         Header: 'Valor total no contrato',
                         accessor: 'contractTotalValue',
-                        Cell: (props: any) => (
-                            <span>R${props.value.toFixed(2)}</span>
-                        )
                     },
                     {
                         Header: 'Status',
-                        accessor: 'status',
+                        accessor: 'isActive',
                         Cell: (props: any) =>
                             props.value ? (
                                 <span>Ativo</span>
@@ -69,10 +62,14 @@ const AdminGroups: React.FC<Props> = () => {
                         Cell: (props: any) => {
                             const actions = [
                                 {
-                                    link: `/admin/groups/${props.value}?status=${props.row.original.status}&contractTotalValue=${props.row.original.contractTotalValue}&numberPeople=${props.row.original.numberPeople}`,
-
+                                    link: `/admin/groups/${props.value}`,
                                     icon: FaRegEye,
                                     color: '#02DE82'
+                                },
+                                {
+                                    link: `/admin/groups/wallet/${props.value}`,
+                                    icon: BiWallet,
+                                    color: 'orange'
                                 }
                             ]
 
@@ -102,4 +99,4 @@ const AdminGroups: React.FC<Props> = () => {
     )
 }
 
-export default AdminGroups
+export default RequireAuthentication(AdminGroups, true)

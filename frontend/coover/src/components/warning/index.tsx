@@ -4,11 +4,12 @@ import { Container, WarningIcon } from './style'
 interface Props {
     title: string
     description: string
+    noMargin?: boolean
 }
 
-const Warning: React.FC<Props> = ({title, description}) => {
+const Warning: React.FC<Props> = ({title, description, noMargin}) => {
     return (
-        <Container>
+        <Container noMargin={noMargin}>
             <WarningIcon />
             <div>
                 <p>{title}</p>

@@ -10,7 +10,7 @@ import axios from '../../../../axios'
 import React, { useEffect, useState } from 'react'
 import { useUser } from '@/contexts/user'
 
-// const notifications = [
+// const groups = [
 //     {
 //         id: 0,
 //         message: 'Novo pedido de indenização!',
@@ -90,21 +90,21 @@ interface Props { }
 
 const AdminDashboard: React.FC<Props> = props => {
     //const [showComponent, setShowComponent] = useState(false);
-    const [notifications, setNotifications] = useState<any>([])
+    const [groups, setGroups] = useState<any>([])
     const {user} = useUser()
     const router = useRouter()
 
-    const getInvites = async () => {
+    const getGroups = async () => {
         try {
-            const res = await axios.get('/insurance/admin')
-            setNotifications(res.data)
+            const res = await axios.get('/insurance/dashboard')
+            setGroups(res.data)
         } catch (err) {
             console.log(err)
         }
     }
 
     useEffect(() => {
-        getInvites()
+        getGroups()
     }, [])
 
     return (
@@ -112,23 +112,12 @@ const AdminDashboard: React.FC<Props> = props => {
             <Head>
                 <title>Admin - Dashboard</title>
             </Head>
-            <AdminWrapper title='Dashboard'>
+            <AdminWrapper title='Grupos aguardando ativação'>
                 <>
-                    <Title text="Atualizações"/>
-                    {notifications.length > 0 ? (
-                        notifications.map(notification => (
-                            <Notification key={notification.id} {...notification} />
-                        ))
-                    ) : (
-                        <NoNotification>
-                            Nosso sistema já está a procura de um grupo para
-                            você entrar. Em breve você receberá um convite.
-                        </NoNotification>
-                    )}
-                    <Title text="Status do grupo"/>
-                    {status.length > 0 ? (
-                        status.map(status => (
-                            <Status key={status.id} {...status} />
+                    
+                    {groups.length > 0 ? (
+                        groups.map((groups: any) => (
+                            <Status key={groups.id} {...groups} />
                         ))
                     ) : (
                         <NoNotification>

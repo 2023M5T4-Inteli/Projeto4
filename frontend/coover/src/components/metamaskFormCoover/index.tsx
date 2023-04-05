@@ -43,9 +43,7 @@ const MetamaskForm2: React.FC = () => {
         }
     }
 
-    const handleContinue = () => {
-        router.replace("/admin/walletCoover")
-    }
+    
 
     return (
         <Container>

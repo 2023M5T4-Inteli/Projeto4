@@ -3,9 +3,12 @@ import NewContractForm from '@/components/newContractForm'
 import Head from 'next/head'
 import React from 'react'
 
+
 interface Props { }
 
+
 const NewContract: React.FC<Props> = props => {
+
     return (
         <>
             <Head>

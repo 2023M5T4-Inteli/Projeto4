@@ -5,8 +5,7 @@ export const Container = styled.div`
     width: 100%;
     background-color: ${props => props.theme.colors.black};
     display: flex;
-    align-items: stretch;
-    padding: 80px;
+    padding: 40px 60px;
 `
 
 export const Content = styled.div`
@@ -18,14 +17,12 @@ export const Content = styled.div`
 `
 
 export const Title = styled.h4`
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 500;
     margin-bottom: 20px;
-
 `
 
 export const Subtitle = styled.p`
-  font-size: 20px;
-  margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
 `
-

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ActionsTd = styled.p`
     display: flex;
-    grid-gap: 6px;
+    grid-gap: 40px;
 
     svg {
         width: 20px;

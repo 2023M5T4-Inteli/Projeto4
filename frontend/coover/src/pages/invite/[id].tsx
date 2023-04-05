@@ -100,7 +100,7 @@ const  Wallet =()=> {
                 </>
             </PageWrapper>
             <ConfirmModal
-                title="Tem certeza que deseja aceitar o convite? Para ativá-lo realize o primeiro depósito"
+                title="Tem certeza que deseja aceitar o convite?"
                 show={showConfirmModal}
                 closeModal={() => setShowConfirmModal(false)}
                 confirmHandler={confirmHandler}

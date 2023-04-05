@@ -14,7 +14,7 @@ contract SeguroMutuo {
     using SafeMath for uint256;
     address payable owner;
     uint256 adminTax;
-    uint256 adminTaxAmount;
+    uint256 public adminTaxAmount;
     uint256 lmiTax;
     mapping(address => string) memberImei;
     mapping(address => uint256) memberFunds;

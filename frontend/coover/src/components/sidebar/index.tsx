@@ -11,20 +11,12 @@ import { useRouter } from 'next/router'
 
 const items = [
     {
-        icon: MdDashboard,
-        link: '/admin/dashboard'
+        icon: MdOutlineGroups2,
+        link: '/admin/groups'
     },
     {
         icon: AiOutlinePlus,
         link: '/admin/contract/new'
-    },
-    {
-        icon: FaWallet,
-        link: '/admin/walletCoover'
-    },
-    {
-        icon: MdOutlineGroups2,
-        link: '/admin/groups'
     },
     {
         icon: FaMoneyBill,

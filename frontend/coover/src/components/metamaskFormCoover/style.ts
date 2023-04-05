@@ -20,8 +20,7 @@ export const Container = styled.div`
 export const Paragraph = styled.p`
     font-size: 20px;
     text-align: center;
-    margin: 80px auto;
-    margin-bottom: 40px;
+    margin: 20px auto;
     width: 80%;
 `
 
@@ -29,5 +28,6 @@ export const MetamaskAccount = styled.p`
     font-size: 14px;
     font-weight: 300;
     text-align: center;
-    margin: 40px auto;
+    margin: 20px auto;
+    margin-top: 0;
 `

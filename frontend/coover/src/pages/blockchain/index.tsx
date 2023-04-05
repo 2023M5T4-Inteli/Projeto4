@@ -51,7 +51,7 @@ export default function Home() {
                         Crie agora!
                     </a>
                 </h3>
-                <Button onClick={() => router.push('/login')}>
+                <Button onClick={() => router.push('/signup')}>
                     Quero participar! <RightIcon />
                 </Button>
 

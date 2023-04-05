@@ -43,7 +43,7 @@ const AdminLoginForm: React.FC<Props> = ({ }) => {
         try {
             await axios.post('/users/login', data)
             toast.success('Login feito com sucesso!')
-            router.replace('/admin/dashboard')
+            router.replace('/admin/groups')
         } catch (err: any) {
             toast.error(err.response.data)
         }
@@ -71,7 +71,7 @@ const AdminLoginForm: React.FC<Props> = ({ }) => {
                 Icon={AiOutlineLock}
             />
 
-            <Button marginTop onClick={() => router.push('/admin/dashboard')}>
+            <Button marginTop>
                 Continuar
             </Button>
 

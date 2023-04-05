@@ -10,6 +10,7 @@ interface User {
     email: string
     wallet: string
     insurance?: string
+    insuranceActive?: boolean
 }
 
 interface UserContextInterface {

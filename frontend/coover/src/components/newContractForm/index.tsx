@@ -7,6 +7,11 @@ import { ButtonContainer, Form, Grid } from './style'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Warning from '../warning'
+import axios from '../../../axios'
+import RequireAuthentication from '@/HOC/requireAuthentication'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 const schema = yup.object().shape({
     adminTax: yup
@@ -29,10 +34,10 @@ const schema = yup.object().shape({
         .date()
         .typeError('Esse campo deve ser uma data')
         .required('O tempo do convite é um campo obrigatório'),
-    franchiseValue: yup
+    lmiTax: yup
         .number()
         .typeError('Esse campo deve ser um número')
-        .required('O valor da franquia é um campo obrigatório')
+        .required('O valor da taxa é um campo obrigatório')
 })
 
 
@@ -44,9 +49,15 @@ const NewContractForm: React.FC = () => {
     } = useForm({
         resolver: yupResolver(schema)
     })
+    const router = useRouter()
 
-    const onSubmit = (data: any) => {
-        // Fazer requisição para backend aqui
+    const onSubmit = async (data: any) => {
+        try{
+            await axios.post('/insurance/admin/create', data)
+            router.replace('/admin/groups')
+        }catch(err:any){
+            toast.error(err.response.data)
+        }
     }
 
     return (
@@ -85,9 +96,9 @@ const NewContractForm: React.FC = () => {
                 />
                 <Input
                     register={register}
-                    name="franchiseValue"
-                    label="Valor da reserva *"
-                    error={errors['franchiseValue']}
+                    name="lmiTax"
+                    label="Taxa de limite máximo indenizável *"
+                    error={errors['lmiTax']}
                 />
             </Grid>
 
@@ -96,7 +107,7 @@ const NewContractForm: React.FC = () => {
                 description="Após clicar em “Convidar”, os usuários que atenderem às especificações acima receberão um convite. O status do contrato para sua ativação será informado no dashboard."
             />
             <ButtonContainer>
-                <Button>Convidar</Button>
+                <Button type='submit'>Criar</Button>
             </ButtonContainer>
         </Form>
     )

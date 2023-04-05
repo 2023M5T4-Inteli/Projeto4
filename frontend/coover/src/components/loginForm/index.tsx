@@ -43,14 +43,13 @@ const LoginForm: React.FC<Props> = ({ }) => {
     const {setUser} = useUser()
     const onSubmit = async (data: any) => {
         try{
-            console.log(data)
             const res = await axios.post('/users/login', data)
             setUser(res.data)
             toast.success('Login feito com sucesso!')
-            if (res.data.insurance) {
-                router.replace('/group')
-            } else {
+            if (!res.data.insurance) {
                 router.replace('/dashboard')
+            } else {
+                router.replace('/group')
 
             }
         }catch(err:any){
@@ -78,7 +77,7 @@ const LoginForm: React.FC<Props> = ({ }) => {
                 Login <RightIcon />
             </Button>
 
-            <Link href="/signup">
+            <Link href="/blockchain">
                 Ainda não tem conta? <br />
                 Criar conta
             </Link>

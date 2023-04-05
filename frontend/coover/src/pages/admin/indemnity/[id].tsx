@@ -1,6 +1,6 @@
 import AdminWrapper from '@/components/adminWrapper'
 import Head from 'next/head'
-import React from 'react'
+import React, {useEffect} from 'react'
 import ViewInfo from '@/components/viewInfo'
 import { Content } from '@/styles/pages/account'
 import { useState } from 'react'
@@ -8,13 +8,27 @@ import { toast } from 'react-toastify'
 import { Button } from '@/components/button'
 import axios from '../../../../axios'
 
-
 interface Props {}
 
 const AdminViewGroups: React.FC<Props> = () => {
     const [isAccepted, setIsAccepted] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const [group, setGroup] = useState<any>(null)
+
+    const getIndemnity = async () => {
+        try {
+            const res = await axios.get('/admin/:id')
+            setIsAccepted(res.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getIndemnity()
+    }, [])
 
     const handleAccept = () => {
         setShowConfirmModal(true)

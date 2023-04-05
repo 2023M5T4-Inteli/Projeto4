@@ -12,11 +12,11 @@ export const Table = styled.table`
                 border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                 display: flex;
                 align-items: center;
-                font-size: 18px;
+                font-size: 16px;
                 color: ${props => props.theme.colors.greyDark1};
                 /* margin-right: 3rem; */
                 text-align: left;
-                padding: 20px 0;
+                padding: 15px 0;
                 font-weight: 500;
 
                 span {
@@ -34,9 +34,9 @@ export const Table = styled.table`
                 display: flex;
                 align-items: center;
                 flex: 1;
-                padding: 18px 0;
+                padding: 14px 0;
                 font-family: sans-serif;
-                font-size: 15px;
+                font-size: 12px;
                 border-collapse: collapse;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.2);
             }
@@ -47,9 +47,9 @@ export const Table = styled.table`
 export const Pagination = styled.div`
     display: grid;
 
-    padding-bottom: 40px;
+    padding-bottom: 30px;
 
-    margin-top: 20px;
+    margin-top: 15px;
     grid-template-columns: repeat(5, max-content);
     justify-content: right;
     align-items: center;
@@ -58,7 +58,7 @@ export const Pagination = styled.div`
     span {
         font-family: sans-serif;
         display: block;
-        font-size: 14px;
+        font-size: 12px;
         margin-left: auto;
     }
 `
@@ -70,7 +70,7 @@ const PaginationButtons = styled.button`
     outline: none;
     background-color: ${({ theme }) => theme.colors.greyDark3};
     color: ${props => props.theme.colors.white};
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 3px;
     cursor: pointer;
     transition: all 1s;

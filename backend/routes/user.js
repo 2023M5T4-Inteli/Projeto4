@@ -63,6 +63,14 @@ router.get('/admin', adminMiddleware, async (req, res) => {
     }
 })
 
+router.get('/isadmin', adminMiddleware, async (req, res) => {
+    try {
+        res.send(req.user)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
 //ROTA DE CRIAÇÃO DE CONTA DO USUÁRIO
 router.post('/signup', async (req, res) => {
     try {
@@ -78,7 +86,7 @@ router.post('/signup', async (req, res) => {
 
         const token = await user.generateAuthToken(user._id)
 
-        const insurances = await Insurance.find({})
+        const insurances = await Insurance.find({isActive: false})
         for (let i = 0; i < insurances.length; i++) {
             await insurances[i].populate('users')
             if (!insurances[i].isActive && insurances[i].users.length < insurances[i].maxPeople) {

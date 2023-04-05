@@ -4,10 +4,7 @@ import axios from '../../axios'
 import Router from 'next/router'
 import { parseCookies } from 'nookies'
 
-const RequireAuthentication = (
-    WrappedComponent: any,
-    isAdmin?: boolean,
-) => {
+const RequireAuthentication = (WrappedComponent: any, isAdmin?: boolean) => {
     return class extends React.Component {
         static async getInitialProps(ctx: any) {
             let token = null
@@ -55,13 +52,24 @@ const RequireAuthentication = (
 
                 return { user }
             } catch (err) {
-                if (ctx.req) {
-                    ctx.res.writeHead(302, {
-                        Location: '/login'
-                    })
-                    ctx.res.end()
+                if (isAdmin) {
+                    if (ctx.req) {
+                        ctx.res.writeHead(302, {
+                            Location: '/admin/auth'
+                        })
+                        ctx.res.end()
+                    } else {
+                        Router.push('/admin/auth')
+                    }
                 } else {
-                    Router.push('/login')
+                    if (ctx.req) {
+                        ctx.res.writeHead(302, {
+                            Location: '/login'
+                        })
+                        ctx.res.end()
+                    } else {
+                        Router.push('/login')
+                    }
                 }
             }
             return {}
