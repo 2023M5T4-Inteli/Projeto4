@@ -1,7 +1,5 @@
-// Importa a lib mongoose para se conectar ao MongoDB
 const mongoose = require('mongoose')
 
-// Definição do Schema de indenização
 const indemnitySchema = new mongoose.Schema(
     {
         user: {
@@ -40,8 +38,7 @@ const indemnitySchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-// Criação do modelo
+
 const indemnity = mongoose.model('Indemnity', indemnitySchema)
 
-// Exporta o modelo para que possa ser usada em outros arquivos
 module.exports = indemnity
