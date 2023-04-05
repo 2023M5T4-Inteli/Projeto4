@@ -1,8 +1,11 @@
+// Importa a lib mongoose para se conectar ao MongoDB
 const mongoose = require("mongoose");
-const validator = require("validator");
-const jwt = require("jsonwebtoken");
-const bycrypt = require("bcryptjs");
 
+const validator = require("validator"); // Importa a lib para validação
+const jwt = require("jsonwebtoken"); // Importa a lib para gerar tokens de autenticação
+const bycrypt = require("bcryptjs"); // Importa a lib para criptografar senhas
+
+// Definição do Schema de usuário
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -11,7 +14,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
-      validade(value) {
+      validade(value) { // Validador pra verificar se o email é válido
         if (!validator.isEmail(value)) {
           throw new Error("Email is invalid");
         }
@@ -72,6 +75,7 @@ userSchema.virtual("invites", {
 userSchema.set("toObject", { virtuals: true });
 userSchema.set("toJSON", { virtuals: true });
 
+// Gera um token de autenticação para o usuário
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
   const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -81,15 +85,18 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
+// Buscar um usuário por email e senha
 userSchema.statics.findByCredentials = async function (email, password) {
   const user = await User.findOne({ email }).select("+password");
 
+  // Caso não existe user com esse email
   if (!user) {
     throw new Error("Não foi possível entrar");
   }
 
   const isMatch = await bycrypt.compare(password, user.password);
 
+  // Caso a senha fornecida não seja a mesma armazenada
   if (!isMatch) {
     throw new Error("Não foi possível entrar");
   }
@@ -97,9 +104,10 @@ userSchema.statics.findByCredentials = async function (email, password) {
   return user;
 };
 
+// Middleware executado antes de salvar um usuário
 userSchema.pre("save", async function (next) {
   const user = this;
-
+  
   if (user.isModified("password")) {
     user.password = await bycrypt.hash(user.password, 8);
   }
@@ -111,6 +119,8 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// Criação do modelo
 const User = mongoose.model("User", userSchema);
 
+// Exporta o modelo para que possa ser usada em outros arquivos
 module.exports = User;

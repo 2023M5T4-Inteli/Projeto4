@@ -1,5 +1,7 @@
+// Importa a lib mongoose para se conectar ao MongoDB
 const mongoose = require('mongoose')
 
+// Definição do Schema de seguro mútuo
 const insuranceSchema = new mongoose.Schema(
     {
         adminTax:{
@@ -58,6 +60,8 @@ insuranceSchema.virtual('users', {
 insuranceSchema.set('toObject', { virtuals: true });
 insuranceSchema.set('toJSON', { virtuals: true });
 
+// Criação do modelo
 const Insurance = mongoose.model('Insurance', insuranceSchema)
 
+// Exporta o modelo para que possa ser usada em outros arquivos
 module.exports = Insurance
