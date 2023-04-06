@@ -62,6 +62,7 @@ assim como a taxa administrativa*/
     com os que estão no contrato do mapping member, para que ela se concretize*/
     function firstPayment() public payable {
         require(inverseCompare(memberImei[msg.sender], ""), "Deu ruim");
+        require(memberIsActive[msg.sender] == false);
         memberFunds[msg.sender] += msg.value - ((msg.value * adminTax) / 100); //aqui é recalculado os fundos do segurado, de zero ao valor pago por ele, levando em consideração a taxa percentual administrativa subtraída do valor total pago
         adminTaxAmount += (msg.value * adminTax) / 100;
         memberIsActive[msg.sender] = true; //após o pagamento o cliente está ativo para realizar demais funções no contrato
@@ -137,11 +138,16 @@ assim como a taxa administrativa*/
     // Regra de negócio: A Coover pode retirar a taxa administrativa a qualquer momento
     function adminWithdrawal() public onlyOwner {
         owner.transfer(adminTaxAmount);
+        adminTaxAmount = 0;
     }
 
     //Regra de negócio: O cliente deve conseguir ver seu valor de resera para conferir o valor protegido do seguro.
     function viewUserBalance() public view isActive(msg.sender) returns (uint256) {
         return memberFunds[msg.sender];
+    }
+
+    function viewUserBalanceFromAdm(address user) public view isActive(user) returns (uint256) {
+        return memberFunds[user];
     }
 
     //Regra de negócio: O cliente deve conseguir repor sua reserva.

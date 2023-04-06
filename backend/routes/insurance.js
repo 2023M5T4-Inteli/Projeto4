@@ -6,6 +6,7 @@ const router = express.Router();
 const Insurance = require("../models/insurance");
 const User = require("../models/user");
 const { SeguroFactory, SeguroMutuo } = require("../ethers");
+const { ethers } = require("ethers");
 
 //ROTA PARA CRIAR UM GRUPO DE SEGURO (ENVIAR OS CONVITES AOS INTERESSADOS)
 router.post("/admin/create", adminMiddleware, async (req, res) => {
@@ -68,7 +69,7 @@ router.get("/admin/approve/:id", adminMiddleware, async (req, res) => {
     const seguroAddresses = await seguroFactory.viewSeguros();
     insurance.address = seguroAddresses[seguroAddresses.length - 1];
     insurance.isActive = true;
-    insurance.invites = []
+    insurance.invites = [];
     await insurance.save();
 
     res.send();
@@ -100,7 +101,10 @@ router.get("/admin", adminMiddleware, async (req, res) => {
       if (insurances[i].address) {
         const contractInstance = await SeguroMutuo(insurances[i].address);
         const contractBalance = await contractInstance.getContractBalance();
-        insuranceObject.contractTotalValue = contractBalance.toNumber();
+        const formatedBalance = ethers.utils.formatEther(
+          contractBalance.toString()
+        );
+        insuranceObject.contractTotalValue = formatedBalance;
       } else {
         insuranceObject.contractTotalValue = 0;
       }
@@ -131,10 +135,11 @@ router.get("/admin/:id", adminMiddleware, async (req, res) => {
     if (insurance.address) {
       const contractInstance = await SeguroMutuo(insurance.address);
       const adminTaxAmountBigNumber = await contractInstance.adminTaxAmount();
-      insuranceObject.adminTaxAmount = adminTaxAmountBigNumber.toNumber();
-      const getContractBalanceBigNumber = await contractInstance.getContractBalance();
-      insuranceObject.contractBalance = getContractBalanceBigNumber.toNumber();
-    }
+      insuranceObject.adminTaxAmount = ethers.utils.formatEther(adminTaxAmountBigNumber);
+      const getContractBalanceBigNumber =
+        await contractInstance.getContractBalance();
+      insuranceObject.contractBalance = ethers.utils.formatEther(getContractBalanceBigNumber);
+  }
 
     // Enviar o seguro encontrado como resposta
     res.send(insuranceObject);
@@ -157,16 +162,18 @@ router.get("/user/me", authMiddleware, async (req, res) => {
     // Buscar o seguro no banco de dados pelo ID
     const insurance = await Insurance.findOne({ _id: req.user.insurance });
     await insurance.populate("users");
-    if(insurance.address){
-        const contractInstance = await SeguroMutuo(insurance.address);
-        const contractBalanceBigNumber = await contractInstance.getContractBalance();
-        contractBalance = contractBalanceBigNumber.toNumber();
+    const insuranceObject = insurance.toObject();
+    if (insurance.address) {
+      const contractInstance = await SeguroMutuo(insurance.address);
+      const contractBalanceBigNumber =
+        await contractInstance.getContractBalance();
+      insuranceObject.contractBalance = contractBalanceBigNumber.toNumber();
     }
-     
 
     // Enviar o seguro encontrado como resposta
-    res.send(insurance, contractBalance);
+    res.send(insuranceObject);
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 });

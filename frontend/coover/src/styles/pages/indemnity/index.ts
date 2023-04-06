@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  height: 65vh;
+  grid-gap: 50px;
 `;
 
 export const NoIndemnity = styled.p`
@@ -11,6 +11,5 @@ export const NoIndemnity = styled.p`
     text-align: center;
     width: 70%;
     margin: 0 auto;
-    margin-top: 60%;
     margin-bottom: auto;
 `

@@ -5,7 +5,7 @@ import Moment from 'react-moment'
 interface Props {
     label: string
     date?: boolean
-    value?: string
+    value?: string | number
 }
 
 const ViewInfo: React.FC<Props> = props => {

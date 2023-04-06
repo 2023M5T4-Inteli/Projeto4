@@ -1,19 +1,30 @@
 import RequireAuthentication from '@/HOC/requireAuthentication'
-import { BackIcon } from '@/components/backIcon'
-import { Button } from '@/components/button'
-import Header from '@/components/header'
-import MetamaskForm from '@/components/metamaskForm'
-import Notification from '@/components/notification'
-import { NoNotification } from '@/components/notification/style'
 import PageWrapper from '@/components/pageWrapper'
 import ReplaceBalance from '@/components/replaceBalance'
 import { StartText } from '@/components/startText'
 import ViewInfo from '@/components/viewInfo'
 import Warning from '@/components/warning'
+import { useUser } from '@/contexts/user'
 import Head from 'next/head'
+import Image from 'next/image'
+import FirstPayment from '@/components/firstPayment'
+import React, {useState, useEffect} from 'react'
+import axios from '../../../axios'
 
+const Wallet = () => {
+    const { user } = useUser()
+    const [balance, setBalance] = useState(0)
 
-const Wallet = ()=> {
+    const getUserBalance =  () => {
+        axios.get('/users/userBalance').then(res => setBalance(res.data)).catch(err => console.log(err))
+
+    }
+
+    useEffect(() => {
+        getUserBalance()
+    }, [])
+    
+
     return (
         <>
             <Head>
@@ -21,14 +32,19 @@ const Wallet = ()=> {
             </Head>
             <PageWrapper>
                 <>
-                    <StartText>
-                        Sua carteira
-                        <br /> Confira o saldo de sua reserva
-                    </StartText>
-                    <ViewInfo label={"Saldo:"} value="R$0,00" />
+                    {user && !user.insuranceActive ? (
+                        <FirstPayment />
+                    ) : (
+                        <>
+                            <StartText>
+                                Sua carteira
+                                <br /> Confira o saldo de sua reserva
+                            </StartText>
+                            <ViewInfo label={'Saldo:'} value={balance+" ETH"} />
 
-                    <Warning title='Saldo menor que o da cobertura!' description='Para aproveitar 100% de cobertura no sinistro, reponha sua reserva.' />
-                    <ReplaceBalance />
+                            <ReplaceBalance getUserBalance={getUserBalance} />
+                        </>
+                    )}
                 </>
             </PageWrapper>
         </>
@@ -36,4 +52,3 @@ const Wallet = ()=> {
 }
 
 export default RequireAuthentication(Wallet)
-

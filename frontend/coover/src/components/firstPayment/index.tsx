@@ -1,43 +1,38 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { Button } from '../button'
-import Input from '../input'
+import React, { useState } from 'react'
 import { Form } from './style'
+import { StartText } from '../startText'
+import Image from 'next/image'
+import MetamaskLogo from '../../assets/images/metamask.png'
 import { useRouter } from 'next/router'
 import { useUser } from '@/contexts/user'
-import { useMetamask } from '@/contexts/metamask'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import axios from '../../../axios'
+import * as yup from 'yup'
 import { toast } from 'react-toastify'
+import Input from '../input'
+import { Button } from '../button'
+import { useMetamask } from '@/contexts/metamask'
 import { SeguroMutuo } from '../../../ethers'
 import { ethers } from 'ethers'
-import axios from 'axios'
 import Loader from '../loader'
 
 const schema = yup.object().shape({
-    value: yup
-        .number()
-        .typeError('O valor deve ser um número')
-        .required('O valor é um campo obrigatório')
+    value: yup.number().required('O valor é um campo obrigatório')
 })
 
-interface Props {
-    getUserBalance(): void
-}
-
-const ReplaceBalance: React.FC<Props> = props => {
+const FirstPayment = () => {
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
     })
-
     const [loading, setLoading] = useState(false)
-    const { user } = useUser()
-    const { setAccount } = useMetamask()
+    const router = useRouter()
+    const { user, setUser } = useUser()
+    const { account, setAccount } = useMetamask()
 
     //Função para se conectar a metamask
     const connectToMetamask = async () => {
@@ -56,8 +51,6 @@ const ReplaceBalance: React.FC<Props> = props => {
                 })
             }
 
-            return res[0]
-
             //Caso não tenha a metamask instalada
         } else {
             alert('Install MetaMask')
@@ -67,26 +60,24 @@ const ReplaceBalance: React.FC<Props> = props => {
     const onSubmit = async (data: any) => {
         setLoading(true)
         try {
-            const account = await connectToMetamask()
             if (account !== user?.wallet) {
                 toast.error('Conecte ao mesmo endereço do cadastrado!')
                 return
             }
-
             const contractInstance = await SeguroMutuo(user!.insurance.address)
             const formatedValue = ethers.utils.parseUnits(
                 data.value.toString(),
                 'ether'
             )
-            const tx = await contractInstance.replaceBackup({
+            const tx = await contractInstance.firstPayment({
                 value: formatedValue
             })
             await tx.wait()
-            toast.success('Reposição de reserva realizada com sucesso!')
-            props.getUserBalance()
-            reset({ value: '' })
+            const res = await axios.patch('/users/insuranceActive')
+            toast.success('Primeiro pagamento realizado com sucesso!')
+            router.reload()
         } catch (err: any) {
-            toast.error('Erro ao realizar a reposição!')
+            toast.error('Erro ao realizar o primeiro pagamento!')
         }
         setLoading(false)
     }
@@ -97,17 +88,38 @@ const ReplaceBalance: React.FC<Props> = props => {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
-            <p>Repor reserva</p>
+            <StartText>
+                Carteira
+                <br /> Realize o primeiro pagamento
+            </StartText>
+            <span>
+                Para ativar sua franquia, faça o primeiro pagamento de sua
+                reserva.
+            </span>
+
+            <Image
+                onClick={connectToMetamask}
+                src={MetamaskLogo}
+                alt="Metamask Logo"
+            />
+            {account ? (
+                <span>Endereço conectado: {account}</span>
+            ) : (
+                <span>
+                    Conecte à carteira Metamask que foi adicionada ao grupo para
+                    ativar sua franquia
+                </span>
+            )}
             <Input
-                label="Valor"
                 name="value"
                 register={register}
-                placeholder="Insira o valor que deseja repor"
+                label="Valor do pagamento inicial"
                 error={errors['value']}
             />
-            <Button type="submit">Repor</Button>
+
+            <Button disabled={account == null}>Pagar</Button>
         </Form>
     )
 }
 
-export default ReplaceBalance
+export default FirstPayment

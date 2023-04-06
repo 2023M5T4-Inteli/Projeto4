@@ -9,7 +9,7 @@ interface User {
     phoneModel: string
     email: string
     wallet: string
-    insurance?: string
+    insurance?: any
     insuranceActive?: boolean
 }
 

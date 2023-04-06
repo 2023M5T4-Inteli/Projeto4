@@ -25,7 +25,7 @@ interface Props {
 }
 
 const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
-    console.log(defaultValues)
+   
     const {
         register,
         handleSubmit,

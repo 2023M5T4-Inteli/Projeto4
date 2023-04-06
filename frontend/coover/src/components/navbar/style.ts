@@ -12,8 +12,8 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
 
-
-    justify-content: space-around;
+    justify-content: center;
+    grid-gap: 20px;
     border-top: 1px solid ${props => props.theme.colors.greyLight4};
     background-color: ${props => props.theme.colors.white};
 

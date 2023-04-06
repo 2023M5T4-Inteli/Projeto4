@@ -21,12 +21,13 @@ export const MetamaskContainer = styled.div`
     display: flex;
     grid-gap: 20px;
     align-items: center;
+    margin-top: 20px;
 
-    form {
-        flex: 1;
+    div {
         display: flex;
         flex-direction: column;
         grid-gap: 20px;
+        align-items: center;
     }
 `
 

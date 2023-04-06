@@ -22,13 +22,20 @@ import Input from '@/components/input'
 import { useMetamask } from '@/contexts/metamask'
 import axios from '../../../../../axios'
 import Loader from '@/components/loader'
+import { toast } from 'react-toastify'
+import { SeguroMutuo } from '../../../../../ethers'
+import { ethers } from 'ethers'
+import { useUser } from '@/contexts/user'
+import RequireAuthentication from '@/HOC/requireAuthentication'
 
 interface Props {}
 
 const walletCoover: React.FC<Props> = props => {
     const router = useRouter()
+    const [loading, setLoading] = useState(false)
     const { account } = useMetamask()
     const [insurance, setInsurance] = useState<any>(null)
+    const { user } = useUser()
 
     const getContract = async () => {
         try {
@@ -49,9 +56,31 @@ const walletCoover: React.FC<Props> = props => {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors }
     } = useForm()
-    const onSubmit = (data: any) => console.log(data)
+
+    const onSubmit = async () => {
+        setLoading(true)
+        try {
+            if (account !== user?.wallet) {
+                toast.error('Conecte ao mesmo endereço do cadastrado!')
+                return
+            }
+
+            const contractInstance = await SeguroMutuo(user!.insurance.address)
+
+            const tx = await contractInstance.adminWithdrawal()
+            await tx.wait()
+            getContract()
+            toast.success('Saque feito com sucesso!')
+            reset({ value: '' })
+        } catch (err: any) {
+            toast.error('Erro ao realizar o saque!')
+        }
+        setLoading(false)
+    }
+
     return (
         <>
             <Head>
@@ -70,21 +99,27 @@ const walletCoover: React.FC<Props> = props => {
                             </CaixaTexto>
 
                             <MetamaskContainer>
-                                <MetamaskForm2 />
-
-                                <form>
-                                    <Input
-                                        label="Valor"
-                                        name="value"
-                                        register={register}
-                                        placeholder="Insira o valor em Ethers que deseja sacar"
-                                    />
-                                    <Button disabled={account == null}>
-                                        {account == null
-                                            ? 'Clique na imagem'
-                                            : 'Sacar'}
-                                    </Button>
-                                </form>
+                                {loading ? (
+                                    <Loader />
+                                ) : (
+                                    <>
+                                        <MetamaskForm2 />
+                                        <div>
+                                            <p>
+                                                Clique para sacar toda a taxa
+                                                administrativa
+                                            </p>
+                                            <Button
+                                                onClick={onSubmit}
+                                                disabled={account == null}
+                                            >
+                                                {account == null
+                                                    ? 'Clique na imagem'
+                                                    : 'Sacar'}
+                                            </Button>
+                                        </div>
+                                    </>
+                                )}
                             </MetamaskContainer>
                         </>
                     ) : (
@@ -96,4 +131,4 @@ const walletCoover: React.FC<Props> = props => {
     )
 }
 
-export default walletCoover
+export default RequireAuthentication(walletCoover, true)

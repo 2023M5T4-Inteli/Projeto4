@@ -46,7 +46,7 @@ const Group = () => {
                     <Content>
                         {group ? (
                             <>
-                                {!user?.insuranceActive && (
+                                {group.isActive && !user?.insuranceActive && (
                                     <Warning
                                         title="IMPORTANTE"
                                         description="Para ativar as transações do seguro, realize
@@ -75,9 +75,15 @@ const Group = () => {
                                     label={'Taxa máxima de limite indenizável:'}
                                     value={group.lmiTax + '%'}
                                 />
+                                {group.isActive && user?.insuranceActive && (
+                                    <ViewInfo
+                                        label={'Saldo do grupo:'}
+                                        value={group.contractBalance}
+                                    />
+                                )}
                             </>
                         ) : (
-                            <p>Você já participa de um grupo</p>
+                            <Loader />
                         )}
                     </Content>
 

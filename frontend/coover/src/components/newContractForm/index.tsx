@@ -104,7 +104,7 @@ const NewContractForm: React.FC = () => {
 
             <Warning
                 title="Esse formulário inicia a criação de um novo contrato para grupo mútuo."
-                description="Após clicar em “Convidar”, os usuários que atenderem às especificações acima receberão um convite. O status do contrato para sua ativação será informado no dashboard."
+                description="Após clicar em “Convidar”, os usuários que atenderem às especificações acima receberão um convite. O contrato estará com o status 'Inativo' até sua ativação ser concluída na Ação 'Ver contrato'."
             />
             <ButtonContainer>
                 <Button type='submit'>Criar</Button>
