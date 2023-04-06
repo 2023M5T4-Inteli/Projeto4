@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bycrypt = require("bcryptjs");
 
 const indemnitySchema = new mongoose.Schema(
     {
@@ -6,6 +7,11 @@ const indemnitySchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User',
+        },
+        insurance: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Insurance',
         },
         value: {
             type: Number,
@@ -37,7 +43,6 @@ const indemnitySchema = new mongoose.Schema(
     },
     { timestamps: true }
 )
-
 
 const indemnity = mongoose.model('Indemnity', indemnitySchema)
 

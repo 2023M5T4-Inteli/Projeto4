@@ -141,11 +141,13 @@ router.get("/userBalance", authMiddleware, async (req, res) => {
       return res.status(500).send("Usuário ainda não possui um seguro!");
     }
     await req.user.populate("insurance");
-
+    
     const contractInstance = await SeguroMutuo(req.user.insurance.address);
+    
     const userBalance = await contractInstance.viewUserBalanceFromAdm(
       req.user.wallet
     );
+    
     const formatedBalance = ethers.utils.formatEther(userBalance.toString());
     res.send(formatedBalance);
   } catch (err) {

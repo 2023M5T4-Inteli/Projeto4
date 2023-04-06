@@ -31,20 +31,12 @@ const AdminGroups: React.FC<Props> = () => {
                 Header: ' ',
                 columns: [
                     {
-                        Header: 'Usuário',
-                        accessor: 'user.email'
-                    },
-                    {
-                        Header: 'Valor',
-                        accessor: 'value'
-                    },
-                    {
-                        Header: 'Imei',
-                        accessor: 'imei'
+                        Header: 'Wallet',
+                        accessor: 'user.wallet',
                     },
                     {
                         Header: 'Status',
-                        accessor: 'isActive',
+                        accessor: 'approved',
                         Cell: (props: any) => {
                             if (props.value) {
                                 return (
@@ -64,6 +56,10 @@ const AdminGroups: React.FC<Props> = () => {
                                 )
                             }
                         }
+                    },
+                    {
+                        Header: 'Valor',
+                        accessor: 'value'
                     },
                     {
                         Header: 'Ações',

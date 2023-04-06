@@ -71,7 +71,7 @@ const  Wallet =()=> {
                         {
                             invite ? <> <ViewInfo
                                 label={'Preço mínimo do celular:'}
-                                value={"R$" + invite.minPhoneValue.toFixed(2)}
+                                value={invite.minPhoneValue}
                             />
                                 <ViewInfo label={'Coberturas:'} value="Roubo e furto" />
                                 <ViewInfo

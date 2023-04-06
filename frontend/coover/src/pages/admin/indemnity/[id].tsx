@@ -1,50 +1,50 @@
 import AdminWrapper from '@/components/adminWrapper'
 import Head from 'next/head'
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import ViewInfo from '@/components/viewInfo'
 import { Content } from '@/styles/pages/account'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Button } from '@/components/button'
 import axios from '../../../../axios'
+import { ButtonContainer } from '@/styles/pages/admin/indemnity/[id]'
+import { useRouter } from 'next/router'
+import IndemnityAnalysis from '@/components/indemnityAnalysis'
+import Loader from '@/components/loader'
 
 interface Props {}
 
-const AdminViewGroups: React.FC<Props> = () => {
-    const [isAccepted, setIsAccepted] = useState(false)
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [loading, setLoading] = useState(false)
+export interface Indemnity {
+    _id: string
+    user: any
+    imei: string
+    value: number
+    motive: string
+    isActive: boolean
+    approved: boolean
+}
 
-    const [group, setGroup] = useState<any>(null)
+const AdminViewIndemnity: React.FC<Props> = () => {
+    const [loading, setLoading] = useState(true)
+    const [indemnity, setIndemnity] = useState<Indemnity | null>(null)
+    const router = useRouter()
 
     const getIndemnity = async () => {
         try {
-            const res = await axios.get('/admin/:id')
-            setIsAccepted(res.data)
+            const res = await axios.get(`/indemnity/admin/${router.query.id}`)
+            setIndemnity(res.data)
+            setLoading(false)
         } catch (err) {
             console.log(err)
         }
     }
 
     useEffect(() => {
-        getIndemnity()
-    }, [])
+        if (router.isReady) {
+            getIndemnity()
+        }
+    }, [router.isReady])
 
-    const handleAccept = () => {
-        setShowConfirmModal(true)
-    }
-
-    const confirmHandler = () => {
-        setLoading(true)
-        // Colocar a requisição para o backend aqui
-
-        setShowConfirmModal(false)
-        setIsAccepted(true)
-        toast.success('Pedido recusado!')
-        setLoading(false)
-    }
-
-    
     return (
         <>
             <Head>
@@ -54,27 +54,25 @@ const AdminViewGroups: React.FC<Props> = () => {
                 title="Pedido de Indenização"
                 subtitle="Informações do Sinistro"
             >
-                <>
-                    <Content>
-                        <ViewInfo label={'Motivo:'} value={'Furto'} />
-                        <ViewInfo label={'IMEI do celular:'} value={'VCW7329YRFBIFB'} />
-                        <ViewInfo label={'Endereço da carteira:'} value={'AjsonJGddF12Jjonv'} />
-                        <ViewInfo label={'Valor requisitado:'} value={'R$ 3000,00'} />
-                        <ViewInfo label={'Valor de reserva disponível:'} value={'R$ 4500,00'} />
-                        <ViewInfo label={'Valor da franquia:'} value={'R$ 10000,00'} />
-                    </Content>
-                    <br></br>
-                    
-
-                    <Button style={{display: "inline"}}>Aprovar</Button>
-                    <Button  style={{backgroundColor: "#bc1515", display: "inline", marginLeft: "20px"}}>Recusar</Button>
-                </>
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        {indemnity && indemnity.isActive && !indemnity.approved && (
+                            <IndemnityAnalysis
+                                indemnity={indemnity}
+                                setIndemnity={setIndemnity}
+                                getIndemnity={getIndemnity}
+                            />
+                        )}
+                    </>
+                )}
             </AdminWrapper>
         </>
     )
 }
 
-export default AdminViewGroups
+export default AdminViewIndemnity
 
 /*
 {!isAccepted ? (

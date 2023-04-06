@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import axios from '../../../axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import Loader from '../loader'
 
 const schema = yup.object().shape({
     imei: yup.string().required('O imei é um campo obrigatório'),
