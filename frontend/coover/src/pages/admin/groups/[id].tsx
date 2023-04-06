@@ -17,6 +17,7 @@ const AdminViewGroups = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [loading, setLoading] = useState(false)
 
+    //função para ver um único grupo (através do id)
     const getGroup = async () => {
         try {
             const res = await axios.get('/insurance/admin/' + router.query.id)
@@ -32,6 +33,7 @@ const AdminViewGroups = () => {
         }
     }, [router.isReady])
 
+    //função para aprovação de um seguro
     const approveGroup = async () => {
         setLoading(true)
         try {

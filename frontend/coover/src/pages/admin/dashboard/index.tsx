@@ -133,18 +133,3 @@ const AdminDashboard: React.FC<Props> = props => {
 }
 
 export default AdminDashboard
-/*
-return (
-    <>
-        <Head>
-            <title>Admin - Dashboard</title>
-        </Head>
-        <AdminWrapper title='Dashboard'
-            subtitle='Ainda não há nenhum grupo ativo!'>
-
-            <Button onClick={() => router.push('/admin/contract/new')}>Criar grupo!</Button>
-
-        </AdminWrapper>
-    </>
-)
-*/

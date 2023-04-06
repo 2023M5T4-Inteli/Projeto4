@@ -15,8 +15,10 @@ interface Props {}
 const AdminGroups: React.FC<Props> = () => {
     const [groups, setGroups] = useState([])
 
+    //funcão para buscar informações de todos os grupos
     const getGroups = async () => {
         try {
+            //recupera os dados dos grupos atráves do pacote axios
             const res = await axios.get('/insurance/admin')
             setGroups(res.data)
         } catch (err) {

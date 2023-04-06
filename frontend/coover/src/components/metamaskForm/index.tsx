@@ -55,11 +55,12 @@ const MetamaskForm: React.FC<Props> = ({watch}) => {
         }
     }
 
-    //Se for conecatado o usuário é direcionado para a página dashboard
+    //Se for conectado o usuário é direcionado para a página dashboard
     const handleContinue = async () => {
         const signupForm = watch()
         signupForm.wallet = account
 
+        //função para enviar os dados do formulários para o banco de dados
         try {
             const res = await axios.post('/users/signup', signupForm)
             setUser(res.data)

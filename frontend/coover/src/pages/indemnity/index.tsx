@@ -26,9 +26,12 @@ const Indemnity = ()=> {
     const router = useRouter()
     const [indemnity, setIndemnity] = useState<IndemnityInterface | null>(null)
 
+    //função para recuperar o status da indenização
     const getIndemnity = async () => {
         try {
+            //requisição que retorna informações sobre a indenização associada ao usuário autenticado
             const res = await axios.get('/indemnity/me')
+            //o status atual é determinado de acordo com o dado obtido (isActive)
             let status = IndemnityStatus.requested
             if (!res.data.approved && res.data.isActive){
                 status = IndemnityStatus.requested

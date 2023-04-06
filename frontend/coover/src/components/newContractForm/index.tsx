@@ -51,8 +51,10 @@ const NewContractForm: React.FC = () => {
     })
     const router = useRouter()
 
+    //função que envia os dados de criação de um grupo
     const onSubmit = async (data: any) => {
         try{
+            //envio dos dados do formulário para o backend usando o pacote axios
             await axios.post('/insurance/admin/create', data)
             router.replace('/admin/groups')
         }catch(err:any){

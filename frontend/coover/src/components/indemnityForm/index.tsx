@@ -41,13 +41,14 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
     }, [defaultValues])
 
     const router = useRouter()
+    //método para quando o formulário é submetido
     const onSubmit = async (data: any) => {
         if (data.imei != data.confirmImei) {
             toast.error("Imeis não coincidem!")
             return
         }
-
         try {
+            //envia os dados da solicitação de indenização para a API usando a biblioteca axios. 
             await axios.post('/indemnity/create', data)
             toast.success('Pedido de indenização criado com sucesso!')
             router.replace('/indemnity')

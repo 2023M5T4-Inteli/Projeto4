@@ -17,15 +17,18 @@ const AdminViewGroups: React.FC<Props> = () => {
 
     const [group, setGroup] = useState<any>(null)
 
+    //funcão para buscar informações do pedido de indenização de acordo com id
     const getIndemnity = async () => {
         try {
             const res = await axios.get('/admin/:id')
+            //o estado da indenização é definido 
             setIsAccepted(res.data)
         } catch (err) {
             console.log(err)
         }
     }
 
+    //chamada da função
     useEffect(() => {
         getIndemnity()
     }, [])
@@ -86,7 +89,7 @@ export default AdminViewGroups
 
     <ConfirmModal
                 title="Você quer aceitar o pedido?"
-                show={showConfirmModal}
+                show={showConfirmfaModal}
                 closeModal={() => setShowConfirmModal(false)}
                 confirmHandler={confirmHandler}
                 loading={loading}

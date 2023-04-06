@@ -25,8 +25,10 @@ const  Wallet =()=> {
     const router = useRouter()
     const [invite, setInvite] = useState<any>(null)
 
+    //funcão para recuperar as informações de um pedido de indenização específico (através do id) 
     const getInvite = async () => {
         try {
+            //método para os dados do seguro através do pacote axios
             const res = await axios.get('/insurance/user/invites/' + router.query.id)
             setInvite(res.data)
         } catch (err) {
@@ -40,9 +42,11 @@ const  Wallet =()=> {
         }
     }, [router.isReady])
 
+    //funcão para aceitar um determinado convite 
     const confirmHandler = async () => {
         setLoading(true)
         try {
+            //método para enviar a confirmação de participação no grupo
             const res = await axios.patch('/insurance/user/invite', { insurance: router.query.id })
 
             setIsAccepted(true)

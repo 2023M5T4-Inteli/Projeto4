@@ -27,10 +27,12 @@ const View = ()=> {
 
     const [indemnity, setIndemnity] = useState<any>(null)
 
-
+    //função para recuperar o dados da indenização
     const getIndemnity = async () => {
         try {
+            //requisição que retorna informações sobre a indenização associada ao usuário autenticado
             const res = await axios.get('/indemnity/me')
+            //informações recuperadas são: imei do celular, motivo da solicitação e o valor solicitado
             setIndemnity({
                 imei: res.data.imei,
                 motive: res.data.motive,

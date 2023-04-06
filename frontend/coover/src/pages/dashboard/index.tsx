@@ -14,8 +14,10 @@ const Dashboard = () => {
     const {user} = useUser()
     const router = useRouter()
 
+    //funcão para para ver todas os convites de participação
     const getInvites = async () => {
         try {
+            //recupera os covites através do método abaixo
             const res = await axios.get('/insurance/user/invites')
             setNotifications(res.data)
         } catch (err) {

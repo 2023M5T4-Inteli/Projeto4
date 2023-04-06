@@ -41,6 +41,7 @@ const LoginForm: React.FC<Props> = ({ }) => {
 
     const router = useRouter()
     const {setUser} = useUser()
+    //função para acessar a área privada da aplicação
     const onSubmit = async (data: any) => {
         try{
             const res = await axios.post('/users/login', data)

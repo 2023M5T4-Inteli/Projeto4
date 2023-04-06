@@ -25,6 +25,7 @@ export default function UserProvider({ children }: any) {
     const [user, setUser] = useState<User | null>(null)
     const router = useRouter()
 
+    //funcão para sair da aplicação
     const handleLogout = async (replaceLink: string) => {
         // Fazer requisição de logout
         // await axios.post('/users/logout')
