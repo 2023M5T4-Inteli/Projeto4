@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.7;
 /*Importação de biblioteca que faz com que as equações da indenização funcionem, visto que com operações 
 normais os valores resultantes estavam excedendo os limites do tipo de dados usado para armazenar o valor*/
-import "../node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 // Primeiramente são definidas as variáveis e seus tipos sendo elas:
 // endereço -> Coover (dona e administradora do contrato)
 // inteiro -> taxa administrativa
@@ -144,10 +144,6 @@ assim como a taxa administrativa*/
     //Regra de negócio: O cliente deve conseguir ver seu valor de resera para conferir o valor protegido do seguro.
     function viewUserBalance() public view isActive(msg.sender) returns (uint256) {
         return memberFunds[msg.sender];
-    }
-
-    function viewUserBalanceFromAdm(address user) public view isActive(user) returns (uint256) {
-        return memberFunds[user];
     }
 
     //Regra de negócio: O cliente deve conseguir repor sua reserva.

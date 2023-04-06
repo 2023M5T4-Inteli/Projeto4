@@ -11,6 +11,7 @@ import { ButtonContainer } from '@/styles/pages/admin/indemnity/[id]'
 import { useRouter } from 'next/router'
 import IndemnityAnalysis from '@/components/indemnityAnalysis'
 import Loader from '@/components/loader'
+import { Status } from '@/components/status/style'
 
 interface Props {}
 
@@ -65,6 +66,31 @@ const AdminViewIndemnity: React.FC<Props> = () => {
                                 getIndemnity={getIndemnity}
                             />
                         )}
+                        {indemnity && !indemnity.isActive && indemnity.approved && <> 
+                            {/* <Status isActive ={indemnity.isActive}>
+                                    Status:{' '}
+                                    <span>
+                                        {indemnity.isActive
+                                            ? 'Aprovado'
+                                            : 'Recusado'}
+                                    </span>
+                                </Status> */}
+                            <ViewInfo
+                                    label={'Wallet do usuário:'}
+                                    value={indemnity.user.wallet}
+                                />
+                                <ViewInfo
+                                    label={'Imei do celular:'}
+                                    value={indemnity.imei}
+                                />
+                                <ViewInfo
+                                    label={'Valor requisitado:'}
+                                    value={indemnity.value + 'ETH'}
+                                />
+                                <ViewInfo
+                                    label={'Motivo:'}
+                                    value={indemnity.motive}
+                                /></>}
                     </>
                 )}
             </AdminWrapper>
