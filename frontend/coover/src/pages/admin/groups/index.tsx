@@ -45,6 +45,7 @@ const AdminGroups: React.FC<Props> = () => {
                     {
                         Header: 'Valor total no contrato',
                         accessor: 'contractTotalValue',
+                        Cell: (props: any) => <span>{props.value}ETH</span>
                     },
                     {
                         Header: 'Status',

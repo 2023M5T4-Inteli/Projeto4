@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '../button'
 import Input from '../input'
@@ -25,7 +25,7 @@ interface Props {
 }
 
 const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
-   
+    const [loading, setLoading] = useState(false)
     const {
         register,
         handleSubmit,
@@ -42,6 +42,7 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
 
     const router = useRouter()
     const onSubmit = async (data: any) => {
+        setLoading(true)
         if (data.imei != data.confirmImei) {
             toast.error("Imeis não coincidem!")
             return
@@ -55,6 +56,11 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
             console.log(err)
             toast.error(err.response.data)
         }
+        setLoading(false)
+    }
+
+    if (loading) {
+        return <Loader />
     }
 
     return (
@@ -76,7 +82,6 @@ const IndemnityForm: React.FC<Props> = ({ view, defaultValues,  }) => {
             <Input
                 register={register}
                 name="value"
-                type={"number"}
                 label="Valor da indenização *"
                 error={errors['value']}
                 disabled={view}
