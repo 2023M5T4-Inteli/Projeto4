@@ -144,6 +144,14 @@ O diagrama de classes de implementação fornece uma visão geral da estrutura d
 
 Através do diagrama acima é possível visualizar a distribuição física do processamento do sistema. Onde é exposto como os hardwares (dispositivo do usuário e da seguradora) se relacionam com o software, em primeiro com a aplicação web (através do protocolo http), na qual está armazenada em um servidor em nuvem. E em segundo, com o smart contract (através do protocolo JSON-RPC, ou seja, de modo P2P), evidenciando como a comunicação é realizada com a Testnet Ethereum. 
 
+## Diagrama da integração
+Este diagrama UML representa um processo de integração envolvendo a criação de um smart contract por um usuário, a alocação de membros em grupos e a cobrança de uma taxa administrativa. O processo começa com o usuário criando um smart contract e inserindo informações relevantes no front-end usando React e Web3.js. O back-end, que utiliza a biblioteca Ethers, armazena dados sensíveis. O usuário cliente é convidado para se juntar ao smart contract e aceita o convite. Uma pop-up aparece para confirmar a pré-ativação do usuário, que então confirma. Em seguida, o front-end aloca os membros em grupos dentro do smart contract. Uma nova pop-up aparece para informar o usuário que ele deve pagar uma taxa administrativa. O usuário revisa os dados da transação da taxa, insere a quantidade necessária de ETH e confirma a transferência. O front-end, então, transfere a taxa para o smart contract. Uma nova pop-up informa o criador do smart contract que a taxa foi paga com sucesso. Em seguida, o usuário deve confirmar a conexão do MetaMask ao smart contract. Uma pop-up aparece para informar que a conexão foi estabelecida com sucesso. Por fim, o criador do smart contract ativa o smart contract.
+![image](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/Integracao.png)
+
+## Vídeo Interface Web
+[![Clique aqui para Assistir o vídeo](https://github.com/2023M5T4-Inteli/Projeto4/blob/main/imgs/comMusica.mp4)
+
+
 
 ## 🗃 Histórico de lançamentos
 
