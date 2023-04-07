@@ -112,8 +112,8 @@ Depois desse processo, a Coover parte para encontrar e atrair usuários para o g
 Depois desses pré-requisitos, o grupo P2P é confirmado pela seguradora, que ativa o contrato e logo em seguida faz o deploy na rede do ethereum. A fim de executar uma prova de conceito, o deploy será feito na testnet.
 
 ## Deploy
-Para a realização do deploy seguimos o tutorial do <a href="https://github.com/InteliBlockchain/InteliBlockchain/tree/main/tutoriais/Truffle%20-%20Deploy%20e%20compila%C3%A7%C3%A3o%20de%20contrato%20em%20Solidity">Inteli Blockchain	</a> . Utilizamos a testnet pública (Goerli), Development Suite Truffle e ETH da Faucet Goerli. A Goerli é uma rede de testes da Ethereum que usa Proof of Authority (PoA) ao invés de Proof of Work (PoW), permitindo que desenvolvedores possam testar contratos inteligentes sem gastar muito tempo e dinheiro validando transações. 
-Além disso, a Goerli disponibiliza uma faucet que fornece ETH de teste gratuitamente, tornando-a uma opção segura e econômica para testes antes de implementar na rede principal. 
+Para a realização do deploy seguimos o tutorial do <a href="https://github.com/InteliBlockchain/InteliBlockchain/tree/main/tutoriais/Truffle%20-%20Deploy%20e%20compila%C3%A7%C3%A3o%20de%20contrato%20em%20Solidity">Inteli Blockchain	</a> . Utilizamos a testnet pública (Sepolia), Development Suite Truffle e ETH da Faucet Sepolia. A Sepolia é uma rede de testes da Ethereum que usa Proof of Authority (PoA) ao invés de Proof of Work (PoW), permitindo que desenvolvedores possam testar contratos inteligentes sem gastar muito tempo e dinheiro validando transações. 
+Além disso, a Sepolia disponibiliza uma faucet que fornece ETH de teste gratuitamente, tornando-a uma opção segura e econômica para testes antes de implementar na rede principal. 
 Por outro lado, o Truffle é uma suíte de ferramentas para desenvolvimento de contratos inteligentes na Ethereum que auxilia os desenvolvedores a escrever, testar, implantar e gerenciar esses contratos de maneira mais simples e eficiente.
  
 Esses foram os passos resumidamente:
@@ -122,11 +122,11 @@ Esses foram os passos resumidamente:
 - 3- Criar o contrato em Solidity na pasta "contracts";
 - 4- Criar o arquivo que fará o deploy do contrato na pasta "migrations" (o arquivo deve ser .js);
 - 5- Criar o arquivo "package.json" e baixar bibliotecas que o contrato esteja usando no CMD;
-- 6- Editar as informações do contrato que deseja realizar o deploy no arquivo criado em "migrations", informando os parâmetros para deploy e o nome do contrato (não do arquivo);
-- 7- Selecionar a rede no arquivo "truffle-config.js" (a rede utilizada foi Goerli, então as linhas 85 a 91 foram descomentadas);
+- 6- Editar as informações do contrato que deseja realizar o deploy no arquivo criado em "migrations", informando os parâmetros para deploy e o nome do contrato (não do arquivo). No nosso caso, como temos o contrato Factory que realiza o deploy dos demais contratos de seguro mútuo, não é necessário passar nenhum outro argumento para realizar o deploy;
+- 7- Selecionar a rede no arquivo "truffle-config.js" (a rede utilizada foi Sepolia, então as linhas 93 a 90 foram descomentadas);
 - 8-Instalar e criar o arquivo .env (descomentando as linhas 44 a 47 do arquivo "truffle-config.js") e adicioná-lo ao arquivo ".gitignore";
 - 9- Adicionar a seed prhase da carteira Metamask que será o owner do contrato e a api key do Infura no arquivo ".env", além de alteral a variável, agora criada, nas linha 45 do "truffle-config.js";
-- 10- Executar o comando "truffle deploy --network goerli" no CMD (garanta que a carteira Metamask tenha fundos GOERLI para pagar o gas do contrato).
+- 10- Executar o comando "truffle deploy --network sepolia" no CMD (garanta que a carteira Metamask tenha fundos Sepolia para pagar o gas do contrato).
 
 Como seguem as imagens abaixo, esses são os resultados do deploy:
 
